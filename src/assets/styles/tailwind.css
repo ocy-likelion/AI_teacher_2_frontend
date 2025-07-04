@@ -1,0 +1,28 @@
+/* Tailwind CSS */
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+/* 모든 스타일링을 리셋하는 preflight 비활성화 */
+/* @import "tailwindcss/preflight.css" layer(base); */
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+/* 커스텀 테마 컬러 정의 */
+@theme {
+  --color-primary: #ff7710;
+  --color-primary2: #e55d00;
+  --color-primary3: #ffe7d0;
+  --color-btn-primary: #ff7710;
+  --color-btn-focused: #e55d00;
+  --color-btn-disabled: #8e8e8e;
+  --color-background-light: #fdfbf9;
+  --color-red: #ff0000;
+  --color-yellow: #fee500;
+  --color-white: #fff;
+  --color-gray1: #f5f5f5;
+  --color-gray2: #d9d9d9;
+  --color-gray3: #c4c4c4;
+  --color-gray4: #8e8e8e;
+  --color-gray5: #5f5f5f;
+  --color-gray6: #52525b;
+  --color-gray7: #1f2937;
+  --color-black: #000;
+}
