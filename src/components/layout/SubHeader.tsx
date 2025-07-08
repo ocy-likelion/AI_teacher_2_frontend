@@ -1,0 +1,29 @@
+import { ChevronLeft, X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
+type SubHeaderProps = {
+  type: 'close' | 'back';
+  title: string;
+};
+
+export default function SubHeader({ type, title }: SubHeaderProps) {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(-1);
+  };
+
+  return (
+    <header
+      className='bg-background-light dark:bg-gray7 shadow-1 sticky top-0 flex justify-center items-center px-4 pb-2'
+      style={{
+        paddingTop: 'calc(8px + var(--safe-top))',
+        minHeight: 'calc(var(--h-header) + var(--safe-top))',
+      }}
+    >
+      <button className='absolute left-4 cursor-pointer' onClick={handleClick}>
+        {type === 'close' ? <X /> : <ChevronLeft />}
+      </button>
+      <span className='title-md'>{title}</span>
+    </header>
+  );
+}
