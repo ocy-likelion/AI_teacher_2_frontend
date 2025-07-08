@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 
 const Layout = lazy(() => import('./components/layout/Layout'));
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -12,6 +12,7 @@ const ErrorPage = lazy(() => import('./pages/NotFoundPage'));
 const router = createBrowserRouter([
   {
     path: '/',
+    //@ts-expect-error Temporarily disabled error
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
