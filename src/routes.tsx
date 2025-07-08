@@ -18,6 +18,8 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+        // 이후 리다이렉트 설정할 때 조건문과 함께 아래 루트 수정
+        // element: <Navigate to='onboarding' replace />,
       },
       {
         path: '/onboarding',
