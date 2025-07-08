@@ -31,12 +31,17 @@ const router = createBrowserRouter([
         element: <ProblemHistoryPage />,
       },
       {
-        path: '/problem/upload',
-        element: <ProblemUploadPage />,
-      },
-      {
-        path: '/problem/:id',
-        element: <ProblemDetailPage />,
+        path: '/problem',
+        children: [
+          {
+            path: ':_id',
+            element: <ProblemDetailPage />,
+          },
+          {
+            path: 'upload',
+            element: <ProblemUploadPage />,
+          },
+        ],
       },
     ],
   },
