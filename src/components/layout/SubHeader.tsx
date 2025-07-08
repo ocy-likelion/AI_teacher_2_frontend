@@ -14,7 +14,7 @@ export default function SubHeader({ type, title }: SubHeaderProps) {
 
   return (
     <header
-      className='bg-background-light dark:bg-gray7 shadow-1 sticky top-0 flex justify-center items-center px-4 pb-2'
+      className='bg-background-light dark:bg-gray7 sticky top-0 flex justify-center items-center px-4 pb-2'
       style={{
         paddingTop: 'calc(8px + var(--safe-top))',
         minHeight: 'calc(var(--h-header) + var(--safe-top))',
