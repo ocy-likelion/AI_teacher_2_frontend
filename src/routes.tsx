@@ -13,7 +13,6 @@ const ErrorPage = lazy(() => import('./pages/NotFoundPage'));
 const router = createBrowserRouter([
   {
     path: '/',
-    //@ts-expect-error Temporarily disabled error
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
