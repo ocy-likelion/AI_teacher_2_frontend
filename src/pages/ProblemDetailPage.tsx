@@ -1,5 +1,10 @@
 import SubHeader from '@/components/layout/SubHeader';
+import KeywordList from '@/features/keywords/components/KeywordList';
+import DescriptionCard from '@/features/problems/components/ui/DescriptionCard';
 import DetailFooter from '@/features/problems/components/DetailFooter';
+import DetailSection from '@/features/problems/components/DetailSection';
+import ImageSection from '@/features/problems/components/ImageSection';
+import Title from '@/features/problems/components/ui/Title';
 import { formatDetailDate } from '@/utils/date';
 
 const data = {
@@ -28,30 +33,32 @@ export default function ProblemDetailPage() {
   return (
     <section className='w-full h-full flex flex-col'>
       <SubHeader type='back' title='해설 보기' />
-      <main className='flex-1 flex-col items-center py-3 px-6'>
-        <p>{formatDetailDate(data.created_at)}</p>
-        <div>
-          <img src={data.image} alt={data.name} />
-        </div>
-        <div>
-          <h3>문제</h3>
-          <p className='whitespace-pre-wrap'>{data.name}</p>
-        </div>
-        <div>
-          <h3>핵심 개념</h3>
-          <p>해시태그를 누르면 자세한 설명을 볼 수 있어요</p>
-          <ul className='flex items-center flex-wrap gap-x-2 gap-y-0.5'>
-            {data.categories.map((category) => (
-              <li key={category}>#{category}</li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h3>이렇게 설명해볼까요?</h3>
-          <p className='whitespace-pre-wrap'>{data.answer}</p>
-        </div>
+      <main className='flex-1 flex flex-col gap-4 py-3 px-6'>
+        <p className='text-right label text-gray5 dark:text-gray2'>
+          {formatDetailDate(data.created_at)}
+        </p>
+        <ImageSection url={data.image} alt={data.name} />
+        <DetailSection>
+          <Title size='lg'>문제</Title>
+          <DescriptionCard>{data.name}</DescriptionCard>
+        </DetailSection>
+        <DetailSection>
+          <Title
+            size='lg'
+            description='해시태그를 누르면 자세한 설명을 볼 수 있어요'
+          >
+            핵심 개념
+          </Title>
+          <DescriptionCard>
+            <KeywordList concepts={data.categories} />
+          </DescriptionCard>
+        </DetailSection>
+        <DetailSection>
+          <Title size='lg'>이렇게 설명해볼까요?</Title>
+          <DescriptionCard>{data.answer}</DescriptionCard>
+        </DetailSection>
       </main>
-      <DetailFooter isFavorite={false} />
+      <DetailFooter isFavorite={data.favorite} />
     </section>
   );
 }
