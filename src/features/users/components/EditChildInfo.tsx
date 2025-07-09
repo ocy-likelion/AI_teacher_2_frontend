@@ -16,12 +16,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { GRADE_OPTIONS } from '@/utils/constants';
+import { GRADE_OPTIONS } from '@/utils/constants/grades';
 import { SquarePen } from 'lucide-react';
 import { useState, type JSX } from 'react';
 
 export default function EditChildInfoForm() {
-  const [user, setUser] = useState({ name: '고길동', grade: '4' });
+  const [childName, setChildName] = useState<string>('고길동');
+  const [tempName, setTempName] = useState<string>('');
+  const [childGrade, setChildGrade] = useState<string>('4');
   var selectItemsLists: JSX.Element[] = GRADE_OPTIONS.map(
     ({ label, value }) => (
       <SelectItem key={value} value={value}>
@@ -30,11 +32,15 @@ export default function EditChildInfoForm() {
     )
   );
 
+  const clickHandler = () => {
+    setChildName(tempName);
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button size='sm_link' variant='link'>
-          <h2 className='text-primary'>{user.name}</h2>
+          <h2 className='text-primary'>{childName}</h2>
           <SquarePen color='#ff7710' size={16.25} className='-ml-1 -mt-5' />
         </Button>
       </DialogTrigger>
@@ -46,9 +52,10 @@ export default function EditChildInfoForm() {
           <Input
             className='w-3/4 border-primary'
             placeholder='이름을 입력하세요'
-            defaultValue={user.name}
+            defaultValue={childName}
+            onChange={(e) => setTempName(e.target.value)}
           />
-          <Select>
+          <Select value={childGrade} onValueChange={setChildGrade}>
             <SelectTrigger className='w-3/4'>
               <SelectValue placeholder='학년을 선택하세요' />
             </SelectTrigger>
@@ -57,7 +64,9 @@ export default function EditChildInfoForm() {
         </div>
         <DialogFooter>
           <DialogClose asChild>
-            <Button size='lg'>수정하기</Button>
+            <Button onClick={clickHandler} size='lg' type='submit'>
+              수정하기
+            </Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>
