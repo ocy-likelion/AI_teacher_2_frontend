@@ -22,8 +22,9 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function HomePage() {
-  const divRef = useRef<HTMLDivElement>(null);
+  var divRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState<number>();
+  const [margin, setMargin] = useState<number>(83);
 
   useEffect(() => {
     const resizeObserver: ResizeObserver = new ResizeObserver(() => {
@@ -36,6 +37,14 @@ export default function HomePage() {
     if (divRef.current) {
       resizeObserver.observe(divRef.current);
     }
+    var screenWidth = window.screen.width;
+    var screenHeight = window.screen.height;
+    const screenRatio = screenHeight / screenWidth;
+
+    if (screenRatio <= 2) {
+      setMargin(50);
+    }
+
     return () => {
       resizeObserver.disconnect();
     };
@@ -43,7 +52,9 @@ export default function HomePage() {
 
   return (
     <div className='relative'>
-      <div className='max-w-full aspect-[325/225] px-[25px] box-border mt-[83px]'>
+      <div
+        className={`max-w-full aspect-[325/225] px-[25px] box-border mt-[${margin}px]`}
+      >
         <div className='w-full flex flex-col h-full'>
           <div className='flex flex-row h-[35px] font-korean-title font-bold text-2xl gap-[7px] mb-3'>
             <h2>안녕하세요</h2>
@@ -113,7 +124,7 @@ export default function HomePage() {
           </Link>
         </div>
       </div>
-      <div className='mx-[29px] max-w-full min-h-[225px] mt-[53px] flex flex-grow flex-col'>
+      <div className='mx-[29px] max-w-full min-h-[55px] mt-[53px] flex flex-grow flex-col'>
         <h2 className='font-korean-title font-bold text-2xl'>
           자녀분이 어려워하는 <span className='text-primary'>주제</span>예요!
         </h2>
