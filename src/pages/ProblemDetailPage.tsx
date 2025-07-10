@@ -1,6 +1,6 @@
 import SubHeader from '@/components/layout/SubHeader';
 import KeywordList from '@/features/keywords/components/KeywordList';
-import DescriptionCard from '@/features/problems/components/DescriptionCard';
+import CardWrapper from '@/features/problems/components/CardWrapper';
 import DetailFooter from '@/features/problems/detail/DetailFooter';
 import DetailSection from '@/features/problems/detail/DetailSection';
 import ImageSection from '@/features/problems/detail/ImageSection';
@@ -40,7 +40,7 @@ export default function ProblemDetailPage() {
         <ImageSection url={data.image} alt={data.name} />
         <DetailSection>
           <Title size='lg'>문제</Title>
-          <DescriptionCard>{data.name}</DescriptionCard>
+          <CardWrapper>{data.name}</CardWrapper>
         </DetailSection>
         <DetailSection>
           <Title
@@ -49,13 +49,13 @@ export default function ProblemDetailPage() {
           >
             핵심 개념
           </Title>
-          <DescriptionCard>
+          <CardWrapper>
             <KeywordList concepts={data.categories} />
-          </DescriptionCard>
+          </CardWrapper>
         </DetailSection>
         <DetailSection>
           <Title size='lg'>이렇게 설명해볼까요?</Title>
-          <DescriptionCard>{data.answer}</DescriptionCard>
+          <CardWrapper>{data.answer}</CardWrapper>
         </DetailSection>
       </main>
       <DetailFooter isFavorite={data.favorite} />
