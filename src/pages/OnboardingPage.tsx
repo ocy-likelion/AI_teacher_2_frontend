@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/Label';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
@@ -8,7 +8,15 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { selectItemsLists } from '@/features/users/components/SelectItemsLists';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
+
+// const data = [
+//   {
+//     id: 'gildongmom',
+//     password: '1q2w3e4r',
+//     childName: '고길동',
+//   },
+// ];
 
 export default function OnboardingPage() {
   const [isUser, setIsUser] = useState<boolean>(true);
@@ -28,24 +36,30 @@ export default function OnboardingPage() {
     </>
   );
 
-  const clickHandler = (e) => {
+  const clickHandler = (e: FormEvent) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const idInput = formData.get('id');
-    const passwordInput = formData.get('password');
-    setId(idInput);
-    setPassword(passwordInput);
+    const formData = new FormData(e.target as HTMLFormElement);
+    if (!!formData.get('id') && !!formData.get('password')) {
+      const idInput = formData.get('id')!.toString();
+      const passwordInput = formData.get('password')!.toString();
+      setId(idInput);
+      setPassword(passwordInput);
+      console.log(id, password);
+    }
 
     console.log(id, password);
 
     //로그인 관련 이벤트
 
-    setIsUser(true);
+    setIsUser(false);
+
+    console.log(isUser);
+    console.log(introMessage);
   };
 
   return (
-    <div className='w-full h-full mt-[50px] mb-[10vh]'>
-      <div className='min-h-[115px] px-6'>
+    <div className='w-full h-full mt-[50px]'>
+      <div className='min-h-[115px] px-6 mb-[10vh]'>
         <img
           src='/images/Logo_Img_noBg.svg'
           alt=''
@@ -55,8 +69,12 @@ export default function OnboardingPage() {
           {introMessage}
         </h1>
       </div>
-      {isUser && (
-        <form onSubmit={clickHandler} className='flex flex-col gap-3 px-[25px]'>
+      {!!isUser && (
+        <form
+          id='login'
+          onSubmit={(e) => clickHandler(e)}
+          className='flex flex-col gap-3 px-[25px]'
+        >
           <Label htmlFor='id'>이름</Label>
           <Input
             name='id'
@@ -82,12 +100,15 @@ export default function OnboardingPage() {
         </form>
       )}
       {!isUser && (
-        <form className='flex flex-col gap-3 px-[25px]'>
+        <form id='childInfo' className='flex flex-col gap-3 px-[25px]'>
           <div className='transform'>
-            <Label htmlFor='childName'>자녀의 이름을 입력해 주세요.</Label>
+            <Label htmlFor='childName' className='mb-5'>
+              자녀의 이름을 입력해 주세요.
+            </Label>
             <Input
               name='chileName'
               id='childName'
+              className='px-[15px] py-[9px] box-border mb-2 border-primary border-[1px]'
               placeholder='이름을 입력하세요.'
             />
             <Button>확인</Button>
