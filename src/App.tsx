@@ -1,7 +1,7 @@
 import { RouterProvider } from 'react-router-dom';
 import router from './routes';
 import { Suspense } from 'react';
-import Layout from './components/layout/Layout';
+import LayoutWrapper from './components/layout/LayoutWrapper';
 
 function App() {
   return (
@@ -9,9 +9,9 @@ function App() {
       {/* 렌더링 되기 전 로딩될 UI 제공 */}
       <Suspense
         fallback={
-          <Layout>
+          <LayoutWrapper>
             <div>로딩 중...</div>
-          </Layout>
+          </LayoutWrapper>
         }
       >
         {/* @ts-expect-error Temporarily disabled error */}
