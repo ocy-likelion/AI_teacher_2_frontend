@@ -1,10 +1,10 @@
 import SubHeader from '@/components/layout/SubHeader';
 import KeywordList from '@/features/keywords/components/KeywordList';
-import DescriptionCard from '@/features/problems/components/ui/DescriptionCard';
-import DetailFooter from '@/features/problems/components/DetailFooter';
-import DetailSection from '@/features/problems/components/DetailSection';
-import ImageSection from '@/features/problems/components/ImageSection';
-import Title from '@/features/problems/components/ui/Title';
+import DescriptionCard from '@/features/problems/components/DescriptionCard';
+import DetailFooter from '@/features/problems/detail/DetailFooter';
+import DetailSection from '@/features/problems/detail/DetailSection';
+import ImageSection from '@/features/problems/detail/ImageSection';
+import Title from '@/features/problems/components/Title';
 import { formatDetailDate } from '@/utils/date';
 
 const data = {
