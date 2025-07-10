@@ -11,7 +11,7 @@ export default function ProblemHistoryPage() {
   const view = (params.get('view') as 'list' | 'grid') ?? 'list';
 
   return (
-    <div className='w-full h-full flex flex-col items-center gap-3 px-3 py-2'>
+    <div className='w-full h-full flex flex-col items-center gap-3 px-7 py-2'>
       <SearchSection />
       <TabSection />
       <ListSection q={q} favorite={favorite} view={view} />

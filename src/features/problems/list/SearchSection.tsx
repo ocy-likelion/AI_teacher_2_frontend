@@ -1,11 +1,14 @@
 import { Search } from 'lucide-react';
-import React, { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 export default function SearchSection() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [input, setInput] = useState('');
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    setInput(searchParams.get('q') ?? '');
+  }, [searchParams]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,8 +22,8 @@ export default function SearchSection() {
     } else {
       nextParams.delete('q');
     }
-    console.log(nextParams);
-    navigate(`/history?${nextParams.toString()}`);
+
+    setSearchParams(nextParams);
   };
 
   return (
@@ -31,12 +34,13 @@ export default function SearchSection() {
       <input
         id='search'
         type='text'
+        value={input}
         placeholder='검색어를 입력하세요'
         className='border-none outline-none placeholder:text-gray5 text-black body-sm'
         onChange={(e) => setInput(e.target.value)}
       />
       <button className='cursor-pointer flex items-center justify-center'>
-        <Search className='text-gray5 active:scale-125 duration-300 ease-out' />
+        <Search className='text-gray5 transition-transform active:scale-125 duration-300 ease-out' />
       </button>
     </form>
   );
