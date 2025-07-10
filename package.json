@@ -7,7 +7,7 @@
     "dev": "bedrock dev",
     "build": "bedrock build",
     "lint": "eslint .",
-    "preview": "vite preview",
+    "preview": "vite preview --outDir dist/web",
     "deploy": "ait deploy"
   },
   "dependencies": {
