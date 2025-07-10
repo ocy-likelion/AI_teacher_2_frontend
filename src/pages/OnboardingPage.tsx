@@ -100,28 +100,33 @@ export default function OnboardingPage() {
         </form>
       )}
       {!isUser && (
-        <form id='childInfo' className='flex flex-col gap-3 px-[25px]'>
-          <div className='transform'>
-            <Label htmlFor='childName' className='mb-5'>
+        <form id='childInfo' className=''>
+          <div className='transform flex flex-col gap-5 px-[25px]'>
+            <Label
+              htmlFor='childName'
+              className='font-korean-title text-xl font-bold'
+            >
               자녀의 이름을 입력해 주세요.
             </Label>
             <Input
               name='chileName'
               id='childName'
-              className='px-[15px] py-[9px] box-border mb-2 border-primary border-[1px]'
+              className='px-[15px] py-[9px] h-[52px] box-border mb-2 border-primary border-[1px]'
               placeholder='이름을 입력하세요.'
             />
-            <Button>확인</Button>
+            <Button type='submit'>확인</Button>
           </div>
-          <div className='hidden'>
-            <Label>자녀의 학년을 입력해 주세요.</Label>
+          <div className='transform flex-col gap-5 px-[25px] hidden'>
+            <Label className='font-korean-title text-xl font-bold'>
+              자녀의 학년을 입력해 주세요.
+            </Label>
             <Select>
               <SelectTrigger className='w-3/4'>
                 <SelectValue placeholder='학년을 선택하세요' />
               </SelectTrigger>
               <SelectContent>{selectItemsLists}</SelectContent>
             </Select>
-            <Button>확인</Button>
+            <Button type='submit'>확인</Button>
           </div>
         </form>
       )}
