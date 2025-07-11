@@ -6,13 +6,17 @@ export default function TabSection() {
   const [searchParams, setSearchParams] = useSearchParams();
   const view = searchParams.get('view') || 'list';
   const isFavorite = searchParams.get('favorite') === 'true';
+  const q = searchParams.get('q');
 
   const handleFavoriteChange = (favorite: boolean) => {
-    if (isFavorite === favorite) return;
+    if (isFavorite === favorite && !q) return;
 
     const newParams = new URLSearchParams(searchParams);
-    if (favorite) newParams.set('favorite', 'true');
-    else newParams.delete('favorite');
+    newParams.delete('q');
+
+    if (favorite) {
+      newParams.set('favorite', 'true');
+    } else newParams.delete('favorite');
 
     setSearchParams(newParams);
   };

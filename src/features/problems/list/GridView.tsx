@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import CardWrapper from '../components/CardWrapper';
 import { Bookmark } from 'lucide-react';
-import Title from '../components/Title';
 import { formatListDate } from '@/utils/date';
 
 type GridViewProps = {

@@ -14,9 +14,11 @@ export default function SearchSection() {
     e.preventDefault();
 
     const currentQ = searchParams.get('q') ?? '';
+    const isFavorite = searchParams.get('favorite') === 'true';
     if (input === currentQ) return;
 
     const nextParams = new URLSearchParams(searchParams);
+    if (isFavorite) nextParams.delete('favorite');
     if (input) {
       nextParams.set('q', input);
     } else {

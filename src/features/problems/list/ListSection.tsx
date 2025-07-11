@@ -1,22 +1,20 @@
+import { useSearchParams } from 'react-router-dom';
 import { problems } from '../mock/dummy';
 import Empty from './Empty';
 import GridView from './GridView';
 import ListView from './ListView';
 
-type ListSectionProps = {
-  q?: string;
-  favorite?: boolean;
-  view: 'list' | 'grid';
-};
+export default function ListSection() {
+  const [params] = useSearchParams();
 
-export default function ListSection({
-  q,
-  favorite = false,
-  view,
-}: ListSectionProps) {
+  const q = params.get('q') ?? '';
+  const favorite = params.get('favorite') === 'true';
+  const view = (params.get('view') as 'list' | 'grid') ?? 'list';
+
   if (problems.length === 0) {
     return <Empty description='하단의 버튼을 눌러 문제를 등록해보세요' />;
   }
+
   return (
     <section className='w-full'>
       {view === 'list' ? (
