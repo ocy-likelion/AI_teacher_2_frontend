@@ -36,7 +36,7 @@ export default function ListView({ items }: ListViewProps) {
                 onClick={handleToggle}
               />
               <Title size='md'>{item.name}</Title>
-              <p className='span text-gray5 dark:text-gray2 overflow-hidden text-ellipsis whitespace-nowrap'>
+              <p className='body-sm text-gray5 dark:text-gray2 overflow-hidden text-ellipsis whitespace-nowrap'>
                 {item.categories.map((category) => (
                   <span key={category} className='ml-1'>
                     #{category}

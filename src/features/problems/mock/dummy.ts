@@ -2,7 +2,7 @@ export const problems = [
   {
     id: 1,
     name: '*포포즈(four fours)게임은 숫자 4 4개를 가지고 수를 맞추는 게임으로, 영국에서 만들어져 미국에서 유행한 수학 퍼즐게임입니다. 1단원에서 공부한 내용을 바탕으로 퍼즐을 풀어봅시다.\n*숫자 4 4개와 사칙계산 기호를 사용하여 숫자를 만들어봅시다.',
-    image: '/images/mock.png',
+    image: '/images/mock2.png',
     categories: [
       '포포즈 게임',
       '자연수',
@@ -21,7 +21,7 @@ export const problems = [
   {
     id: 2,
     name: '*포포즈(four fours)게임은 숫자 4 4개를 가지고 수를 맞추는 게임으로, 영국에서 만들어져 미국에서 유행한 수학 퍼즐게임입니다. 1단원에서 공부한 내용을 바탕으로 퍼즐을 풀어봅시다.\n*숫자 4 4개와 사칙계산 기호를 사용하여 숫자를 만들어봅시다.',
-    image: '/images/mock.png',
+    image: '/images/mock.JPG',
     categories: [
       '포포즈 게임',
       '자연수',
@@ -40,7 +40,7 @@ export const problems = [
   {
     id: 3,
     name: '*포포즈(four fours)게임은 숫자 4 4개를 가지고 수를 맞추는 게임으로, 영국에서 만들어져 미국에서 유행한 수학 퍼즐게임입니다. 1단원에서 공부한 내용을 바탕으로 퍼즐을 풀어봅시다.\n*숫자 4 4개와 사칙계산 기호를 사용하여 숫자를 만들어봅시다.',
-    image: '/images/mock.png',
+    image: '/images/mock3.png',
     categories: [
       '포포즈 게임',
       '자연수',
@@ -59,7 +59,7 @@ export const problems = [
   {
     id: 4,
     name: '*포포즈(four fours)게임은 숫자 4 4개를 가지고 수를 맞추는 게임으로, 영국에서 만들어져 미국에서 유행한 수학 퍼즐게임입니다. 1단원에서 공부한 내용을 바탕으로 퍼즐을 풀어봅시다.\n*숫자 4 4개와 사칙계산 기호를 사용하여 숫자를 만들어봅시다.',
-    image: '/images/mock.png',
+    image: '/images/mock.JPG',
     categories: [
       '포포즈 게임',
       '자연수',
@@ -78,7 +78,7 @@ export const problems = [
   {
     id: 5,
     name: '*포포즈(four fours)게임은 숫자 4 4개를 가지고 수를 맞추는 게임으로, 영국에서 만들어져 미국에서 유행한 수학 퍼즐게임입니다. 1단원에서 공부한 내용을 바탕으로 퍼즐을 풀어봅시다.\n*숫자 4 4개와 사칙계산 기호를 사용하여 숫자를 만들어봅시다.',
-    image: '/images/mock.png',
+    image: '/images/mock.JPG',
     categories: [
       '포포즈 게임',
       '자연수',
@@ -97,7 +97,7 @@ export const problems = [
   {
     id: 6,
     name: '*포포즈(four fours)게임은 숫자 4 4개를 가지고 수를 맞추는 게임으로, 영국에서 만들어져 미국에서 유행한 수학 퍼즐게임입니다. 1단원에서 공부한 내용을 바탕으로 퍼즐을 풀어봅시다.\n*숫자 4 4개와 사칙계산 기호를 사용하여 숫자를 만들어봅시다.',
-    image: '/images/mock.png',
+    image: '/images/mock.JPG',
     categories: [
       '포포즈 게임',
       '자연수',
