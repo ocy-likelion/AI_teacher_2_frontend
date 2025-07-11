@@ -9,19 +9,29 @@ import {
 } from '@/components/ui/select';
 import { selectItemsLists } from '@/features/users/components/SelectItemsLists';
 import { useEffect, useState, type FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
-// const data = [
-//   {
-//     id: 'gildongmom',
-//     password: '1q2w3e4r',
-//     childName: '고길동',
-//   },
-// ];
+// const data = {
+//   id: 'gildongmom',
+//   password: '1q2w3e4r',
+//   childName: '고길동',
+//   childGrade: '8',
+// };
 
 export default function OnboardingPage() {
   const [isUser, setIsUser] = useState<boolean>(true);
-  const [id, setId] = useState<FormDataEntryValue | null>();
-  const [password, setPassword] = useState<FormDataEntryValue | null>('');
+  const [childGrade, setChildGrade] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: { id: '', password: '' },
+    mode: 'onSubmit',
+  });
 
   useEffect(() => {}, [isUser]);
   var introMessage = isUser ? (
@@ -36,25 +46,31 @@ export default function OnboardingPage() {
     </>
   );
 
-  const clickHandler = (e: FormEvent) => {
-    e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    if (!!formData.get('id') && !!formData.get('password')) {
-      const idInput = formData.get('id')!.toString();
-      const passwordInput = formData.get('password')!.toString();
-      setId(idInput);
-      setPassword(passwordInput);
-      console.log(id, password);
-    }
-
-    console.log(id, password);
-
-    //로그인 관련 이벤트
+  const clickHandler = (data: { id: string; password: string }) => {
+    console.log(data);
 
     setIsUser(false);
+  };
 
-    console.log(isUser);
-    console.log(introMessage);
+  const changeGrade = (num: string) => {
+    setChildGrade(num);
+  };
+
+  const childFormSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const childName = new FormData(e.target as HTMLFormElement).get(
+      'childName'
+    );
+    if (childName !== '') {
+      const childNameDom = document.getElementById('childName');
+      const childGradeDom = document.getElementById('childGrade');
+      childNameDom?.classList.add('hidden');
+      childGradeDom?.classList.remove('hidden');
+    }
+
+    if (childGrade !== null && childGrade !== undefined && childGrade !== '') {
+      navigate('/');
+    }
   };
 
   return (
@@ -72,36 +88,46 @@ export default function OnboardingPage() {
       {!!isUser && (
         <form
           id='login'
-          onSubmit={(e) => clickHandler(e)}
+          onSubmit={handleSubmit((data) => clickHandler(data))}
           className='flex flex-col gap-3 px-[25px]'
         >
-          <Label htmlFor='id'>이름</Label>
+          <Label htmlFor='id' className='font-korean-title text-xl font-bold'>
+            이름
+          </Label>
           <Input
-            name='id'
             id='id'
             placeholder='이름을 입력하세요.'
-            className='px-[15px] py-[9px] box-border mb-2 border-primary border-[1px]'
-            onChange={(e) => {
-              setId(e.target.value);
-            }}
+            className='px-[15px] py-[9px] h-[52px] box-border mb-2 border-primary border-[1px] rounded-[12px]'
+            {...register('id', { required: 'ID 입력은 필수입니다.' })}
           />
-          <Label htmlFor='password'>비밀번호</Label>
+          {/* {errors.id && <span>ID를 입력해주세요</span>} */}
+          <Label
+            htmlFor='password'
+            className='font-korean-title text-xl font-bold'
+          >
+            비밀번호
+          </Label>
           <Input
             type='password'
-            name='password'
             id='password'
             placeholder='******'
-            className='px-[15px] py-[9px] box-border mb-2 border-primary border-[1px]'
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
+            className='px-[15px] py-[9px] h-[52px] box-border mb-2 border-primary border-[1px] rounded-[12px]'
+            {...register('password', {
+              required: '비밀번호 입력은 필수입니다.',
+            })}
           />
-          <Button type='submit'>로그인</Button>
+          {/* {errors.password && <span>비밀번호를 입력해주세요</span>} */}
+          <Button type='submit' className='h-[48px]'>
+            로그인
+          </Button>
         </form>
       )}
       {!isUser && (
-        <form id='childInfo' className=''>
-          <div className='transform flex flex-col gap-5 px-[25px]'>
+        <form id='childInfo' onSubmit={(e) => childFormSubmit(e)}>
+          <div
+            id='childName'
+            className='transform flex flex-col gap-5 px-[25px]'
+          >
             <Label
               htmlFor='childName'
               className='font-korean-title text-xl font-bold'
@@ -109,24 +135,33 @@ export default function OnboardingPage() {
               자녀의 이름을 입력해 주세요.
             </Label>
             <Input
-              name='chileName'
+              name='childName'
               id='childName'
-              className='px-[15px] py-[9px] h-[52px] box-border mb-2 border-primary border-[1px]'
+              className='px-[15px] py-[9px] h-[52px] box-border mb-2 border-primary border-[1px] rounded-[12px]'
               placeholder='이름을 입력하세요.'
             />
-            <Button type='submit'>확인</Button>
+            <Button type='submit' className='h-[48px]'>
+              확인
+            </Button>
           </div>
-          <div className='transform flex-col gap-5 px-[25px] hidden'>
+          <div
+            id='childGrade'
+            className='transform flex flex-col gap-5 px-[25px] hidden'
+          >
             <Label className='font-korean-title text-xl font-bold'>
               자녀의 학년을 입력해 주세요.
             </Label>
-            <Select>
-              <SelectTrigger className='w-3/4'>
+            <Select onValueChange={changeGrade}>
+              <SelectTrigger className='min-h-[52px] w-full rounded-[12px]'>
                 <SelectValue placeholder='학년을 선택하세요' />
               </SelectTrigger>
-              <SelectContent>{selectItemsLists}</SelectContent>
+              <SelectContent className='rounded-[12px]'>
+                {selectItemsLists}
+              </SelectContent>
             </Select>
-            <Button type='submit'>확인</Button>
+            <Button type='submit' className='h-[48px]'>
+              확인
+            </Button>
           </div>
         </form>
       )}
