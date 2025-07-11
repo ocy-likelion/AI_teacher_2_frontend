@@ -1,16 +1,16 @@
 import SubHeader from '@/components/layout/SubHeader';
 import KeywordList from '@/features/keywords/components/KeywordList';
-import DescriptionCard from '@/features/problems/components/ui/DescriptionCard';
-import DetailFooter from '@/features/problems/components/DetailFooter';
-import DetailSection from '@/features/problems/components/DetailSection';
-import ImageSection from '@/features/problems/components/ImageSection';
-import Title from '@/features/problems/components/ui/Title';
+import CardWrapper from '@/features/problems/components/CardWrapper';
+import DetailFooter from '@/features/problems/detail/DetailFooter';
+import DetailSection from '@/features/problems/detail/DetailSection';
+import ImageSection from '@/features/problems/detail/ImageSection';
+import Title from '@/features/problems/components/Title';
 import { formatDetailDate } from '@/utils/date';
 
 const data = {
   id: 1,
   name: '*포포즈(four fours)게임은 숫자 4 4개를 가지고 수를 맞추는 게임으로, 영국에서 만들어져 미국에서 유행한 수학 퍼즐게임입니다. 1단원에서 공부한 내용을 바탕으로 퍼즐을 풀어봅시다.\n*숫자 4 4개와 사칙계산 기호를 사용하여 숫자를 만들어봅시다.',
-  image: '/images/mock.png',
+  image: '/images/mock2.png',
   categories: [
     '포포즈 게임',
     '자연수',
@@ -40,7 +40,7 @@ export default function ProblemDetailPage() {
         <ImageSection url={data.image} alt={data.name} />
         <DetailSection>
           <Title size='lg'>문제</Title>
-          <DescriptionCard>{data.name}</DescriptionCard>
+          <CardWrapper>{data.name}</CardWrapper>
         </DetailSection>
         <DetailSection>
           <Title
@@ -49,13 +49,13 @@ export default function ProblemDetailPage() {
           >
             핵심 개념
           </Title>
-          <DescriptionCard>
+          <CardWrapper>
             <KeywordList concepts={data.categories} />
-          </DescriptionCard>
+          </CardWrapper>
         </DetailSection>
         <DetailSection>
           <Title size='lg'>이렇게 설명해볼까요?</Title>
-          <DescriptionCard>{data.answer}</DescriptionCard>
+          <CardWrapper>{data.answer}</CardWrapper>
         </DetailSection>
       </main>
       <DetailFooter isFavorite={data.favorite} />
