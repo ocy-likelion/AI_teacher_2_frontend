@@ -9,7 +9,9 @@ type TitleProps = {
 export default function Title({ children, size, description }: TitleProps) {
   return (
     <div className='flex flex-col gap-1'>
-      <h3 className={`${size === 'lg' ? 'title-sm' : 'body-md'}`}>
+      <h3
+        className={`${size === 'lg' ? 'title-sm' : 'text-[16px] font-semibold overflow-hidden text-ellipsis whitespace-nowrap'}`}
+      >
         {children}
       </h3>
       {description && (
