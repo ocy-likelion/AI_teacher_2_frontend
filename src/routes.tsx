@@ -9,6 +9,7 @@ const ProblemHistoryPage = lazy(() => import('./pages/ProblemHistoryPage'));
 const ProblemUploadPage = lazy(() => import('./pages/ProblemUploadPage'));
 const ProblemDetailPage = lazy(() => import('./pages/ProblemDetailPage'));
 const ErrorPage = lazy(() => import('./pages/NotFoundPage'));
+const MockApiPage = lazy(() => import('./MockApiPage.tsx'));
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
             element: <ProblemUploadPage />,
           },
         ],
+      },
+      {
+        path: '/api-test', // TODO: api 연동 테스트용으로 추후 삭제
+        element: <MockApiPage />,
       },
     ],
   },
