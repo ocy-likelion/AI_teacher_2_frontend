@@ -10,7 +10,7 @@ export default function BasicLayout({ children }: BasicLayoutProps) {
   return (
     <section className='w-full h-full flex flex-col'>
       <Header />
-      <main className='flex-1 overflow-auto'>{children}</main>
+      <main className='flex-1'>{children}</main>
       <Footer />
     </section>
   );
