@@ -8,9 +8,16 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { selectItemsLists } from '@/features/users/components/SelectItemsLists';
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
+
+type userData = {
+  id: string;
+  password: string;
+  childName: string;
+  childGrade: string;
+};
 
 // const data = {
 //   id: 'gildongmom',
@@ -21,15 +28,16 @@ import { useForm } from 'react-hook-form';
 
 export default function OnboardingPage() {
   const [isUser, setIsUser] = useState<boolean>(true);
-  const [childGrade, setChildGrade] = useState<string | null>(null);
+  const [childNameInput, setChildNameInput] = useState<boolean>(false);
+  const [childGrade, setChildGrade] = useState<string>('');
   const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    // formState: { errors },
   } = useForm({
-    defaultValues: { id: '', password: '' },
+    defaultValues: { id: '', password: '', childName: '', childGrade: '' },
     mode: 'onSubmit',
   });
 
@@ -46,7 +54,7 @@ export default function OnboardingPage() {
     </>
   );
 
-  const clickHandler = (data: { id: string; password: string }) => {
+  const clickHandler = (data: userData) => {
     console.log(data);
 
     setIsUser(false);
@@ -56,21 +64,16 @@ export default function OnboardingPage() {
     setChildGrade(num);
   };
 
-  const childFormSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    const childName = new FormData(e.target as HTMLFormElement).get(
-      'childName'
-    );
-    if (childName !== '') {
-      const childNameDom = document.getElementById('childName');
-      const childGradeDom = document.getElementById('childGrade');
-      childNameDom?.classList.add('hidden');
-      childGradeDom?.classList.remove('hidden');
-    }
+  const childFormSubmit = (e: userData) => {
+    console.log(e);
+    setChildNameInput(true);
+  };
 
-    if (childGrade !== null && childGrade !== undefined && childGrade !== '') {
-      navigate('/');
-    }
+  const childGradeSubmit = (e: userData) => {
+    console.log(e);
+    console.log(typeof childGrade);
+    e.childGrade = childGrade;
+    setChildNameInput(true);
   };
 
   return (
@@ -122,48 +125,74 @@ export default function OnboardingPage() {
           </Button>
         </form>
       )}
-      {!isUser && (
-        <form id='childInfo' onSubmit={(e) => childFormSubmit(e)}>
-          <div
-            id='childName'
-            className='transform flex flex-col gap-5 px-[25px]'
-          >
-            <Label
-              htmlFor='childName'
-              className='font-korean-title text-xl font-bold'
-            >
-              자녀의 이름을 입력해 주세요.
-            </Label>
-            <Input
-              name='childName'
+      {!isUser && !childNameInput && (
+        <form
+          id='childInfoName'
+          className='flex flex-col gap-5 px-[25px]'
+          onSubmit={handleSubmit((data) => {
+            childFormSubmit(data);
+          })}
+        >
+          {/* <div
               id='childName'
-              className='px-[15px] py-[9px] h-[52px] box-border mb-2 border-primary border-[1px] rounded-[12px]'
-              placeholder='이름을 입력하세요.'
+              className='transform flex flex-col gap-5 px-[25px]'
+            > */}
+          <Label
+            htmlFor='childName'
+            className='font-korean-title text-xl font-bold'
+          >
+            자녀의 이름을 입력해 주세요.
+          </Label>
+          <Input
+            id='childName'
+            className='px-[15px] py-[9px] h-[52px] box-border mb-2 border-primary border-[1px] rounded-[12px]'
+            placeholder='이름을 입력하세요.'
+            {...register('childName')}
+          />
+          <Button type='submit' className='h-[48px]'>
+            확인
+          </Button>
+          {/* </div> */}
+        </form>
+      )}
+      {!!childNameInput && (
+        <div>
+          <form
+            id='childInfoGrade'
+            className='flex flex-col gap-5 px-[25px]'
+            onSubmit={handleSubmit((data) => {
+              console.log(data);
+              childGradeSubmit(data);
+            })}
+          >
+            {/* <div
+              id='childGrade'
+              className='transform flex flex-col gap-5 px-[25px] hidden'
+            > */}
+            <Label className='font-korean-title text-xl font-bold'>
+              자녀의 학년을 입력해 주세요.
+            </Label>
+            <Controller
+              name='childGrade'
+              control={control}
+              rules={{ required: '학년을 반드시 선택해야 합니다.' }}
+              render={({ field }) => (
+                <Select onValueChange={changeGrade} {...register('childGrade')}>
+                  <SelectTrigger className='min-h-[52px] w-full rounded-[12px]'>
+                    <SelectValue placeholder='학년을 선택하세요' />
+                  </SelectTrigger>
+                  <SelectContent className='rounded-[12px]'>
+                    {selectItemsLists}
+                  </SelectContent>
+                </Select>
+              )}
             />
             <Button type='submit' className='h-[48px]'>
               확인
             </Button>
-          </div>
-          <div
-            id='childGrade'
-            className='transform flex flex-col gap-5 px-[25px] hidden'
-          >
-            <Label className='font-korean-title text-xl font-bold'>
-              자녀의 학년을 입력해 주세요.
-            </Label>
-            <Select onValueChange={changeGrade}>
-              <SelectTrigger className='min-h-[52px] w-full rounded-[12px]'>
-                <SelectValue placeholder='학년을 선택하세요' />
-              </SelectTrigger>
-              <SelectContent className='rounded-[12px]'>
-                {selectItemsLists}
-              </SelectContent>
-            </Select>
-            <Button type='submit' className='h-[48px]'>
-              확인
-            </Button>
-          </div>
-        </form>
+            {/* </div> */}
+          </form>
+        </div>
       )}
     </div>
   );
