@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@apps-in-toss/web-framework": "^0.0.28",
+    "@cropper/element-canvas": "^2.0.0",
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-select": "^2.2.5",
@@ -20,8 +21,10 @@
     "@tanstack/react-query-devtools": "^5.81.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cropperjs": "^2.0.0",
     "lucide-react": "^0.525.0",
     "react": "^19.1.0",
+    "react-cropper": "^2.3.3",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.60.0",
     "react-router-dom": "^7.6.3",
