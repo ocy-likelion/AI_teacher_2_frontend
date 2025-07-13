@@ -1,9 +1,11 @@
 import SubHeader from '@/components/layout/SubHeader';
 import { Button } from '@/components/ui/button';
-import ImageCropper from '@/features/problems/components/ui/ImageCropper';
+// import ImageCropper from '@/features/problems/components/ui/ImageCropper';
 import { Info } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function ProblemUploadPage() {
+  const navigate = useNavigate();
   return (
     <>
       <SubHeader type='close' title='문제 등록하기' />
@@ -17,8 +19,8 @@ export default function ProblemUploadPage() {
       </div>
       <section className='mt-[15px] w-full h-fit pb-10'>
         <section className='flex justify-center w-full max-h-[40vh] aspect-square bg-black mb-10'>
-          {/* <img src='/images/Sample-Image.svg' alt='사진 샘플' /> */}
-          <ImageCropper />
+          <img src='/images/Sample-Image.svg' alt='사진 샘플' />
+          {/* <ImageCropper /> */}
         </section>
         <div className='flex justify-center gap-6'>
           <Button
@@ -27,7 +29,16 @@ export default function ProblemUploadPage() {
           >
             재업로드
           </Button>
-          <Button className='w-[100px]' size={'lg'}>
+          <Button
+            onClick={() =>
+              navigate('/problem/1', {
+                replace: true,
+                state: { from: 'upload' },
+              })
+            }
+            className='w-[100px]'
+            size={'lg'}
+          >
             확인
           </Button>
         </div>
