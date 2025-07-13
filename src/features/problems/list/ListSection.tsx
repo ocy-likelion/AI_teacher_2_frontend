@@ -7,8 +7,9 @@ import ListView from './ListView';
 export default function ListSection() {
   const [params] = useSearchParams();
 
-  const q = params.get('q') ?? '';
-  const favorite = params.get('favorite') === 'true';
+  // API 연동 시 사용
+  //const q = params.get('q') ?? '';
+  //const favorite = params.get('favorite') === 'true';
   const view = (params.get('view') as 'list' | 'grid') ?? 'list';
 
   if (problems.length === 0) {
