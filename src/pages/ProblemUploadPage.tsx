@@ -1,5 +1,6 @@
 import SubHeader from '@/components/layout/SubHeader';
 import { Button } from '@/components/ui/button';
+import ImageCropper from '@/features/problems/components/ui/ImageCropper';
 import { Info } from 'lucide-react';
 
 export default function ProblemUploadPage() {
@@ -16,7 +17,8 @@ export default function ProblemUploadPage() {
       </div>
       <section className='mt-[15px] w-full h-fit pb-10'>
         <section className='flex justify-center w-full max-h-[40vh] aspect-square bg-black mb-10'>
-          <img src='/images/Sample-Image.svg' alt='사진 샘플' />
+          {/* <img src='/images/Sample-Image.svg' alt='사진 샘플' /> */}
+          <ImageCropper />
         </section>
         <div className='flex justify-center gap-6'>
           <Button
