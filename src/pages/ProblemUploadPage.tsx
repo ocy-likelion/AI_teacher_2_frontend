@@ -1,6 +1,6 @@
 import SubHeader from '@/components/layout/SubHeader';
 import { Button } from '@/components/ui/button';
-import ImageUpload from '@/features/problems/components/ImageUpload';
+import ImageUpload from '@/features/problems/components/ImageUploadInput';
 // import ImageCropper from '@/features/problems/components/ui/ImageCropper';
 import { Info } from 'lucide-react';
 import { useRef } from 'react';
