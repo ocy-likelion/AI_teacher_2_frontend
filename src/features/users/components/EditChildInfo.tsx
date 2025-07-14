@@ -18,19 +18,12 @@ import {
 } from '@/components/ui/select';
 import { GRADE_OPTIONS } from '@/utils/constants/grades';
 import { SquarePen } from 'lucide-react';
-import { useState, type JSX } from 'react';
+import { useState } from 'react';
 
 export default function EditChildInfoForm() {
   const [childName, setChildName] = useState<string>('고길동');
   const [tempName, setTempName] = useState<string>('');
   const [childGrade, setChildGrade] = useState<string>('4');
-  var selectItemsLists: JSX.Element[] = GRADE_OPTIONS.map(
-    ({ label, value }) => (
-      <SelectItem key={value} value={value}>
-        {label}
-      </SelectItem>
-    )
-  );
 
   const clickHandler = () => {
     setChildName(tempName);
@@ -59,7 +52,13 @@ export default function EditChildInfoForm() {
             <SelectTrigger className='w-3/4'>
               <SelectValue placeholder='학년을 선택하세요' />
             </SelectTrigger>
-            <SelectContent>{selectItemsLists}</SelectContent>
+            <SelectContent>
+              {GRADE_OPTIONS.map(({ label, value }) => (
+                <SelectItem key={value} value={value}>
+                  {label}
+                </SelectItem>
+              ))}
+            </SelectContent>
           </Select>
         </div>
         <DialogFooter>
