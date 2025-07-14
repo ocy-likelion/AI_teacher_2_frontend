@@ -1,6 +1,5 @@
 import { lazy } from 'react';
-import { createBrowserRouter } from 'react-router-dom';
-import BasicLayout from './components/layout/BasicLayout';
+import { createBrowserRouter, Outlet } from 'react-router-dom';
 
 const Layout = lazy(() => import('./components/layout/Layout'));
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -10,12 +9,20 @@ const ProblemUploadPage = lazy(() => import('./pages/ProblemUploadPage'));
 const ProblemDetailPage = lazy(() => import('./pages/ProblemDetailPage'));
 const ErrorPage = lazy(() => import('./pages/NotFoundPage'));
 const MockApiPage = lazy(() => import('./MockApiPage.tsx'));
+const LayoutWrapper = lazy(() => import('./components/layout/LayoutWrapper'));
+const BasicLayout = lazy(() => import('./components/layout/BasicLayout'));
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
-    errorElement: <ErrorPage />,
+    errorElement: (
+      <LayoutWrapper>
+        <BasicLayout>
+          <ErrorPage />
+        </BasicLayout>
+      </LayoutWrapper>
+    ),
     children: [
       {
         index: true,
@@ -41,7 +48,16 @@ const router = createBrowserRouter([
       },
       {
         path: '/problem',
+        element: <Outlet />,
         children: [
+          {
+            index: true,
+            element: (
+              <BasicLayout>
+                <ErrorPage />
+              </BasicLayout>
+            ),
+          },
           {
             path: ':_id',
             element: <ProblemDetailPage />,
