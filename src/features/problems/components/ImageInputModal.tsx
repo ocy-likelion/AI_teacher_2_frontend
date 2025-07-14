@@ -19,10 +19,11 @@ export default function ImageInputModal({
   dialogOpen: boolean;
   setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  // const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const navigate = useNavigate();
+
   var uploadRef = useRef<HTMLInputElement>(null);
   var cameraRef = useRef<HTMLInputElement>(null);
+
   const CameraButtonEventHandler = () => {
     setDialogOpen(false);
     cameraRef.current?.click();
