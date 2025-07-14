@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { LoginHandler } from '../hooks/useLoginFlow';
 import type { UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
 import type { userData } from '@/types/types';
 
@@ -23,6 +22,16 @@ export default function LoginForm({
   register,
   setIsUser,
 }: LoginFormProps) {
+  const LoginHandler = (
+    setIsUser: React.Dispatch<React.SetStateAction<boolean>>,
+    data: userData
+  ) => {
+    console.log(data);
+    // 만약 기존 회원이 아닐 경우 isUser = false;
+    // 잘못 입력했을 경우를 대비하여 confirm으로 확인.
+    if (confirm('잘못 입력된 정보입니다. 회원가입 하시겠습니까?'))
+      setIsUser(false);
+  };
   return (
     <form
       id='login'

@@ -13,8 +13,7 @@ import {
 import { selectItemsLists } from './SelectItemsLists';
 import { Button } from '@/components/ui/button';
 import type { userData } from '@/types/types';
-import { ChildGradeFormHandler } from '../hooks/useLoginFlow';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, type NavigateFunction } from 'react-router-dom';
 
 type ChildInfoGradeInputProps = {
   handleSubmit: UseFormHandleSubmit<userData>;
@@ -26,6 +25,13 @@ export default function ChildInfoGradeInput({
   control,
 }: ChildInfoGradeInputProps) {
   const navigate = useNavigate();
+
+  const ChildGradeFormHandler = (
+    data: userData,
+    navigate: NavigateFunction
+  ) => {
+    if (data.childGrade !== '') navigate('/');
+  };
 
   return (
     <form

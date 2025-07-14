@@ -3,7 +3,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import type { userData } from '@/types/types';
 import type { UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
-import { ChildNameFormHandler } from '../hooks/useLoginFlow';
 
 type ChildInfoNameInputProps = {
   handleSubmit: UseFormHandleSubmit<userData>;
@@ -16,6 +15,12 @@ export default function ChildInfoNameInput({
   register,
   setChildNameInput,
 }: ChildInfoNameInputProps) {
+  const ChildNameFormHandler = (
+    setChildNameInput: React.Dispatch<React.SetStateAction<boolean>>,
+    data: userData
+  ) => {
+    if (data.childName !== '') setChildNameInput(true);
+  };
   return (
     <form
       id='childInfoName'
@@ -41,7 +46,6 @@ export default function ChildInfoNameInput({
       <Button type='submit' className='h-[48px]'>
         확인
       </Button>
-      {/* </div> */}
     </form>
   );
 }
