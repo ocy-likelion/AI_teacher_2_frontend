@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import LoginForm from '@/features/users/components/LoginForm';
-import ChildInfoNameInput from '@/features/users/components/ChildInfoNameInput';
-import ChildInfoGradeInput from '@/features/users/components/ChildInfoGradeInput';
+// import ChildInfoGradeInput from '@/features/users/components/ChildInfoGradeInput';
 import OnBoardingIntro from '@/features/users/components/OnBoardingIntro';
+import ChildInfoInput from '@/features/users/components/ChildInfoInput';
 
 // const data = {
 //   id: 'gildongmom',
@@ -14,11 +14,11 @@ import OnBoardingIntro from '@/features/users/components/OnBoardingIntro';
 
 export default function OnboardingPage() {
   const [isUser, setIsUser] = useState<boolean>(true);
-  const [childNameInput, setChildNameInput] = useState<boolean>(false);
 
   const {
     register,
     control,
+    watch,
     handleSubmit,
     // formState: { errors },
   } = useForm({
@@ -29,23 +29,25 @@ export default function OnboardingPage() {
   return (
     <div className='w-full h-full mt-[50px]'>
       {OnBoardingIntro(isUser)}
-      {!!isUser && (
+      {isUser && (
         <LoginForm
+          watch={watch}
           handleSubmit={handleSubmit}
           register={register}
           setIsUser={setIsUser}
         />
       )}
-      {!isUser && !childNameInput && (
-        <ChildInfoNameInput
+      {!isUser && (
+        <ChildInfoInput
+          watch={watch}
+          control={control}
           handleSubmit={handleSubmit}
           register={register}
-          setChildNameInput={setChildNameInput}
         />
       )}
-      {!!childNameInput && (
+      {/* {!!childNameInput && (
         <ChildInfoGradeInput handleSubmit={handleSubmit} control={control} />
-      )}
+      )} */}
     </div>
   );
 }
