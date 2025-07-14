@@ -49,6 +49,7 @@ export default function ChildInfoInput({
   // };
 
   const childNameValue = watch('childName');
+  const childGradeValue = watch('childGrade');
 
   return (
     <form
@@ -98,7 +99,11 @@ export default function ChildInfoInput({
               </Select>
             )}
           />
-          <Button type='submit' className='h-[48px]'>
+          <Button
+            variant={`${childGradeValue ? 'default' : 'disabled'}`}
+            type='submit'
+            className='h-[48px]'
+          >
             확인
           </Button>
         </>

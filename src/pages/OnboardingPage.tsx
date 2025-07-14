@@ -45,9 +45,6 @@ export default function OnboardingPage() {
           register={register}
         />
       )}
-      {/* {!!childNameInput && (
-        <ChildInfoGradeInput handleSubmit={handleSubmit} control={control} />
-      )} */}
     </div>
   );
 }
