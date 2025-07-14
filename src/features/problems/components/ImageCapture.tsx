@@ -1,7 +1,7 @@
 import type { NavigateFunction } from 'react-router-dom';
 
-export default function ImageUpload(
-  uploadRef: React.RefObject<HTMLInputElement | null>,
+export default function ImageCapture(
+  cameraRef: React.RefObject<HTMLInputElement | null>,
   navigate: NavigateFunction
 ) {
   const ChangeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,10 +14,11 @@ export default function ImageUpload(
   };
   return (
     <input
-      key='upload'
+      key='capture'
       type='file'
       accept='image/*'
-      ref={uploadRef}
+      ref={cameraRef}
+      capture={'environment'}
       className='hidden'
       onChange={ChangeEventHandler}
     />
