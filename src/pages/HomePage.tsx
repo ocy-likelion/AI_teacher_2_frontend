@@ -1,11 +1,15 @@
 import Tag from '@/components/ui/tag';
+import EditChildInfoForm from '@/features/users/components/EditChildInfo';
 import ImageUploadSection from '@/features/users/components/ImageUploadSection';
 
 export default function HomePage() {
   return (
     <>
       <div className='flex max-w-full min-h-[30vh] px-[25px] box-border mt-[10vh]'>
-        <ImageUploadSection />
+        <div className='w-full flex flex-col flex-grow'>
+          <EditChildInfoForm />
+          <ImageUploadSection />
+        </div>
       </div>
       <div className='mx-[29px] max-w-full min-h-[55px] mt-[53px] flex flex-grow flex-col'>
         <h2 className='font-korean-title font-bold text-2xl'>

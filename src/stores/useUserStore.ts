@@ -8,7 +8,7 @@ type user = {
   refreshToken?: string;
 };
 
-type userStore = {
+export type userStore = {
   user: user | null;
   setUser: (user: user) => void;
 };
