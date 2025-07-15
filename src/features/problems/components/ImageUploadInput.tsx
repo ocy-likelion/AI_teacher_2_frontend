@@ -1,9 +1,11 @@
 import type { NavigateFunction } from 'react-router-dom';
 
-export default function ImageUpload(
-  uploadRef: React.RefObject<HTMLInputElement | null>,
-  navigate: NavigateFunction
-) {
+type ImageUploadProps = {
+  uploadRef: React.RefObject<HTMLInputElement | null>;
+  navigate: NavigateFunction;
+};
+
+export default function ImageUpload({ uploadRef, navigate }: ImageUploadProps) {
   const ChangeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {

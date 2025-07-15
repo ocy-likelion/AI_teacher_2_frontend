@@ -7,7 +7,7 @@ export default function ImageUploadSection() {
   const [height, setHeight] = useState<number>();
   const { isOpen, closeModal, openModal } = useImageModalStore();
 
-  var divRef = useRef<HTMLDivElement>(null);
+  const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const resizeObserver: ResizeObserver = new ResizeObserver(() => {

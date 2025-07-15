@@ -12,17 +12,19 @@ import ImageCapture from './ImageCaptureInput';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+type ImageInputModalProps = {
+  dialogOpen: boolean;
+  setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
 export default function ImageInputModal({
   dialogOpen,
   setDialogOpen,
-}: {
-  dialogOpen: boolean;
-  setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+}: ImageInputModalProps) {
   const navigate = useNavigate();
 
-  var uploadRef = useRef<HTMLInputElement>(null);
-  var cameraRef = useRef<HTMLInputElement>(null);
+  const uploadRef = useRef<HTMLInputElement>(null);
+  const cameraRef = useRef<HTMLInputElement>(null);
 
   const CameraButtonEventHandler = () => {
     setDialogOpen(false);
@@ -63,8 +65,8 @@ export default function ImageInputModal({
           </Button>
         </DialogContent>
       </Dialog>
-      {ImageUpload(uploadRef, navigate)}
-      {ImageCapture(cameraRef, navigate)}
+      <ImageUpload uploadRef={uploadRef} navigate={navigate} />
+      <ImageCapture cameraRef={cameraRef} navigate={navigate} />
     </>
   );
 }

@@ -1,9 +1,14 @@
 import type { NavigateFunction } from 'react-router-dom';
 
-export default function ImageCapture(
-  cameraRef: React.RefObject<HTMLInputElement | null>,
-  navigate: NavigateFunction
-) {
+type ImageCaptureProps = {
+  cameraRef: React.RefObject<HTMLInputElement | null>;
+  navigate: NavigateFunction;
+};
+
+export default function ImageCapture({
+  cameraRef,
+  navigate,
+}: ImageCaptureProps) {
   const ChangeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
