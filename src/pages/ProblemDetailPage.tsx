@@ -14,7 +14,6 @@ import { formatDetailDate } from '@/utils/date';
 import { useProblemDetail } from '@/features/problems/api/get-problem-detail';
 import { handleApiError } from '@/utils/handle-api-error';
 
-//ImageSection 컴포넌트의 url prop : api 수정 완료 후 data.imageUrl로 업데이트할 예정
 export default function ProblemDetailPage() {
   const { _id } = useParams();
 
@@ -37,7 +36,7 @@ export default function ProblemDetailPage() {
         <p className='text-right label text-gray5 dark:text-gray2'>
           {formatDetailDate(data.createdAt)}
         </p>
-        <ImageSection url={'/images/mock3.png'} alt={String(data.id)} />
+        <ImageSection url={data.imageUrl} alt={String(data.id)} />
         <DetailSection>
           <Title size='lg'>문제</Title>
           <CardWrapper>{data.ocrResult}</CardWrapper>
