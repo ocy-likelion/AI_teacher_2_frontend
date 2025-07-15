@@ -18,6 +18,8 @@ export const useProblemList = () => {
     queryFn: getProblemList,
     initialPageParam: '',
     getNextPageParam: (lastPage) =>
-      lastPage.pagination.hasNextPage ? lastPage.pagination.nextCursor : '',
+      lastPage.pagination.hasNextPage
+        ? lastPage.pagination.nextCursor
+        : undefined,
   });
 };

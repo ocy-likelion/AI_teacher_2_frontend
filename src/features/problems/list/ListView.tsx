@@ -4,17 +4,10 @@ import Title from '../components/Title';
 import { Bookmark } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type React from 'react';
+import type { Problem } from '@/types/problem';
 
 type ListViewProps = {
-  items: {
-    id: number;
-    name: string;
-    image: string;
-    categories: string[];
-    favorite: boolean;
-    created_at: string;
-    updated_at: string;
-  }[];
+  items: Problem[];
 };
 
 export default function ListView({ items }: ListViewProps) {
@@ -35,16 +28,16 @@ export default function ListView({ items }: ListViewProps) {
                 fill={item.favorite ? 'currentColor' : 'none'}
                 onClick={handleToggle}
               />
-              <Title size='md'>{item.name}</Title>
+              <Title size='md'>{item.ocrResult}</Title>
               <p className='body-sm text-gray5 dark:text-gray2 overflow-hidden text-ellipsis whitespace-nowrap'>
-                {item.categories.map((category) => (
-                  <span key={category} className='ml-1'>
-                    #{category}
+                {item.concepts.map((concept) => (
+                  <span key={concept.id} className='ml-1'>
+                    #{concept.name}
                   </span>
                 ))}
               </p>
               <p className='label text-gray5 dark:text-gray2'>
-                {formatListDate(item.created_at)}
+                {formatListDate(item.createdAt)}
               </p>
             </div>
           </CardWrapper>
