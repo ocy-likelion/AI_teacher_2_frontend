@@ -16,12 +16,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import useUserStore, { type userStore } from '@/stores/useUserStore';
 import { GRADE_OPTIONS } from '@/utils/constants/grades';
 import { SquarePen } from 'lucide-react';
 import { useState } from 'react';
 
 export default function EditChildInfoForm() {
-  const [childName, setChildName] = useState<string>('고길동');
+  const userData = useUserStore((store: userStore) => store.user);
+
+  const [childName, setChildName] = useState<string>(
+    userData?.childName ? userData.childName : '고길동'
+  );
   const [tempName, setTempName] = useState<string>('');
   const [childGrade, setChildGrade] = useState<string>('4');
 
