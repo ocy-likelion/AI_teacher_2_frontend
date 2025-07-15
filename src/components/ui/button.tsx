@@ -14,7 +14,7 @@ const buttonVariants = cva(
         border:
           'border border-primary text-primary shadow-xs hover:border-primary/70 hover:text-primary/70',
         disabled: 'bg-btn-disabled shadow-xs cursor-not-allowed',
-        link: 'hover:underline text-primary font-korean-title font-bold text-2xl',
+        link: 'hover:underline active:underline text-primary font-korean-title font-bold text-2xl',
       },
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',
