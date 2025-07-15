@@ -20,9 +20,11 @@ import useUserStore, { type userStore } from '@/stores/useUserStore';
 import { GRADE_OPTIONS } from '@/utils/constants/grades';
 import { SquarePen } from 'lucide-react';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 export default function EditChildInfoForm() {
   const userData = useUserStore((store: userStore) => store.user);
+  const setUserChild = useUserStore((store: userStore) => store.setUser);
 
   const [childName, setChildName] = useState<string>(
     userData?.childName ? userData.childName : '고길동'
@@ -30,8 +32,15 @@ export default function EditChildInfoForm() {
   const [tempName, setTempName] = useState<string>('');
   const [childGrade, setChildGrade] = useState<string>('4');
 
+  // 이후 여기서 member의 childName 및 childGrade를 변경하는 axios를 호출할 예정
   const clickHandler = () => {
-    setChildName(tempName);
+    if (userData) {
+      setUserChild({ id: userData.id, childName: tempName });
+      setChildName(tempName);
+    } else {
+      setChildName(tempName);
+    }
+    toast.info('자녀의 이름이 변경되었습니다!');
   };
 
   return (
@@ -61,7 +70,20 @@ export default function EditChildInfoForm() {
                   defaultValue={childName}
                   onChange={(e) => setTempName(e.target.value)}
                 />
-                <Select value={childGrade} onValueChange={setChildGrade}>
+                <Select
+                  value={
+                    userData?.childGrade ? userData.childGrade : childGrade
+                  }
+                  onValueChange={(data) => {
+                    if (userData) {
+                      setUserChild({
+                        ...userData,
+                        childGrade: data,
+                      });
+                    }
+                    setChildGrade(data);
+                  }}
+                >
                   <SelectTrigger className='w-3/4'>
                     <SelectValue placeholder='학년을 선택하세요' />
                   </SelectTrigger>

@@ -4,6 +4,7 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 type user = {
   id: string;
   childName: string;
+  childGrade?: string;
   accessToken?: string;
   refreshToken?: string;
 };
