@@ -22,3 +22,7 @@ export type GetProblemListResponse = {
     next: string;
   };
 };
+
+export type CursorPaginationParams = {
+  pageParam?: string | null;
+};
