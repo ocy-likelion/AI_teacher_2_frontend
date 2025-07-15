@@ -31,16 +31,6 @@ export default function LoginForm({
   const navigate = useNavigate();
   const setUser = useUserStore((store: userStore) => store.setUser);
   const user = useUserStore((store: userStore) => store.user);
-  // const LoginHandler = (
-  //   setIsUser: React.Dispatch<React.SetStateAction<boolean>>,
-  //   data: userData
-  // ) => {
-  //   console.log(data);
-  //   // 만약 기존 회원이 아닐 경우 isUser = false;
-  //   // 잘못 입력했을 경우를 대비하여 confirm으로 확인.
-  //   if (isActive && confirm('잘못 입력된 정보입니다. 회원가입 하시겠습니까?'))
-  //     setIsUser(false);
-  // };
 
   const login = useMutation({
     mutationFn: async (data: userData) => {
@@ -58,6 +48,7 @@ export default function LoginForm({
     onSuccess: (res) => {
       //현재 res값으로 로그인이 성공했다는 메시지만 return되므로
       //위의 data.id와 data.password를 따로 변수에 저장 후 전역 관리
+      //홈페이지에 '김길동'으로 표시된다면 로그인이 성공했다고 생각하면 됨
       setUser({ id: idValue, childName: '김길동' });
       console.log(res);
       console.log(user);
@@ -76,7 +67,6 @@ export default function LoginForm({
   return (
     <form
       id='login'
-      // onSubmit={handleSubmit((data) => LoginHandler(setIsUser, data))}
       onSubmit={handleSubmit((data) => login.mutate(data))}
       className='flex flex-col gap-3 px-[25px]'
     >
@@ -106,7 +96,9 @@ export default function LoginForm({
         }}
       />
       <Button
-        variant={`${isActive ? 'default' : 'disabled'}`}
+        variant={`${
+          isActive ? (login.isPending ? 'disabled' : 'default') : 'disabled'
+        }`}
         type='submit'
         className='h-[48px]'
       >
