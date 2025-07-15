@@ -52,6 +52,7 @@ export default function LoginForm({
       setUser({ id: idValue, childName: '김길동' });
       console.log(res);
       console.log(user);
+      toast.success('로그인 성공');
       navigate('/');
     },
     onError: (err) => {

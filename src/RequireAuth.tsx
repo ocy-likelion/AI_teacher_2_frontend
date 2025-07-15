@@ -12,5 +12,9 @@ export default function RequireAuth({
     return <Navigate to='/onboarding' replace />;
   }
 
+  if (user && window.location.pathname === '/onboarding') {
+    return <Navigate to='/' replace />;
+  }
+
   return <>{children}</>;
 }

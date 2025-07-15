@@ -39,7 +39,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/onboarding',
-        element: <OnboardingPage />,
+        element: (
+          // <RequireAuth>
+          <OnboardingPage />
+          // </RequireAuth>
+        ),
       },
       {
         path: '/history',
