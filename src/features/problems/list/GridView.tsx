@@ -2,17 +2,10 @@ import { Link } from 'react-router-dom';
 import CardWrapper from '../components/CardWrapper';
 import { Bookmark } from 'lucide-react';
 import { formatListDate } from '@/utils/date';
+import type { Problem } from '@/types/problem';
 
 type GridViewProps = {
-  items: {
-    id: number;
-    name: string;
-    image: string;
-    categories: string[];
-    favorite: boolean;
-    created_at: string;
-    updated_at: string;
-  }[]; // 추후 type으로 정의할 예정
+  items: Problem[];
 };
 
 export default function GridView({ items }: GridViewProps) {
@@ -41,11 +34,11 @@ export default function GridView({ items }: GridViewProps) {
               </button>
               <div className='flex justify-end'>
                 <p className='label text-gray5 dark:text-gray2 pt-4 pr-4'>
-                  {formatListDate(item.created_at)}
+                  {formatListDate(item.createdAt)}
                 </p>
               </div>
               <img
-                src={item.image}
+                src={item.imageUrl}
                 alt={Image.name}
                 className='border-t border-gray1 dark:border-gray4 flex-1 object-contain h-full w-full'
               />

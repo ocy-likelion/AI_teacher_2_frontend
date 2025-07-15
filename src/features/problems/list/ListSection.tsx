@@ -1,28 +1,43 @@
 import { useSearchParams } from 'react-router-dom';
-import { problems } from '../mock/dummy';
 import Empty from './Empty';
 import GridView from './GridView';
 import ListView from './ListView';
+import { useProblemList } from '../api/get-problem-list';
+import { useRef } from 'react';
+import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
+import Loading from '@/components/ui/Loading';
 
 export default function ListSection() {
   const [params] = useSearchParams();
 
-  // API 연동 시 사용
+  // 즐겨찾기, 검색 조회 API 연동 시 사용
   //const q = params.get('q') ?? '';
   //const favorite = params.get('favorite') === 'true';
   const view = (params.get('view') as 'list' | 'grid') ?? 'list';
 
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isPending } =
+    useProblemList();
+
+  const problems = data?.pages.flatMap((page) => page.data) ?? [];
+  const targetRef = useRef<HTMLDivElement | null>(null);
+
+  useInfiniteScroll({
+    targetRef,
+    onIntersect: fetchNextPage,
+    enabled: hasNextPage && !isFetchingNextPage,
+  });
+
+  if (isPending) return <Loading />;
   if (problems.length === 0) {
     return <Empty description='하단의 버튼을 눌러 문제를 등록해보세요' />;
   }
 
+  const ViewComponent = view === 'list' ? ListView : GridView;
   return (
     <section className='w-full'>
-      {view === 'list' ? (
-        <ListView items={problems} />
-      ) : (
-        <GridView items={problems} />
-      )}
+      <ViewComponent items={problems} />
+      {isFetchingNextPage && <Loading />}
+      <div ref={targetRef} className='h-[1px]' />
     </section>
   );
 }
