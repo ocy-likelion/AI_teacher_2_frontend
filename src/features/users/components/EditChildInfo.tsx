@@ -33,9 +33,14 @@ export default function EditChildInfoForm() {
   const [childGrade, setChildGrade] = useState<string>('4');
 
   // 이후 여기서 member의 childName 및 childGrade를 변경하는 axios를 호출할 예정
+  // 자녀 학년은 직관적으로 변경되는 사항이 없기 때문에 바로 적용, 자녀 이름은 홈페이지에 바로 표시되기에 tempName 상태 활용
   const clickHandler = () => {
     if (userData) {
-      setUserChild({ id: userData.id, childName: tempName });
+      setUserChild({
+        id: userData.id,
+        childName: tempName,
+        childGrade: childGrade,
+      });
       setChildName(tempName);
     } else {
       setChildName(tempName);
@@ -74,15 +79,7 @@ export default function EditChildInfoForm() {
                   value={
                     userData?.childGrade ? userData.childGrade : childGrade
                   }
-                  onValueChange={(data) => {
-                    if (userData) {
-                      setUserChild({
-                        ...userData,
-                        childGrade: data,
-                      });
-                    }
-                    setChildGrade(data);
-                  }}
+                  onValueChange={setChildGrade}
                 >
                   <SelectTrigger className='w-3/4'>
                     <SelectValue placeholder='학년을 선택하세요' />

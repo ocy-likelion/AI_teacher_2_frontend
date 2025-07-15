@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
+// import RequireAuth from './RequireAuth.tsx';
 
 const Layout = lazy(() => import('./components/layout/Layout'));
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -28,7 +29,9 @@ const router = createBrowserRouter([
         index: true,
         element: (
           <BasicLayout>
+            {/* <RequireAuth> */}
             <HomePage />
+            {/* </RequireAuth> */}
           </BasicLayout>
         ),
         // 이후 리다이렉트 설정할 때 조건문과 함께 아래 루트 수정
