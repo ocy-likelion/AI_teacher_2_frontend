@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { httpClient } from '@/lib/api-client';
-import { type Problem } from '@/types/problem';
+import { type Problem } from '@/types/problem.type';
 
 const getProblemDetail = async (id: string) => {
   const res = await httpClient.get<Problem>(`/problem?problemId=${id}`);
