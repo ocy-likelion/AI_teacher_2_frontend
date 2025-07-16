@@ -7,7 +7,7 @@ import type {
   UseFormWatch,
 } from 'react-hook-form';
 import type { userData } from '@/types/types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Login } from '../api/login';
 
@@ -32,10 +32,22 @@ export default function LoginForm({
 
   const login = Login(idValue, setIsUser, navigate);
 
+  useEffect(() => {
+    if (idValue.trim() !== '' && passwordValue.trim() !== '') {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  }, [idValue, passwordValue]);
+
   return (
     <form
       id='login'
-      onSubmit={handleSubmit((data) => login.mutate(data))}
+      onSubmit={handleSubmit((data) => {
+        login.mutate(data);
+        // 로그인 API 문제 발생 시 임시로 다음 페이지도 넘어가게 하는 용도
+        // setIsUser(false);
+      })}
       className='flex flex-col gap-3 px-[25px]'
     >
       <Label htmlFor='id' className='font-korean-title text-xl font-bold'>

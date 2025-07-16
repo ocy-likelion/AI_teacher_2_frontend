@@ -17,7 +17,7 @@ import {
 } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { selectItemsLists } from './SelectItemsLists';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SetUser } from '../api/update-user-info';
 
 type ChildInfoNameInputProps = {
@@ -34,7 +34,7 @@ export default function ChildInfoInput({
   register,
 }: ChildInfoNameInputProps) {
   const navigate = useNavigate();
-  const [isBlur, setIsBlur] = useState<boolean>(false);
+  const [isActive, setIsActive] = useState<boolean>(false);
   const ChildNameFormHandler = (data: userData) => {
     if (data.childName !== '') {
       console.log(data);
@@ -51,6 +51,14 @@ export default function ChildInfoInput({
 
   const childNameValue = watch('childName');
   const childGradeValue = watch('childGrade');
+
+  useEffect(() => {
+    if (childNameValue.trim() !== '') {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  }, [childNameValue]);
 
   return (
     <form
@@ -74,9 +82,9 @@ export default function ChildInfoInput({
         {...register('childName', {
           required: '자녀의 이름을 입력해주세요.',
         })}
-        onBlur={() => setIsBlur(true)}
+        onBlur={() => setIsActive(true)}
       />
-      {childNameValue !== '' && isBlur && (
+      {childNameValue !== '' && isActive && (
         <>
           <Label
             htmlFor='childGrade'
@@ -103,10 +111,10 @@ export default function ChildInfoInput({
           />
           <Button
             variant={`${childGradeValue ? 'default' : 'disabled'}`}
-            type='submit'
+            type={`${isActive ? 'submit' : 'button'}`}
             className='h-[48px]'
           >
-            확인
+            {`${childGradeValue ? '확인' : '학년을 선택해주세요.'}`}
           </Button>
         </>
       )}
