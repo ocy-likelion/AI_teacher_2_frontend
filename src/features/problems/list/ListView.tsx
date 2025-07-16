@@ -4,7 +4,7 @@ import Title from '../components/Title';
 import { Bookmark } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type React from 'react';
-import type { Problem } from '@/types/problem';
+import type { Problem } from '@/types/problem.type';
 
 type ListViewProps = {
   items: Problem[];

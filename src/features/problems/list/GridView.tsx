@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import CardWrapper from '../components/CardWrapper';
 import { Bookmark } from 'lucide-react';
 import { formatListDate } from '@/utils/date';
-import type { Problem } from '@/types/problem';
+import type { Problem } from '@/types/problem.type';
 
 type GridViewProps = {
   items: Problem[];
