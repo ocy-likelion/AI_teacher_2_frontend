@@ -2,7 +2,7 @@ import { httpClient } from '@/lib/api-client';
 import {
   type CursorPaginationParams,
   type GetProblemListResponse,
-} from '@/types/problem';
+} from '@/types/problem.type';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 const getProblemList = async ({ pageParam }: CursorPaginationParams) => {

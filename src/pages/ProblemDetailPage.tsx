@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import ServerErrorPage from '@/pages/ServerErrorPage';
 import NotFoundPage from '@/pages/NotFoundPage';
 import SubHeader from '@/components/layout/SubHeader';
-import KeywordList from '@/features/keywords/components/KeywordList';
+import ConceptList from '@/features/concepts/components/ConceptList';
 import CardWrapper from '@/features/problems/components/CardWrapper';
 import DetailFooter from '@/features/problems/detail/DetailFooter';
 import DetailSection from '@/features/problems/detail/DetailSection';
@@ -49,7 +49,7 @@ export default function ProblemDetailPage() {
             핵심 개념
           </Title>
           <CardWrapper>
-            <KeywordList concepts={data.concepts} />
+            <ConceptList concepts={data.concepts} />
           </CardWrapper>
         </DetailSection>
         <DetailSection>

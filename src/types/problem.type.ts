@@ -1,4 +1,4 @@
-import type { Concept } from './concept';
+import type { Concept } from './concept.type';
 
 export type Problem = {
   id: number;

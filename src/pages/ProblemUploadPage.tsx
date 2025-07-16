@@ -1,14 +1,13 @@
 import SubHeader from '@/components/layout/SubHeader';
 import { Button } from '@/components/ui/button';
-import ImageInputModal from '@/features/problems/components/ImageInputModal';
-import { useImageModalStore } from '@/stores/imageModalStore';
+import { useModalStore } from '@/stores/modalStore';
 // import ImageCropper from '@/features/problems/components/ui/ImageCropper';
 import { Info } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export default function ProblemUploadPage() {
   const navigate = useNavigate();
-  const { isOpen, closeModal, openModal } = useImageModalStore();
+  const { openModal } = useModalStore();
   return (
     <>
       <SubHeader type='close' title='문제 등록하기' />
@@ -29,14 +28,10 @@ export default function ProblemUploadPage() {
           <Button
             className='w-[100px] dark:bg-gray7 bg-white text-primary border-1 border-primary hover:bg-primary/75 hover:border-primary/75 hover:text-white'
             size={'lg'}
-            onClick={openModal}
+            onClick={() => openModal('UPLOAD_OPTION', undefined)}
           >
             재업로드
           </Button>
-          <ImageInputModal
-            dialogOpen={isOpen}
-            setDialogOpen={(value) => (value ? openModal() : closeModal())}
-          />
           <Button
             onClick={() =>
               navigate('/problem/1', {
