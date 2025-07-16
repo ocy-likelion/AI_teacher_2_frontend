@@ -2,6 +2,7 @@ import { RouterProvider } from 'react-router-dom';
 import router from './routes';
 import { Suspense } from 'react';
 import LayoutWrapper from './components/layout/LayoutWrapper';
+import Loading from './components/ui/Loading';
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <Suspense
         fallback={
           <LayoutWrapper>
-            <div>로딩 중...</div>
+            <Loading />
           </LayoutWrapper>
         }
       >

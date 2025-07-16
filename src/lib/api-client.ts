@@ -18,7 +18,7 @@ httpClient.interceptors.request.use(authRequestInterceptor);
 
 httpClient.interceptors.response.use(
   (response) => {
-    return response.data;
+    return response;
   },
   (error) => {
     if (error.response?.status === 401) {

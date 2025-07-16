@@ -1,5 +1,6 @@
+import { useImageModalStore } from '@/stores/imageModalStore';
 import { History, House, Plus } from 'lucide-react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const links = [
   {
@@ -16,10 +17,8 @@ const links = [
 
 export default function Footer() {
   const { pathname } = useLocation();
-  const navigate = useNavigate();
-  const handleClick = () => {
-    navigate('/problem/upload');
-  };
+
+  const openModal = useImageModalStore((state) => state.openModal);
 
   return (
     <footer
@@ -43,7 +42,7 @@ export default function Footer() {
       </nav>
       <div className='absolute left-[50%] translate-x-[-50%] bottom-7 flex flex-col justify-center items-center gap-1'>
         <button
-          onClick={handleClick}
+          onClick={openModal}
           className='text-background-light bg-gradient-to-r from-primary2 via-primary to-primary3 rounded-full w-10 h-10 flex justify-center items-center cursor-pointer'
         >
           <Plus />
