@@ -6,22 +6,22 @@ import { toast } from 'sonner';
 import type { NavigateFunction } from 'react-router-dom';
 import type { AxiosError } from 'axios';
 
-export function Login(
+const login = async (data: userData) => {
+  const formData = new FormData();
+  formData.append('username', data.id);
+  formData.append('password', data.password);
+
+  const JsonData = Object.fromEntries(formData.entries());
+  return await httpClient.post('/member/login', JSON.stringify(JsonData));
+};
+
+export function UseLogin(
   idValue: string,
   setIsUser: React.Dispatch<React.SetStateAction<boolean>>,
   navigate: NavigateFunction
 ) {
-  const loginFn = async (data: userData) => {
-    const formData = new FormData();
-    formData.append('username', data.id);
-    formData.append('password', data.password);
-
-    const JsonData = Object.fromEntries(formData.entries());
-    return await httpClient.post('/member/login', JSON.stringify(JsonData));
-  };
-
   return useMutation({
-    mutationFn: loginFn,
+    mutationFn: login,
     onSuccess: (res) => {
       //현재 res값으로 로그인이 성공했다는 메시지만 return되므로
       //위의 data.id와 data.password를 따로 변수에 저장 후 전역 관리
