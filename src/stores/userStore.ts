@@ -3,7 +3,7 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 
 type user = {
   id?: string;
-  childName: string;
+  childName?: string;
   childGrade?: string;
 };
 

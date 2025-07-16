@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import type { userData } from '@/types/types';
+import type { userData } from '@/types/user.type';
 import {
   Controller,
   type Control,
@@ -41,7 +41,7 @@ export default function ChildInfoInput({
     }
     if (data.childGrade !== '') {
       SetUser({
-        id: data.id,
+        id: data.username,
         childName: data.childName,
         childGrade: data.childGrade,
       });
@@ -53,7 +53,7 @@ export default function ChildInfoInput({
   const childGradeValue = watch('childGrade');
 
   useEffect(() => {
-    if (childNameValue.trim() !== '') {
+    if (childNameValue?.trim() !== '') {
       setIsActive(true);
     } else {
       setIsActive(false);
