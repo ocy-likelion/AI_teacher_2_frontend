@@ -7,14 +7,9 @@ import type {
   UseFormWatch,
 } from 'react-hook-form';
 import type { userData } from '@/types/types';
-import { useState } from 'react';
-
-// const data = {
-//   id: 'gildongmom',
-//   password: '1q2w3e4r',
-//   childName: '고길동',
-//   childGrade: '8',
-// };
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UseLogin } from '../api/useLoginMutation';
 
 type LoginFormProps = {
   watch: UseFormWatch<userData>;
@@ -30,24 +25,29 @@ export default function LoginForm({
   setIsUser,
 }: LoginFormProps) {
   const [isActive, setIsActive] = useState<boolean>(false);
-  const LoginHandler = (
-    setIsUser: React.Dispatch<React.SetStateAction<boolean>>,
-    data: userData
-  ) => {
-    console.log(data);
-    // 만약 기존 회원이 아닐 경우 isUser = false;
-    // 잘못 입력했을 경우를 대비하여 confirm으로 확인.
-    if (isActive && confirm('잘못 입력된 정보입니다. 회원가입 하시겠습니까?'))
-      setIsUser(false);
-  };
+  const navigate = useNavigate();
 
   const idValue = watch('id');
   const passwordValue = watch('password');
 
+  const login = UseLogin(idValue, setIsUser, navigate);
+
+  useEffect(() => {
+    if (idValue.trim() !== '' && passwordValue.trim() !== '') {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  }, [idValue, passwordValue]);
+
   return (
     <form
       id='login'
-      onSubmit={handleSubmit((data) => LoginHandler(setIsUser, data))}
+      onSubmit={handleSubmit((data) => {
+        login.mutate(data);
+        // 로그인 API 문제 발생 시 임시로 다음 페이지도 넘어가게 하는 용도
+        // setIsUser(false);
+      })}
       className='flex flex-col gap-3 px-[25px]'
     >
       <Label htmlFor='id' className='font-korean-title text-xl font-bold'>
@@ -58,6 +58,7 @@ export default function LoginForm({
         placeholder='이름을 입력하세요.'
         className='px-[15px] py-[9px] h-[52px] box-border mb-2 border-primary border-[1px] rounded-[12px]'
         {...register('id')}
+        minLength={3}
         onBlur={() => {
           if (idValue !== '' && passwordValue !== '') setIsActive(true);
         }}
@@ -69,6 +70,7 @@ export default function LoginForm({
         type='password'
         id='password'
         placeholder='******'
+        minLength={4}
         className='px-[15px] py-[9px] h-[52px] box-border mb-2 border-primary border-[1px] rounded-[12px]'
         {...register('password')}
         onBlur={() => {
@@ -76,11 +78,17 @@ export default function LoginForm({
         }}
       />
       <Button
-        variant={`${isActive ? 'default' : 'disabled'}`}
-        type='submit'
+        variant={`${
+          isActive ? (login.isPending ? 'disabled' : 'default') : 'disabled'
+        }`}
+        type={`${isActive ? (login.isPending ? 'button' : 'submit') : 'button'}`}
         className='h-[48px]'
       >
-        로그인
+        {isActive
+          ? login.isPending
+            ? ' · · · '
+            : '로그인'
+          : '아이디 및 비밀번호를 입력해주세요.'}
       </Button>
     </form>
   );

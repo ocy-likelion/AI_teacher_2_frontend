@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
+import RequireAuth from './utils/RequireAuth.tsx';
 
 const Layout = lazy(() => import('./components/layout/Layout'));
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -28,15 +29,19 @@ const router = createBrowserRouter([
         index: true,
         element: (
           <BasicLayout>
-            <HomePage />
+            <RequireAuth>
+              <HomePage />
+            </RequireAuth>
           </BasicLayout>
         ),
-        // 이후 리다이렉트 설정할 때 조건문과 함께 아래 루트 수정
-        // element: <Navigate to='onboarding' replace />,
       },
       {
         path: '/onboarding',
-        element: <OnboardingPage />,
+        element: (
+          <RequireAuth>
+            <OnboardingPage />
+          </RequireAuth>
+        ),
       },
       {
         path: '/history',

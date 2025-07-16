@@ -22,7 +22,9 @@ httpClient.interceptors.response.use(
   },
   (error) => {
     if (error.response?.status === 401) {
-      window.location.href = '/onboarding';
+      if (window.location.pathname !== '/onboarding') {
+        window.location.href = '/onboarding';
+      }
     }
 
     const message = error.response?.data?.message || error.message;
