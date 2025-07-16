@@ -29,20 +29,18 @@ const router = createBrowserRouter([
         index: true,
         element: (
           <BasicLayout>
-            {/* <RequireAuth>
+            <RequireAuth>
               <HomePage />
-            </RequireAuth> */}
-            <HomePage />
+            </RequireAuth>
           </BasicLayout>
         ),
       },
       {
         path: '/onboarding',
         element: (
-          // <RequireAuth>
-          //   <OnboardingPage />
-          // </RequireAuth>
-          <OnboardingPage />
+          <RequireAuth>
+            <OnboardingPage />
+          </RequireAuth>
         ),
       },
       {
