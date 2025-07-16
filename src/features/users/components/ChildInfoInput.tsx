@@ -18,7 +18,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { selectItemsLists } from './SelectItemsLists';
 import { useState } from 'react';
-import useUserStore, { type userStore } from '@/stores/useUserStore';
+import { SetUser } from '../api/update-user-info';
 
 type ChildInfoNameInputProps = {
   watch: UseFormWatch<userData>;
@@ -33,7 +33,6 @@ export default function ChildInfoInput({
   handleSubmit,
   register,
 }: ChildInfoNameInputProps) {
-  const setUserData = useUserStore((store: userStore) => store.setUser);
   const navigate = useNavigate();
   const [isBlur, setIsBlur] = useState<boolean>(false);
   const ChildNameFormHandler = (data: userData) => {
@@ -41,7 +40,7 @@ export default function ChildInfoInput({
       console.log(data);
     }
     if (data.childGrade !== '') {
-      setUserData({
+      SetUser({
         id: data.id,
         childName: data.childName,
         childGrade: data.childGrade,
@@ -49,13 +48,6 @@ export default function ChildInfoInput({
       navigate('/');
     }
   };
-
-  // const ChildGradeFormHandler = (
-  //   data: userData,
-  //   navigate: NavigateFunction
-  // ) => {
-  //   if (data.childGrade !== '') navigate('/');
-  // };
 
   const childNameValue = watch('childName');
   const childGradeValue = watch('childGrade');

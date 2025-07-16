@@ -16,15 +16,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import useUserStore, { type userStore } from '@/stores/useUserStore';
 import { GRADE_OPTIONS } from '@/utils/constants/grades';
 import { SquarePen } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { SetUser } from '../api/update-user-info';
+import { GetUser } from '../api/get-user-info';
 
 export default function EditChildInfoForm() {
-  const userData = useUserStore((store: userStore) => store.user);
-  const setUserChild = useUserStore((store: userStore) => store.setUser);
+  const userData = GetUser();
 
   const [childName, setChildName] = useState<string>(
     userData?.childName ? userData.childName : '고길동'
@@ -36,7 +36,7 @@ export default function EditChildInfoForm() {
   // 자녀 학년은 직관적으로 변경되는 사항이 없기 때문에 바로 적용, 자녀 이름은 홈페이지에 바로 표시되기에 tempName 상태 활용
   const clickHandler = () => {
     if (userData) {
-      setUserChild({
+      SetUser({
         id: userData.id,
         childName: tempName,
         childGrade: childGrade,
@@ -75,12 +75,7 @@ export default function EditChildInfoForm() {
                   defaultValue={childName}
                   onChange={(e) => setTempName(e.target.value)}
                 />
-                <Select
-                  value={
-                    userData?.childGrade ? userData.childGrade : childGrade
-                  }
-                  onValueChange={setChildGrade}
-                >
+                <Select value={childGrade} onValueChange={setChildGrade}>
                   <SelectTrigger className='w-3/4'>
                     <SelectValue placeholder='학년을 선택하세요' />
                   </SelectTrigger>

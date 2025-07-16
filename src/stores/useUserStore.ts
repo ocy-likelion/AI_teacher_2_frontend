@@ -2,11 +2,9 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 type user = {
-  id: string;
+  id?: string;
   childName: string;
   childGrade?: string;
-  accessToken?: string;
-  refreshToken?: string;
 };
 
 export type userStore = {

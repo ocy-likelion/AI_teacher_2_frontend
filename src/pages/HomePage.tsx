@@ -1,6 +1,6 @@
 import Tag from '@/components/ui/tag';
+import ImageUploadSection from '@/features/problems/components/ImageUploadSection';
 import EditChildInfoForm from '@/features/users/components/EditChildInfo';
-import ImageUploadSection from '@/features/users/components/ImageUploadSection';
 
 export default function HomePage() {
   return (
