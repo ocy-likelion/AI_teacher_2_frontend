@@ -1,6 +1,6 @@
 export type userData = {
-  id: string;
+  username: string;
   password: string;
-  childName: string;
-  childGrade: string;
+  childName?: string; // 선택적 필드
+  childGrade?: string; // 선택적 필드
 };
