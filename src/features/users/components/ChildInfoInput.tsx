@@ -78,6 +78,7 @@ export default function ChildInfoInput({
         id='childName'
         className='px-[15px] py-[9px] h-[52px] box-border mb-2 border-primary border-[1px] rounded-[12px]'
         placeholder='이름을 입력하세요.'
+        maxLength={6}
         {...register('childName', {
           required: '자녀의 이름을 입력해주세요.',
         })}

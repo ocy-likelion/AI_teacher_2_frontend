@@ -57,8 +57,9 @@ export default function LoginForm({
     },
     onError: (err) => {
       console.error(err);
-      toast.error('잘못 입력된 아이디 또는 비밀번호입니다.');
+
       if (confirm('회원가입 하시겠습니까?')) setIsUser(false);
+      else toast.error('잘못 입력된 아이디 또는 비밀번호입니다.');
     },
   });
 
@@ -79,6 +80,7 @@ export default function LoginForm({
         placeholder='이름을 입력하세요.'
         className='px-[15px] py-[9px] h-[52px] box-border mb-2 border-primary border-[1px] rounded-[12px]'
         {...register('id')}
+        minLength={3}
         onBlur={() => {
           if (idValue !== '' && passwordValue !== '') setIsActive(true);
         }}
@@ -90,6 +92,7 @@ export default function LoginForm({
         type='password'
         id='password'
         placeholder='******'
+        minLength={4}
         className='px-[15px] py-[9px] h-[52px] box-border mb-2 border-primary border-[1px] rounded-[12px]'
         {...register('password')}
         onBlur={() => {
