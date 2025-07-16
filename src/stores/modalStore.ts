@@ -5,10 +5,7 @@ type ModalState = {
   type: ModalType | null;
   props: ModalPropsMap[ModalType] | null;
   isOpen: boolean;
-  openModal: <T extends ModalType>(
-    type: T,
-    props: ModalPropsMap[T] extends undefined ? undefined : ModalPropsMap[T]
-  ) => void;
+  openModal: <T extends ModalType>(type: T, props: ModalPropsMap[T]) => void;
   closeModal: () => void;
 };
 

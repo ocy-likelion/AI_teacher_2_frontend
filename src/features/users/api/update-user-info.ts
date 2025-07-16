@@ -1,4 +1,4 @@
-import useUserStore from '@/stores/useUserStore';
+import useUserStore from '@/stores/userStore';
 
 export function SetUser(user: {
   id?: string;

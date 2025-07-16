@@ -14,7 +14,7 @@ export default function ConceptModal({
   onClose,
 }: ConceptModalProps) {
   return (
-    <Dialog open={true} onOpenChange={onClose}>
+    <Dialog defaultOpen onOpenChange={onClose}>
       <DialogContent className='flex flex-col items-center gap-6'>
         <DialogHeader>
           <DialogTitle className='title-sm'># {title}</DialogTitle>

@@ -1,20 +1,24 @@
-import type { NavigateFunction } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 type ImageCaptureProps = {
   cameraRef: React.RefObject<HTMLInputElement | null>;
-  navigate: NavigateFunction;
+
+  onClose: () => void;
 };
 
 export default function ImageCapture({
   cameraRef,
-  navigate,
+
+  onClose,
 }: ImageCaptureProps) {
+  const navigate = useNavigate();
   const ChangeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       // if (target === 'refresh') navigate(0);
       // else navigate(target);
       navigate('/problem/upload');
+      onClose();
     }
   };
   return (
