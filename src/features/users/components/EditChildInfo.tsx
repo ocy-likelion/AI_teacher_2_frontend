@@ -19,14 +19,33 @@ import {
 import { GRADE_OPTIONS } from '@/utils/constants/grades';
 import { SquarePen } from 'lucide-react';
 import { useState } from 'react';
+import { toast } from 'sonner';
+import { SetUser } from '../api/update-user-info';
+import { GetUser } from '../api/get-user-info';
 
 export default function EditChildInfoForm() {
-  const [childName, setChildName] = useState<string>('고길동');
+  const userData = GetUser();
+
+  const [childName, setChildName] = useState<string>(
+    userData?.childName ? userData.childName : '고길동'
+  );
   const [tempName, setTempName] = useState<string>('');
   const [childGrade, setChildGrade] = useState<string>('4');
 
+  // 이후 여기서 member의 childName 및 childGrade를 변경하는 axios를 호출할 예정
+  // 자녀 학년은 직관적으로 변경되는 사항이 없기 때문에 바로 적용, 자녀 이름은 홈페이지에 바로 표시되기에 tempName 상태 활용
   const clickHandler = () => {
-    setChildName(tempName);
+    if (userData) {
+      SetUser({
+        id: userData.id,
+        childName: tempName,
+        childGrade: childGrade,
+      });
+      setChildName(tempName);
+    } else {
+      setChildName(tempName);
+    }
+    toast.info('자녀의 이름이 변경되었습니다!');
   };
 
   return (
