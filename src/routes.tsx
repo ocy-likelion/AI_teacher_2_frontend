@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
-import RequireAuth from './utils/RequireAuth.tsx';
+// import RequireAuth from './utils/RequireAuth.tsx';
 
 const Layout = lazy(() => import('./components/layout/Layout'));
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -29,18 +29,18 @@ const router = createBrowserRouter([
         index: true,
         element: (
           <BasicLayout>
-            <RequireAuth>
-              <HomePage />
-            </RequireAuth>
+            {/* <RequireAuth> */}
+            <HomePage />
+            {/* </RequireAuth> */}
           </BasicLayout>
         ),
       },
       {
         path: '/onboarding',
         element: (
-          <RequireAuth>
-            <OnboardingPage />
-          </RequireAuth>
+          // <RequireAuth>
+          <OnboardingPage />
+          // </RequireAuth>
         ),
       },
       {

@@ -40,11 +40,7 @@ export default function LoginForm({
       formData.append('password', data.password);
 
       const JsonData = Object.fromEntries(formData.entries());
-      return await httpClient.post('/member/login', JSON.stringify(JsonData), {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      return await httpClient.post('/member/login', JSON.stringify(JsonData));
     },
     onSuccess: (res) => {
       //현재 res값으로 로그인이 성공했다는 메시지만 return되므로
@@ -105,10 +101,14 @@ export default function LoginForm({
         variant={`${
           isActive ? (login.isPending ? 'disabled' : 'default') : 'disabled'
         }`}
-        type='submit'
+        type={`${isActive ? (login.isPending ? 'button' : 'submit') : 'button'}`}
         className='h-[48px]'
       >
-        {login.isPending ? ' · · · ' : '로그인'}
+        {isActive
+          ? login.isPending
+            ? ' · · · '
+            : '로그인'
+          : '아이디 및 비밀번호를 입력해주세요.'}
       </Button>
     </form>
   );
