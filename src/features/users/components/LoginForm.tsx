@@ -13,6 +13,7 @@ import { httpClient } from '@/lib/api-client';
 import { useNavigate } from 'react-router-dom';
 import useUserStore, { type userStore } from '@/stores/useUserStore';
 import { toast } from 'sonner';
+import type { AxiosError } from 'axios';
 
 type LoginFormProps = {
   watch: UseFormWatch<userData>;
@@ -55,11 +56,12 @@ export default function LoginForm({
       toast.success('로그인 성공');
       navigate('/');
     },
-    onError: (err) => {
+    onError: (err: AxiosError) => {
       console.error(err);
-
-      if (confirm('회원가입 하시겠습니까?')) setIsUser(false);
-      else toast.error('잘못 입력된 아이디 또는 비밀번호입니다.');
+      if (err.response?.status === 401) {
+        if (confirm('회원가입 하시겠습니까?')) setIsUser(false);
+        else toast.error('잘못 입력된 아이디 또는 비밀번호입니다.');
+      } else toast.error('알수없는 오류가 발생했습니다.');
     },
   });
 
