@@ -10,14 +10,16 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-primary text-primary-foreground shadow-xs hover:bg-primary/80',
+          'bg-primary text-primary-foreground shadow-xs hover:bg-primary/80 rounded-[12px]',
         border:
           'border border-primary text-primary shadow-xs hover:border-primary/70 hover:text-primary/70',
         disabled: 'bg-btn-disabled shadow-xs cursor-not-allowed',
+        link: 'hover:underline active:underline text-primary font-korean-title font-bold text-2xl',
       },
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',
         sm: 'h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5',
+        sm_link: 'h-[32.4px]',
         lg: 'h-10 rounded-md px-6 has-[>svg]:px-4',
         icon: 'size-9',
         full: 'w-full h-11 rounded-md px-6 has-[>svg]:px-4',
@@ -44,7 +46,7 @@ function Button({
 
   return (
     <Comp
-      data-slot="button"
+      data-slot='button'
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     />

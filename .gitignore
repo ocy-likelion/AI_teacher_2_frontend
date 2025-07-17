@@ -1,3 +1,6 @@
+.env
+.env.*
+
 # Logs
 logs
 *.log
@@ -22,3 +25,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+.bedrock
+/dist/*
+*.ait
