@@ -4,6 +4,7 @@ import LoginForm from '@/features/users/components/LoginForm';
 // import ChildInfoGradeInput from '@/features/users/components/ChildInfoGradeInput';
 import OnBoardingIntro from '@/features/users/components/OnBoardingIntro';
 import ChildInfoInput from '@/features/users/components/ChildInfoInput';
+import type { userData } from '@/types/user.type';
 
 // const data = {
 //   id: 'gildongmom',
@@ -21,8 +22,13 @@ export default function OnboardingPage() {
     watch,
     handleSubmit,
     // formState: { errors },
-  } = useForm({
-    defaultValues: { id: '', password: '', childName: '', childGrade: '' },
+  } = useForm<userData>({
+    defaultValues: {
+      username: '',
+      password: '',
+      childName: '',
+      childGrade: '',
+    },
     mode: 'onSubmit',
   });
 

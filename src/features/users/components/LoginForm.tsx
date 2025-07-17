@@ -6,7 +6,7 @@ import type {
   UseFormRegister,
   UseFormWatch,
 } from 'react-hook-form';
-import type { userData } from '@/types/types';
+import type { userData } from '@/types/user.type';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UseLogin } from '../api/useLoginMutation';
@@ -27,18 +27,18 @@ export default function LoginForm({
   const [isActive, setIsActive] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const idValue = watch('id');
-  const passwordValue = watch('password');
+  const usernameValue = watch('username') ?? '';
+  const passwordValue = watch('password') ?? '';
 
-  const login = UseLogin(idValue, setIsUser, navigate);
+  const login = UseLogin(usernameValue, setIsUser, navigate);
 
   useEffect(() => {
-    if (idValue.trim() !== '' && passwordValue.trim() !== '') {
+    if (usernameValue.trim() !== '' && passwordValue.trim() !== '') {
       setIsActive(true);
     } else {
       setIsActive(false);
     }
-  }, [idValue, passwordValue]);
+  }, [usernameValue, passwordValue]);
 
   return (
     <form
@@ -50,17 +50,17 @@ export default function LoginForm({
       })}
       className='flex flex-col gap-3 px-[25px]'
     >
-      <Label htmlFor='id' className='font-korean-title text-xl font-bold'>
+      <Label htmlFor='username' className='font-korean-title text-xl font-bold'>
         이름
       </Label>
       <Input
-        id='id'
+        id='username'
         placeholder='이름을 입력하세요.'
         className='px-[15px] py-[9px] h-[52px] box-border mb-2 border-primary border-[1px] rounded-[12px]'
-        {...register('id')}
+        {...register('username')}
         minLength={3}
         onBlur={() => {
-          if (idValue !== '' && passwordValue !== '') setIsActive(true);
+          if (usernameValue !== '' && passwordValue !== '') setIsActive(true);
         }}
       />
       <Label htmlFor='password' className='font-korean-title text-xl font-bold'>
@@ -74,7 +74,7 @@ export default function LoginForm({
         className='px-[15px] py-[9px] h-[52px] box-border mb-2 border-primary border-[1px] rounded-[12px]'
         {...register('password')}
         onBlur={() => {
-          if (idValue !== '' && passwordValue !== '') setIsActive(true);
+          if (usernameValue !== '' && passwordValue !== '') setIsActive(true);
         }}
       />
       <Button

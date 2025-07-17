@@ -1,5 +1,5 @@
 import { httpClient } from '@/lib/api-client';
-import type { userData } from '@/types/types';
+import type { userData } from '@/types/user.type';
 import { useMutation } from '@tanstack/react-query';
 import { SetUser } from './update-user-info';
 import { toast } from 'sonner';
@@ -7,12 +7,14 @@ import type { NavigateFunction } from 'react-router-dom';
 import type { AxiosError } from 'axios';
 
 const login = async (data: userData) => {
-  const formData = new FormData();
-  formData.append('username', data.id);
-  formData.append('password', data.password);
-
-  const JsonData = Object.fromEntries(formData.entries());
-  return await httpClient.post('/member/login', JSON.stringify(JsonData));
+  console.log('로그인 요청 보내는 데이터:', {
+    username: data.username,
+    password: data.password,
+  });
+  return await httpClient.post('/member/login', {
+    username: data.username,
+    password: data.password,
+  });
 };
 
 export function UseLogin(
@@ -23,6 +25,10 @@ export function UseLogin(
   return useMutation({
     mutationFn: login,
     onSuccess: (res) => {
+      const token = res.data.accessToken;
+      if (token) {
+        sessionStorage.setItem('token', token); // 토큰 저장
+      }
       //현재 res값으로 로그인이 성공했다는 메시지만 return되므로
       //위의 data.id와 data.password를 따로 변수에 저장 후 전역 관리
       //홈페이지에 '김길동'으로 표시된다면 로그인이 성공했다고 생각하면 됨
