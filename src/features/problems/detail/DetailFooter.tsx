@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Bookmark } from 'lucide-react';
 import { useDeleteProblem } from '../api/delete-problem';
 import { useNavigate } from 'react-router-dom';
+import { useModalStore } from '@/stores/modalStore';
 
 type DetailFooterProps = {
   id: string;
@@ -11,6 +12,7 @@ type DetailFooterProps = {
 export default function DetailFooter({ id, isFavorite }: DetailFooterProps) {
   const { mutate: deleteProblem, isPending: isDeleting } = useDeleteProblem();
   const navigate = useNavigate();
+  const openModal = useModalStore((state) => state.openModal);
 
   const handleDelete = () => {
     deleteProblem(id, {
@@ -18,6 +20,10 @@ export default function DetailFooter({ id, isFavorite }: DetailFooterProps) {
         navigate('/history');
       },
     });
+  };
+
+  const handleDeleteClick = () => {
+    openModal('DELETE_CONFIRM', { onConfirm: handleDelete });
   };
 
   return (
@@ -42,7 +48,7 @@ export default function DetailFooter({ id, isFavorite }: DetailFooterProps) {
           {isFavorite ? '해제하기' : '저장하기'}
         </Button>
         <Button
-          onClick={handleDelete}
+          onClick={handleDeleteClick}
           variant={`${isDeleting ? 'disabled' : 'default'}`}
           size='full'
           className='flex-1 text-md font-semibold'
