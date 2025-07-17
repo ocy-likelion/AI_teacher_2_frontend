@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import Cropper, { type ReactCropperElement } from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 
@@ -6,7 +6,7 @@ import 'cropperjs/dist/cropper.css';
 export default function ImageCropper() {
   const cropperRef = useRef<ReactCropperElement>(null);
 
-  // useEffect(() => {
+  // useEffect(() => { // TODO: 구현 예정
   //   const deployImage = () => {
   //     if (image && image.length > 0) {
   //       const reader = new FileReader();
@@ -17,13 +17,13 @@ export default function ImageCropper() {
   //   };
   // });
 
-  const getCropData = () => {
-    const cropper = cropperRef.current?.cropper;
-    if (cropper) {
-      const croppedImage = cropper.getCroppedCanvas().toDataURL();
-      console.log('Cropped Image', croppedImage);
-    }
-  };
+  // const getCropData = () => {
+  //   const cropper = cropperRef.current?.cropper;
+  //   if (cropper) {
+  //     const croppedImage = cropper.getCroppedCanvas().toDataURL();
+  //     console.log('Cropped Image', croppedImage);
+  //   }
+  // };
 
   return (
     <div className='h-full w-full '>
