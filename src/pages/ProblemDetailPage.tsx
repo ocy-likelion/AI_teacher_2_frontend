@@ -57,7 +57,7 @@ export default function ProblemDetailPage() {
           <CardWrapper>{data.llmResult}</CardWrapper>
         </DetailSection>
       </main>
-      <DetailFooter isFavorite={data.favorite} />
+      <DetailFooter id={_id!} isFavorite={data.favorite} />
     </section>
   );
 }
