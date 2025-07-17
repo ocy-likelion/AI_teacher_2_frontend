@@ -15,7 +15,7 @@ function authRequestInterceptor(config: InternalAxiosRequestConfig) {
     }
     // 로그인 요청은 토큰을 붙이지 않는다
     if (!config.url?.includes('/api/v1/member/login')) {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }

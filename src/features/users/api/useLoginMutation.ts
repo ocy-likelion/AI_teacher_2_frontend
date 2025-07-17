@@ -11,18 +11,10 @@ const login = async (data: userData) => {
     username: data.username,
     password: data.password,
   });
-  return await httpClient.post(
-    '/member/login',
-    {
-      username: data.username,
-      password: data.password,
-    },
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-  );
+  return await httpClient.post('/member/login', {
+    username: data.username,
+    password: data.password,
+  });
 };
 
 export function UseLogin(
@@ -35,7 +27,7 @@ export function UseLogin(
     onSuccess: (res) => {
       const token = res.data.accessToken;
       if (token) {
-        localStorage.setItem('token', token); // 토큰 저장
+        sessionStorage.setItem('token', token); // 토큰 저장
       }
       //현재 res값으로 로그인이 성공했다는 메시지만 return되므로
       //위의 data.id와 data.password를 따로 변수에 저장 후 전역 관리
