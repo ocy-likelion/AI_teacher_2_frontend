@@ -1,4 +1,4 @@
-import { CircleUserRound, History, House, Plus } from 'lucide-react';
+import { CircleUserRound, History, House } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 const links = [
