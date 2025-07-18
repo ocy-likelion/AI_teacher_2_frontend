@@ -1,3 +1,4 @@
+import { useImageStore } from '@/stores/imageStore';
 import { Camera } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +9,8 @@ export default function ImageUploadSection() {
   const [height, setHeight] = useState<number>();
 
   const navigate = useNavigate();
-  // const { isOpen, closeModal, openModal } = useImageModalStore();
+
+  const setImageFile = useImageStore((file) => file.setImageFile);
 
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -17,8 +19,7 @@ export default function ImageUploadSection() {
   const ChangeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      // if (target === 'refresh') navigate(0);
-      // else navigate(target);
+      setImageFile(file);
       navigate('/problem/upload');
     }
   };
