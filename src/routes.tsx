@@ -4,6 +4,7 @@ import RequireAuth from './utils/RequireAuth.tsx';
 
 const Layout = lazy(() => import('./components/layout/Layout'));
 const HomePage = lazy(() => import('./pages/HomePage'));
+const MyPage = lazy(() => import('./pages/MyPage'));
 const OnboardingPage = lazy(() => import('./pages/OnboardingPage'));
 const ProblemHistoryPage = lazy(() => import('./pages/ProblemHistoryPage'));
 const ProblemUploadPage = lazy(() => import('./pages/ProblemUploadPage'));
@@ -48,6 +49,14 @@ const router = createBrowserRouter([
         element: (
           <BasicLayout>
             <ProblemHistoryPage />
+          </BasicLayout>
+        ),
+      },
+      {
+        path: '/profile',
+        element: (
+          <BasicLayout>
+            <MyPage />
           </BasicLayout>
         ),
       },

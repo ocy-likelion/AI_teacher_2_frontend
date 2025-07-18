@@ -28,7 +28,7 @@ export default function DetailFooter({ id, isFavorite }: DetailFooterProps) {
 
   return (
     <footer
-      className='w-full max-w-[var(--max-size-mobile)] pt-1 bg-background-light dark:bg-gray7 shadow-[var(--bottom-nav-shadow)] dark:shadow-[var(--bottom-nav-shadow-dark)] sticky bottom-0 flex justify-center items-center rounded-t-[32px]'
+      className='w-full max-w-[var(--max-size-mobile)] pt-1 bg-background-light dark:bg-gray7 sticky bottom-0 flex justify-center items-center border-t border-gray2 dark:border-gray6'
       style={{
         paddingBottom: 'calc(4px + var(--safe-bottom))',
         minHeight: 'calc(var(--h-header) + var(--safe-bottom))',

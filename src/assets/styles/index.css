@@ -138,7 +138,7 @@ body {
   --bottom-nav-shadow-dark: inset 0px 2px 0px 0px rgba(82, 82, 91, 0.5);
   --shadow: 0px 1px 5px 0px rgba(217, 217, 217);
   --shadow-dark: 0px 1px 5px 0px rgba(0, 0, 0, 0.4);
-  --shadow-search: 0px 1px 1px 7px #fdfbf9;
+  --shadow-search: 0px 1px 1px 7px #fff;
   --shadow-search-dark: 0px 1px 1px 7px #1f2937;
 }
 
