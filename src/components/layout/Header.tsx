@@ -10,7 +10,7 @@ export default function Header() {
       }}
     >
       <Link to='/'>
-        <img src='/images/Logo_Header.svg' alt='로고' />
+        <img src='/images/logo/Logo_Header.svg' alt='로고' />
       </Link>
     </header>
   );
