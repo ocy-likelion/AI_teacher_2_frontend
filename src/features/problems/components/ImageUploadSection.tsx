@@ -1,16 +1,14 @@
-import { useImageStore } from '@/stores/imageStore';
+import useImageStore, { type imageStore } from '@/stores/imageStore';
 import { Camera } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import ImageInputModal from './ImageInputModal';
-// import { useImageModalStore } from '@/stores/imageModalStore';
 
 export default function ImageUploadSection() {
   const [height, setHeight] = useState<number>();
 
   const navigate = useNavigate();
 
-  const setImageFile = useImageStore((file) => file.setImageFile);
+  const setImageFile = useImageStore((file: imageStore) => file.setImageFile);
 
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -52,10 +50,6 @@ export default function ImageUploadSection() {
           <span className='font-medium text-md'>문제를 등록해보세요</span>
         </div>
       </div>
-      {/* <ImageInputModal
-        dialogOpen={isOpen}
-        setDialogOpen={(value) => (value ? openModal() : closeModal())}
-      /> */}
       <input
         key='upload'
         type='file'

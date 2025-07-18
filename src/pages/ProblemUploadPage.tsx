@@ -1,21 +1,30 @@
 import SubHeader from '@/components/layout/SubHeader';
 import { Button } from '@/components/ui/button';
 import ImageCropper from '@/features/problems/components/ImageCropper';
-// import ImageInputModal from '@/features/problems/components/ImageInputModal';
-// import { useImageModalStore } from '@/stores/imageModalStore';
-import { useImageStore } from '@/stores/imageStore';
-// import ImageCropper from '@/features/problems/components/ui/ImageCropper';
+import useImageStore, { type imageStore } from '@/stores/imageStore';
 import { Info } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import type { ReactCropperElement } from 'react-cropper';
+// import { useNavigate } from 'react-router-dom';
 
 export default function ProblemUploadPage() {
-  const navigate = useNavigate();
-  // const { isOpen, closeModal, openModal } = useImageModalStore();
+  // const navigate = useNavigate();
 
-  const useImage = useImageStore((state) => state.imageFile);
+  const useImage = useImageStore((state: imageStore) => state.imageFile);
 
   const [image, setImage] = useState<string | undefined>();
+
+  const cropperRef = useRef<ReactCropperElement>(null);
+
+  const getCropData = () => {
+    // TODO: 구현 예정
+    const cropper = cropperRef.current?.cropper;
+    if (cropper) {
+      const croppedImage = cropper.getCroppedCanvas().toDataURL();
+      console.log('Cropped Image', croppedImage);
+      setImage(croppedImage);
+    }
+  };
 
   useEffect(() => {
     if (useImage) {
@@ -40,8 +49,7 @@ export default function ProblemUploadPage() {
       </div>
       <section className='mt-[15px] w-full h-fit pb-10'>
         <section className='flex justify-center w-full max-h-[40vh] aspect-square bg-black mb-10'>
-          {/* <img src='/images/Sample-Image.svg' alt='사진 샘플' /> */}
-          <ImageCropper image={image} />
+          <ImageCropper image={image} cropperRef={cropperRef} />
         </section>
         <div className='flex justify-center gap-6'>
           <Button
@@ -52,12 +60,13 @@ export default function ProblemUploadPage() {
             재업로드
           </Button>
           <Button
-            onClick={() =>
-              navigate('/problem/1', {
-                replace: true,
-                state: { from: 'upload' },
-              })
-            }
+            onClick={() => {
+              getCropData();
+              // navigate('/problem/1', {
+              //   replace: true,
+              //   state: { from: 'upload' },
+              // });
+            }}
             className='w-[100px]'
             size={'lg'}
           >

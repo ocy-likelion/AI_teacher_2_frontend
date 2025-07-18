@@ -1,12 +1,14 @@
-import { useRef } from 'react';
+import { type RefObject } from 'react';
 import Cropper, { type ReactCropperElement } from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 
-export default function ImageCropper({ image }: { image: string | undefined }) {
-  const cropperRef = useRef<ReactCropperElement>(null);
-
-  console.log(image);
-
+export default function ImageCropper({
+  image,
+  cropperRef,
+}: {
+  image: string | undefined;
+  cropperRef: RefObject<ReactCropperElement | null>;
+}) {
   return (
     <div className='h-full w-full '>
       <Cropper
@@ -15,13 +17,14 @@ export default function ImageCropper({ image }: { image: string | undefined }) {
         initialAspectRatio={1}
         guides={true}
         ref={cropperRef}
+        // viewMode={1}
         dragMode='move'
         responsive={true}
         background={false}
         checkOrientation={false}
         autoCropArea={1}
+        // cropBoxMovable={false}
       />
-      {/* <button onClick={getCropData}>크롭하기</button> */}
     </div>
   );
 }
