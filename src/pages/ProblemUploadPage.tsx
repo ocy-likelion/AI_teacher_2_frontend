@@ -1,6 +1,8 @@
 import SubHeader from '@/components/layout/SubHeader';
 import { Button } from '@/components/ui/button';
-import { useModalStore } from '@/stores/modalStore';
+import ImageCropper from '@/features/problems/components/ImageCropper';
+import ImageInputModal from '@/features/problems/components/ImageInputModal';
+import { useImageModalStore } from '@/stores/imageModalStore';
 // import ImageCropper from '@/features/problems/components/ui/ImageCropper';
 import { Info } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -21,8 +23,8 @@ export default function ProblemUploadPage() {
       </div>
       <section className='mt-[15px] w-full h-fit pb-10'>
         <section className='flex justify-center w-full max-h-[40vh] aspect-square bg-black mb-10'>
-          <img src='/images/Sample-Image.svg' alt='사진 샘플' />
-          {/* <ImageCropper /> */}
+          {/* <img src='/images/Sample-Image.svg' alt='사진 샘플' /> */}
+          <ImageCropper />
         </section>
         <div className='flex justify-center gap-6'>
           <Button

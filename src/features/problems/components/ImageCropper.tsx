@@ -17,7 +17,7 @@ export default function ImageCropper() {
   //   };
   // });
 
-  // const getCropData = () => {
+  // const getCropData = () => { // TODO: 구현 예정
   //   const cropper = cropperRef.current?.cropper;
   //   if (cropper) {
   //     const croppedImage = cropper.getCroppedCanvas().toDataURL();
