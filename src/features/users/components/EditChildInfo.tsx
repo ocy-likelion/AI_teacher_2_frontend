@@ -19,26 +19,25 @@ import {
 import { GRADE_OPTIONS } from '@/utils/constants/grades';
 import { SquarePen } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { SetUser } from '../api/update-user-info';
-import { GetUser } from '../api/get-user-info';
-import { useUpdateCurrentChild } from '../api/useUpdateChild';
+import useUserStore from '@/stores/userStore';
+import { useUpdateCurrentChild } from '../api/get-user-info';
 
 export default function EditChildInfoForm() {
-  const userData = GetUser();
+  const { user } = useUserStore();
 
   const { updateCurrentChild, isLoading } = useUpdateCurrentChild();
 
   const [childName, setChildName] = useState<string>(
-    userData?.childName ? userData.childName : '고길동'
+    user?.childName ? user.childName : '고길동'
   );
   const [tempName, setTempName] = useState<string>("");
   const [childGrade, setChildGrade] = useState<string>("1");
 
   useEffect(() => {
-    if (userData?.childGrade !== undefined) {
-      setChildGrade(userData.childGrade.toString());
+    if (user?.childGrade !== undefined) {
+      setChildGrade(user.childGrade.toString());
     }
-  }, [userData?.childGrade]);
+  }, [user?.childGrade]);
 
   const handleUpdateChild = () => {
     const updatedName = tempName || childName;
@@ -47,17 +46,7 @@ export default function EditChildInfoForm() {
       name: updatedName,
       grade: parseInt(childGrade),
     });
-
-    if (userData) {
-      SetUser({
-        id: userData.id,
-        childName: updatedName,
-        childGrade: parseInt(childGrade),
-      });
-      setChildName(updatedName);
-    } else {
-      setChildName(updatedName);
-    }
+    setChildName(updatedName);
   };
 
   return (
@@ -93,7 +82,7 @@ export default function EditChildInfoForm() {
                   </SelectTrigger>
                   <SelectContent>
                     {GRADE_OPTIONS.map(({ label, value }) => (
-                      <SelectItem key={value} value={value}>
+                      <SelectItem key={value} value={value.toString()}>
                         {label}
                       </SelectItem>
                     ))}
