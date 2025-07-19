@@ -39,11 +39,11 @@ export default function ChildInfoInput({
     if (data.childName !== '') {
       console.log(data);
     }
-    if (data.childGrade !== '') {
+    if (data.childGrade !== undefined && data.childGrade !== null) {
       SetUser({
         id: data.username,
         childName: data.childName,
-        childGrade: data.childGrade,
+        childGrade: Number(data.childGrade),
       });
       navigate('/');
     }
@@ -97,7 +97,9 @@ export default function ChildInfoInput({
             control={control}
             rules={{ required: '학년을 반드시 선택해야 합니다.' }}
             render={({ field }) => (
-              <Select onValueChange={field.onChange} value={field.value}>
+              <Select
+                onValueChange={(value) => field.onChange(Number(value))} 
+                value={field.value ? field.value.toString() : undefined}>
                 <SelectTrigger
                   className={`min-h-[52px] w-full rounded-[12px] `}
                 >

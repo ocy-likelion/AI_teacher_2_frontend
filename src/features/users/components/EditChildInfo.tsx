@@ -18,34 +18,35 @@ import {
 } from '@/components/ui/select';
 import { GRADE_OPTIONS } from '@/utils/constants/grades';
 import { SquarePen } from 'lucide-react';
-import { useState } from 'react';
-import { toast } from 'sonner';
-import { SetUser } from '../api/update-user-info';
-import { GetUser } from '../api/get-user-info';
+import { useState, useEffect } from 'react';
+import useUserStore from '@/stores/userStore';
+import { useUpdateCurrentChild } from '../api/get-user-info';
 
 export default function EditChildInfoForm() {
-  const userData = GetUser();
+  const { user } = useUserStore();
+
+  const { updateCurrentChild, isLoading } = useUpdateCurrentChild();
 
   const [childName, setChildName] = useState<string>(
-    userData?.childName ? userData.childName : '고길동'
+    user?.childName ? user.childName : '고길동'
   );
-  const [tempName, setTempName] = useState<string>('');
-  const [childGrade, setChildGrade] = useState<string>('4');
+  const [tempName, setTempName] = useState<string>("");
+  const [childGrade, setChildGrade] = useState<string>("1");
 
-  // 이후 여기서 member의 childName 및 childGrade를 변경하는 axios를 호출할 예정
-  // 자녀 학년은 직관적으로 변경되는 사항이 없기 때문에 바로 적용, 자녀 이름은 홈페이지에 바로 표시되기에 tempName 상태 활용
-  const clickHandler = () => {
-    if (userData) {
-      SetUser({
-        id: userData.id,
-        childName: tempName,
-        childGrade: childGrade,
-      });
-      setChildName(tempName);
-    } else {
-      setChildName(tempName);
+  useEffect(() => {
+    if (user?.childGrade !== undefined) {
+      setChildGrade(user.childGrade.toString());
     }
-    toast.info('자녀의 이름이 변경되었습니다!');
+  }, [user?.childGrade]);
+
+  const handleUpdateChild = () => {
+    const updatedName = tempName || childName;
+
+    updateCurrentChild({
+      name: updatedName,
+      grade: parseInt(childGrade),
+    });
+    setChildName(updatedName);
   };
 
   return (
@@ -81,7 +82,7 @@ export default function EditChildInfoForm() {
                   </SelectTrigger>
                   <SelectContent>
                     {GRADE_OPTIONS.map(({ label, value }) => (
-                      <SelectItem key={value} value={value}>
+                      <SelectItem key={value} value={value.toString()}>
                         {label}
                       </SelectItem>
                     ))}
@@ -90,8 +91,13 @@ export default function EditChildInfoForm() {
               </div>
               <DialogFooter>
                 <DialogClose asChild>
-                  <Button onClick={clickHandler} size='lg' type='submit'>
-                    수정하기
+                  <Button
+                    onClick={handleUpdateChild}
+                    size='lg'
+                    type='submit'
+                    disabled={isLoading}
+                  >
+                    {isLoading ? '저장 중...' : '수정하기'}
                   </Button>
                 </DialogClose>
               </DialogFooter>

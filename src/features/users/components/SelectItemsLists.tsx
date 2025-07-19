@@ -4,7 +4,7 @@ import type { JSX } from 'react';
 
 export const selectItemsLists: JSX.Element[] = GRADE_OPTIONS.map(
   ({ label, value }) => (
-    <SelectItem key={value} value={value}>
+    <SelectItem key={value} value={value.toString()}>
       {label}
     </SelectItem>
   )
