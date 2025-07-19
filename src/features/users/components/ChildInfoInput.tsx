@@ -43,7 +43,7 @@ export default function ChildInfoInput({
       SetUser({
         id: data.username,
         childName: data.childName,
-        childGrade: data.childGrade,
+        childGrade: Number(data.childGrade),
       });
       navigate('/');
     }

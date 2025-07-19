@@ -52,7 +52,7 @@ export default function EditChildInfoForm() {
       SetUser({
         id: userData.id,
         childName: updatedName,
-        childGrade: childGrade,
+        childGrade: parseInt(childGrade),
       });
       setChildName(updatedName);
     } else {

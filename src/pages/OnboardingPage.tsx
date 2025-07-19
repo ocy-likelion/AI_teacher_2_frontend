@@ -27,7 +27,7 @@ export default function OnboardingPage() {
       username: '',
       password: '',
       childName: '',
-      childGrade: '',
+      childGrade: undefined,
     },
     mode: 'onSubmit',
   });
