@@ -17,26 +17,53 @@ const login = async (data: userData) => {
   });
 };
 
-export function UseLogin(
+const getChildInfo = async (memberId: number) => {
+  return await httpClient.get(`/member/${memberId}`);
+};
+
+export const useLogin = (
   idValue: string,
   setIsUser: React.Dispatch<React.SetStateAction<boolean>>,
   navigate: NavigateFunction
-) {
+) => {
   return useMutation({
     mutationFn: login,
-    onSuccess: (res) => {
+    onSuccess: async (res) => {
       const token = res.data.accessToken;
       if (token) {
-        sessionStorage.setItem('token', token); // 토큰 저장
+        sessionStorage.setItem('token', token);
       }
-      //현재 res값으로 로그인이 성공했다는 메시지만 return되므로
-      //위의 data.id와 data.password를 따로 변수에 저장 후 전역 관리
-      //홈페이지에 '김길동'으로 표시된다면 로그인이 성공했다고 생각하면 됨
-      //이 부분은 로그인 성공 -> id로 member 조회해서 child name + grade 가져옴 => store에 등록 flow로 진행할 예정
-      SetUser({ id: idValue, childName: '김길동' });
-      console.log(res);
-      toast.success('로그인 성공');
-      navigate('/');
+
+      try {
+        // TODO : 임시로 8번 고정 (카카오 로그인 적용시 변경 예정)
+        const childInfoResponse = await getChildInfo(8);
+
+        if (childInfoResponse.data) {
+          const childData = childInfoResponse.data;
+
+          SetUser({
+            id: idValue,
+            childName: childData.name,
+            childGrade: childData.grade || null,
+          });
+        } else {
+          SetUser({
+            id: idValue,
+            childName: '김길동',
+          });
+        }
+
+        toast.success('로그인 성공');
+        navigate('/');
+      } catch (childInfoError) {
+        SetUser({
+          id: idValue,
+          childName: '김길동',
+        });
+
+        toast.success('로그인 성공 (자녀 정보 조회는 실패)');
+        navigate('/');
+      }
     },
     onError: (err: AxiosError) => {
       console.error(err);

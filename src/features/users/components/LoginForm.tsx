@@ -9,7 +9,7 @@ import type {
 import type { userData } from '@/types/user.type';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UseLogin } from '../api/useLoginMutation';
+import { useLogin } from '../api/useLoginMutation';
 
 type LoginFormProps = {
   watch: UseFormWatch<userData>;
@@ -30,7 +30,7 @@ export default function LoginForm({
   const usernameValue = watch('username') ?? '';
   const passwordValue = watch('password') ?? '';
 
-  const login = UseLogin(usernameValue, setIsUser, navigate);
+  const login = useLogin(usernameValue, setIsUser, navigate);
 
   useEffect(() => {
     if (usernameValue.trim() !== '' && passwordValue.trim() !== '') {

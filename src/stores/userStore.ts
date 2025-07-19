@@ -4,7 +4,7 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 type user = {
   id?: string;
   childName?: string;
-  childGrade?: string;
+  childGrade?: number;
 };
 
 export type userStore = {
