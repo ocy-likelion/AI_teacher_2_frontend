@@ -1,11 +1,9 @@
-import useImageStore, { type imageStore } from '@/stores/imageStore';
 import { Camera } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import ImageUpload from './ImageUploadInput';
 
 export default function ImageUploadSection() {
   const [height, setHeight] = useState<number>();
-  const setImageFile = useImageStore((file: imageStore) => file.setImageFile);
 
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -41,7 +39,7 @@ export default function ImageUploadSection() {
           <span className='font-medium text-md'>문제를 등록해보세요</span>
         </div>
       </div>
-      <ImageUpload uploadRef={uploadRef} setImageFile={setImageFile} />
+      <ImageUpload uploadRef={uploadRef} />
     </>
   );
 }

@@ -30,9 +30,9 @@ const router = createBrowserRouter([
         index: true,
         element: (
           <BasicLayout>
-            <RequireAuth>
-              <HomePage />
-            </RequireAuth>
+            {/* <RequireAuth> */}
+            <HomePage />
+            {/* </RequireAuth> */}
           </BasicLayout>
         ),
       },

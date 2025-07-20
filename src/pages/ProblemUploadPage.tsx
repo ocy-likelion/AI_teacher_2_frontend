@@ -6,15 +6,12 @@ import useImageStore, { type imageStore } from '@/stores/imageStore';
 import { Info } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import type { ReactCropperElement } from 'react-cropper';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function ProblemUploadPage() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const useImage = useImageStore((state: imageStore) => state.imageFile);
-  const reUploadImage = useImageStore(
-    (state: imageStore) => state.setImageFile
-  );
+  const imageFile = useImageStore((state: imageStore) => state.imageUrl);
 
   const [image, setImage] = useState<string | undefined>();
 
@@ -25,6 +22,7 @@ export default function ProblemUploadPage() {
   const getCropData = () => {
     // TODO: 구현 예정
     const cropper = cropperRef.current?.cropper;
+    console.log(cropper);
     if (cropper) {
       const croppedImage = cropper.getCroppedCanvas().toDataURL();
       setImage(croppedImage);
@@ -32,15 +30,13 @@ export default function ProblemUploadPage() {
   };
 
   useEffect(() => {
-    if (useImage) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImage(reader.result as string);
-      };
-      reader.readAsDataURL(useImage);
+    if (imageFile) {
+      setImage(imageFile);
+    } else {
+      navigate('/');
     }
-    console.log(useImage);
-  }, [useImage]);
+    console.log(imageFile);
+  }, [imageFile, navigate]);
 
   return (
     <>
@@ -61,11 +57,13 @@ export default function ProblemUploadPage() {
           <Button
             className='w-[100px] dark:bg-gray7 bg-white text-primary border-1 border-primary hover:bg-primary/75 hover:border-primary/75 hover:text-white'
             size={'lg'}
-            onClick={() => uploadRef.current?.click()}
+            onClick={() => {
+              uploadRef.current?.click();
+            }}
           >
             재업로드
           </Button>
-          <ImageUpload uploadRef={uploadRef} setImageFile={reUploadImage} />
+          <ImageUpload uploadRef={uploadRef} />
           <Button
             onClick={() => {
               getCropData();

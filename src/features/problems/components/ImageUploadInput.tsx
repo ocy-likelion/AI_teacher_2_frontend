@@ -1,15 +1,13 @@
+import useImageStore, { type imageStore } from '@/stores/imageStore';
 import { useNavigate } from 'react-router-dom';
 
 type ImageUploadProps = {
   uploadRef: React.RefObject<HTMLInputElement | null>;
-  setImageFile: (file: File | undefined) => void;
 };
 
-export default function ImageUpload({
-  uploadRef,
-  setImageFile,
-}: ImageUploadProps) {
+export default function ImageUpload({ uploadRef }: ImageUploadProps) {
   const navigate = useNavigate();
+  const setImageFile = useImageStore((state: imageStore) => state.setImageFile);
 
   const ChangeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
