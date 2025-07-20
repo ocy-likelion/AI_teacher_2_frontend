@@ -1,19 +1,20 @@
+import useImageStore, { type imageStore } from '@/stores/imageStore';
 import { useNavigate } from 'react-router-dom';
 
 type ImageUploadProps = {
   uploadRef: React.RefObject<HTMLInputElement | null>;
-  onClose: () => void;
 };
 
-export default function ImageUpload({ uploadRef, onClose }: ImageUploadProps) {
+export default function ImageUpload({ uploadRef }: ImageUploadProps) {
   const navigate = useNavigate();
+  const setImageFile = useImageStore((state: imageStore) => state.setImageFile);
+
   const ChangeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      // if (target === 'refresh') navigate(0);
-      // else navigate(target);
-      navigate('/problem/upload');
-      onClose();
+      setImageFile(file);
+      if (window.location.pathname !== '/problem/upload')
+        navigate('/problem/upload');
     }
   };
   return (

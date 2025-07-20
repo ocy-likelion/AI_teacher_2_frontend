@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { DialogFooter, DialogHeader } from '@/components/ui/dialog';
-import type { BaseModalProps } from '@/types/modal.type';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
+import type { BaseModalProps } from '@/types/modal.type';
 
 export interface ConceptModalProps extends BaseModalProps {
   title: string;

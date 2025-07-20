@@ -5,9 +5,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import type { BaseModalProps } from '@/types/modal.type';
 import { Button } from './button';
 import { DialogDescription } from '@radix-ui/react-dialog';
+import type { BaseModalProps } from '@/types/modal.type';
 
 export interface ConfirmModalProps extends BaseModalProps {
   onConfirm: () => void;

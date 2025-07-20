@@ -1,12 +1,13 @@
 import { Camera } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import { useModalStore } from '@/stores/modalStore';
+import ImageUpload from './ImageUploadInput';
 
 export default function ImageUploadSection() {
   const [height, setHeight] = useState<number>();
-  const { openModal } = useModalStore();
 
   const divRef = useRef<HTMLDivElement>(null);
+
+  const uploadRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const resizeObserver: ResizeObserver = new ResizeObserver(() => {
@@ -28,7 +29,9 @@ export default function ImageUploadSection() {
   return (
     <>
       <div
-        onClick={() => openModal('UPLOAD_OPTION', undefined)}
+        onClick={() => {
+          uploadRef.current?.click();
+        }}
         className='text-gray5 flex flex-col flex-grow items-center max-h-[40vh] max-w-full rounded-[24px] dark:text-gray2 inset-shadow-primary cursor-pointer'
       >
         <div ref={divRef} className='flex justify-center flex-grow flex-col'>
@@ -36,6 +39,7 @@ export default function ImageUploadSection() {
           <span className='font-medium text-md'>문제를 등록해보세요</span>
         </div>
       </div>
+      <ImageUpload uploadRef={uploadRef} />
     </>
   );
 }
