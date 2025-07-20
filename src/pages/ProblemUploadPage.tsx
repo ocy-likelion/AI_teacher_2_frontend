@@ -1,6 +1,7 @@
 import SubHeader from '@/components/layout/SubHeader';
 import { Button } from '@/components/ui/button';
 import ImageCropper from '@/features/problems/components/ImageCropper';
+import ImageUpload from '@/features/problems/components/ImageUploadInput';
 import useImageStore, { type imageStore } from '@/stores/imageStore';
 import { Info } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
@@ -11,10 +12,15 @@ export default function ProblemUploadPage() {
   // const navigate = useNavigate();
 
   const useImage = useImageStore((state: imageStore) => state.imageFile);
+  const reUploadImage = useImageStore(
+    (state: imageStore) => state.setImageFile
+  );
 
   const [image, setImage] = useState<string | undefined>();
 
   const cropperRef = useRef<ReactCropperElement>(null);
+
+  const uploadRef = useRef<HTMLInputElement>(null);
 
   const getCropData = () => {
     // TODO: 구현 예정
@@ -56,9 +62,11 @@ export default function ProblemUploadPage() {
             className='w-[100px] dark:bg-gray7 bg-white text-primary border-1 border-primary hover:bg-primary/75 hover:border-primary/75 hover:text-white'
             size={'lg'}
             // onClick={() => openModal('UPLOAD_OPTION', undefined)}
+            onClick={() => uploadRef.current?.click()}
           >
             재업로드
           </Button>
+          <ImageUpload uploadRef={uploadRef} setImageFile={reUploadImage} />
           <Button
             onClick={() => {
               getCropData();
