@@ -10,7 +10,7 @@ export default function ImageCropper({
   cropperRef: RefObject<ReactCropperElement | null>;
 }) {
   return (
-    <div className='h-full w-full '>
+    <section className='flex justify-center w-full max-h-[40vh] aspect-square bg-black mb-10'>
       <Cropper
         className='h-full w-full'
         src={image}
@@ -23,6 +23,6 @@ export default function ImageCropper({
         checkOrientation={false}
         autoCropArea={1}
       />
-    </div>
+    </section>
   );
 }

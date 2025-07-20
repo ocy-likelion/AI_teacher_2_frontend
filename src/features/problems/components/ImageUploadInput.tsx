@@ -13,7 +13,8 @@ export default function ImageUpload({ uploadRef }: ImageUploadProps) {
     const file = e.target.files?.[0];
     if (file) {
       setImageFile(file);
-      navigate('/problem/upload');
+      if (window.location.pathname !== '/problem/upload')
+        navigate('/problem/upload');
     }
   };
   return (
