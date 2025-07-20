@@ -61,7 +61,6 @@ export default function ProblemUploadPage() {
           <Button
             className='w-[100px] dark:bg-gray7 bg-white text-primary border-1 border-primary hover:bg-primary/75 hover:border-primary/75 hover:text-white'
             size={'lg'}
-            // onClick={() => openModal('UPLOAD_OPTION', undefined)}
             onClick={() => uploadRef.current?.click()}
           >
             재업로드
