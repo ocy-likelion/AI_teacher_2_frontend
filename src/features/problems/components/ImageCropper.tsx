@@ -17,13 +17,11 @@ export default function ImageCropper({
         initialAspectRatio={1}
         guides={true}
         ref={cropperRef}
-        // viewMode={1}
         dragMode='move'
         responsive={true}
         background={false}
         checkOrientation={false}
         autoCropArea={1}
-        // cropBoxMovable={false}
       />
     </div>
   );
