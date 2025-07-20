@@ -7,6 +7,7 @@ import { Info } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import type { ReactCropperElement } from 'react-cropper';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 export default function ProblemUploadPage() {
   const navigate = useNavigate();
@@ -32,10 +33,12 @@ export default function ProblemUploadPage() {
   useEffect(() => {
     if (imageFile) {
       setImage(imageFile);
-    } else {
-      navigate('/');
+    } else if (imageFile === undefined) {
+      setTimeout(() => {
+        navigate('/');
+        toast.error('유효하지 않은 접근이 감지되어 홈으로 이동합니다.');
+      }, 0);
     }
-    console.log(imageFile);
   }, [imageFile, navigate]);
 
   return (
