@@ -40,7 +40,7 @@ export default function OnboardingPage() {
           watch={watch}
           handleSubmit={handleSubmit}
           register={register}
-          setIsUser={setIsUser}
+          // setIsUser={setIsUser}
         />
       )}
       {!isUser && (

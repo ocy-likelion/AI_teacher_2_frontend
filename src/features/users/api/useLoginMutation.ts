@@ -21,11 +21,7 @@ const getChildInfo = async (memberId: number) => {
   return await httpClient.get(`/member/${memberId}`);
 };
 
-export const useLogin = (
-  idValue: string,
-  setIsUser: React.Dispatch<React.SetStateAction<boolean>>,
-  navigate: NavigateFunction
-) => {
+export const useLogin = (idValue: string, navigate: NavigateFunction) => {
   return useMutation({
     mutationFn: login,
     onSuccess: async (res) => {
@@ -60,6 +56,7 @@ export const useLogin = (
           id: idValue,
           childName: '김길동',
         });
+        console.error(childInfoError);
 
         toast.success('로그인 성공 (자녀 정보 조회는 실패)');
         navigate('/');
@@ -68,9 +65,10 @@ export const useLogin = (
     onError: (err: AxiosError) => {
       console.error(err);
       if (err.response?.status === 401) {
-        if (confirm('회원가입 하시겠습니까?')) setIsUser(false);
-        else toast.error('잘못 입력된 아이디 또는 비밀번호입니다.');
+        // if (confirm('회원가입 하시겠습니까?')) return;
+        // else
+        toast.error('잘못 입력된 아이디 또는 비밀번호입니다.');
       } else toast.error('알수없는 오류가 발생했습니다.');
     },
   });
-}
+};

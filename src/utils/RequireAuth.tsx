@@ -10,11 +10,14 @@ export default function RequireAuth({
 
   if (!user) {
     if (window.location.pathname === '/')
-      return <Navigate to='/onboarding' replace />;
+      return <Navigate to='/login' replace />;
   }
 
   if (user) {
-    if (window.location.pathname === '/onboarding')
+    if (
+      window.location.pathname === '/onboarding' ||
+      window.location.pathname === '/login'
+    )
       return <Navigate to='/' replace />;
   }
 

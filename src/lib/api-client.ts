@@ -39,8 +39,8 @@ httpClient.interceptors.response.use(
   },
   (error) => {
     if (error.response?.status === 401) {
-      if (window.location.pathname !== '/onboarding') {
-        window.location.href = '/onboarding';
+      if (window.location.pathname !== '/login') {
+        window.location.href = '/login';
       }
     }
 

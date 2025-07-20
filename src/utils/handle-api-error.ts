@@ -15,7 +15,7 @@ export function handleApiError(error: unknown) {
   } else if (status === 401) {
     toast.error('로그인이 필요합니다.');
     setTimeout(() => {
-      window.location.href = '/onboarding';
+      window.location.href = '/login';
     }, 1500);
   } else if (status === 404) {
     toast.error('데이터를 찾을 수 없습니다.');
