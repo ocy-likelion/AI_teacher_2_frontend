@@ -21,7 +21,6 @@ export default function ProblemUploadPage() {
     const cropper = cropperRef.current?.cropper;
     if (cropper) {
       const croppedImage = cropper.getCroppedCanvas().toDataURL();
-      console.log('Cropped Image', croppedImage);
       setImage(croppedImage);
     }
   };
@@ -34,6 +33,7 @@ export default function ProblemUploadPage() {
       };
       reader.readAsDataURL(useImage);
     }
+    console.log(useImage);
   }, [useImage]);
 
   return (
