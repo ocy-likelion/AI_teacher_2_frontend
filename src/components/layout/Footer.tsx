@@ -35,7 +35,7 @@ export default function Footer() {
           <Link
             key={link.title}
             to={link.to}
-            className={`flex flex-col items-center justify-center gap-1 ${pathname === link.to && 'text-primary'}`}
+            className={`flex flex-col items-center justify-center gap-1 text-btn-disabled ${pathname === link.to && 'text-primary'}`}
           >
             {link.icon}
             <span className='badge'>{link.title}</span>
