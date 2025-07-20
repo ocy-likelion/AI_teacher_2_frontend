@@ -42,9 +42,9 @@ export default function ProblemUploadPage() {
   }, [imageFile, navigate]);
 
   return (
-    <section className='flex-1 flex-col w-full h-full'>
+    <section className='flex flex-1 flex-col w-full h-full'>
       <SubHeader type='close' title='문제 등록하기' />
-      <section className='flex-1 flex-col w-full h-fit pb-10'>
+      <section className='flex flex-1 flex-col w-full h-fit pb-10'>
         <div className='mt-16 mb-[15px] ml-[15px] flex flex-row'>
           <Info size={16} className='text-primary mt-[4px] mr-[10px]' />
           <p className='text- font-medium'>
