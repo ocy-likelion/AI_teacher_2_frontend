@@ -22,7 +22,7 @@ export default function ChildCard() {
         <p className='body-sm text-gray6 dark:text-gray3'>자녀 학년</p>
       </div>
       <ConceptList concepts={concepts} type='badge' />
-      <SquarePen className='w-4 h-4 absolute right-3 top-3 stroke-gray4 dark:stroke-gray3' />
+      <SquarePen className='w-4 h-4 absolute right-3 top-3 stroke-gray4 dark:stroke-gray3 cursor-pointer active:scale-110 duration-300 ease-in-out' />
     </div>
   );
 }

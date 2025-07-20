@@ -4,7 +4,7 @@ import type { Concept } from '@/types/concept.type';
 
 type ConceptListProps = {
   concepts: Omit<Concept, 'description'>[];
-  type: 'default' | 'badge';
+  type?: 'default' | 'badge';
 };
 
 export default function ConceptList({
@@ -26,7 +26,9 @@ export default function ConceptList({
           }
         >
           {type === 'badge' ? (
-            <Badge># {concept.name}</Badge>
+            <Badge className='active:scale-105 transition-all  duration-300 ease-in-out'>
+              # {concept.name}
+            </Badge>
           ) : (
             `# ${concept.name}`
           )}
