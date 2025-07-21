@@ -21,7 +21,7 @@ export default function ListView({ items }: ListViewProps) {
       {items.map((item) => (
         <Link className='w-full' to={`/problem/${item.id}`} key={item.id}>
           <CardWrapper>
-            <div className='relative w-full flex flex-col gap-2 px-10 py-5'>
+            <div className='relative w-full flex flex-col gap-2 px-10 py-2'>
               <Bookmark
                 className='absolute left-0 text-primary'
                 size={30}

@@ -1,52 +1,64 @@
-import { Badge } from '@/components/ui/badge';
 import ImageUploadSection from '@/features/problems/components/ImageUploadSection';
-import EditChildInfoForm from '@/features/users/components/EditChildInfo';
-import { useModalStore } from '@/stores/modalStore';
 
-const conceptData = [
+type GuideCardProps = {
+  imageUrl: string;
+  description: string;
+};
+
+const guideItems = [
   {
     id: 1,
-    name: '원',
-    description: 'description',
+    imageUrl: '/images/Icon_Camera.svg',
+    description: '문제가 잘 보이도록\n사진을 찍어주세요.',
   },
   {
     id: 2,
-    name: '원의 넓이',
-    description: 'description',
+    imageUrl: '/images/Icon_Scissors.svg',
+    description: '풀이가 필요한 부분만\n잘라주세요.',
   },
 ];
 
 export default function HomePage() {
-  const { openModal } = useModalStore();
   return (
-    <>
-      <div className='flex max-w-full min-h-[30vh] px-[25px] box-border mt-[10vh]'>
-        <div className='w-full flex flex-col flex-grow'>
-          <EditChildInfoForm />
-          <ImageUploadSection />
-        </div>
-      </div>
-      <div className='mx-[29px] max-w-full min-h-[55px] mt-[53px] flex flex-grow flex-col'>
-        <h2 className='font-korean-title font-bold text-2xl'>
-          자녀분이 어려워하는 <span className='text-primary'>주제</span>예요!
+    <section className='w-full h-full pt-10 px-7 flex flex-col items-center justify-center'>
+      <div className='relative w-full flex flex-col gap-2'>
+        <h2 className='title-md'>
+          수학 문제, 혼자 고민하지 마세요
+          <br />
+          <span className='text-primary'>사진</span> 한 장이면 충분해요
         </h2>
-        <div className='flex mt-5 gap-5 flex-wrap'>
-          {conceptData.map((concept) => (
-            <Badge
-              key={concept.id}
-              className='text-lg cursor-pointer'
-              onClick={() =>
-                openModal('CONCEPT', {
-                  title: concept.name,
-                  description: concept.description,
-                })
-              }
-            >
-              {concept.name}
-            </Badge>
-          ))}
+        <div className='flex gap-2'>
+          <p className='text-[14px] text-gray6 dark:text-gray2'>
+            AI가 수학 문제를 쉽게 설명해드려요.
+          </p>
+          <img
+            src='/images/characters/yellow.svg'
+            alt='yellow mon'
+            className='w-20 h-20 translate-y-[-20%]'
+          />
         </div>
       </div>
-    </>
+      <ImageUploadSection />
+      <section className='w-full flex items-center gap-5 pt-4'>
+        {guideItems.map((item) => (
+          <GuideCard
+            key={item.id}
+            imageUrl={item.imageUrl}
+            description={item.description}
+          />
+        ))}
+      </section>
+    </section>
+  );
+}
+
+function GuideCard({ imageUrl, description }: GuideCardProps) {
+  return (
+    <div className='w-full h-full flex flex-col items-center gap-1 px-3 py-4 rounded-[16px] shadow-[var(--shadow)] dark:shadow-[var(--shadow-dark)]'>
+      <img src={imageUrl} alt='guide image' className='w-11 h-11' />
+      <p className='text-[14px] text-center whitespace-pre-line'>
+        {description}
+      </p>
+    </div>
   );
 }

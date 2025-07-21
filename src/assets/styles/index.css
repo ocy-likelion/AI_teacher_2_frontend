@@ -240,3 +240,16 @@ body {
   font-weight: 300;
   line-height: var(--space-16);
 }
+
+@keyframes float-up {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+.animate-float-up {
+  animation: float-up 2s ease-in-out infinite;
+}
