@@ -12,6 +12,7 @@ export type ModalPropsMap = {
   CHILD_UPDATE: {
     name: string;
     grade: number;
+    isUpdating: boolean;
     onConfirm: (data: UpdateChildRequest) => void;
   };
 };

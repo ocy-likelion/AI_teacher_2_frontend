@@ -1,17 +1,29 @@
-import { useState } from 'react';
 import ChildCard from './ChildCard';
+import { useChildInfo } from '../api/get-child-info';
+import { handleApiError } from '@/utils/handle-api-error';
+import axios from 'axios';
+import NotFoundPage from '@/pages/NotFoundPage';
+import ServerErrorPage from '@/pages/ServerErrorPage';
+import Loading from '@/components/ui/Loading';
 
-const data = {
-  id: 1,
-  name: '자녀1',
-  grade: 4,
-  concepts: [
-    { id: 1, name: '분수' },
-    { id: 2, name: '소수점' },
-  ],
-};
+const concepts = [
+  { id: 1, name: '분수' },
+  { id: 2, name: '소수점' },
+];
 
 export default function ChildrenListSection() {
+  const { data, isPending, isError, error } = useChildInfo(8);
+
+  if (isError) {
+    handleApiError(error);
+
+    const status = axios.isAxiosError(error) ? error.response?.status : null;
+    if (status === 404) return <NotFoundPage />;
+    return <ServerErrorPage />;
+  }
+
+  if (isPending) return <Loading />;
+
   return (
     <section className='flex flex-col items-center gap-4'>
       <div className='flex flex-col items-center gap-2'>
@@ -21,7 +33,7 @@ export default function ChildrenListSection() {
           태그를 눌러 개념 설명을 확인해보세요.
         </p>
       </div>
-      <ChildCard name={data.name} grade={data.grade} concepts={data.concepts} />
+      <ChildCard name={data.name} grade={data.grade} concepts={concepts} />
     </section>
   );
 }

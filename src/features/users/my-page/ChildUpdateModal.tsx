@@ -23,6 +23,7 @@ import { Controller, useForm } from 'react-hook-form';
 interface ChildUpdateModal extends BaseModalProps {
   name: string;
   grade: number;
+  isUpdating: boolean;
   onConfirm: (data: UpdateChildRequest) => void;
 }
 
@@ -34,6 +35,7 @@ type ChildUpdateForm = {
 export default function ChildUpdateModal({
   name,
   grade,
+  isUpdating,
   onConfirm,
   onClose,
 }: ChildUpdateModal) {
@@ -107,7 +109,7 @@ export default function ChildUpdateModal({
               type='submit'
               size='sm'
               className='body-sm'
-              variant={isValid ? 'default' : 'disabled'}
+              variant={isValid || isUpdating ? 'default' : 'disabled'}
             >
               수정하기
             </Button>

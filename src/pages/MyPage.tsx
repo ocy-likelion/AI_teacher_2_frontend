@@ -1,4 +1,3 @@
-import ChildUpdateModal from '@/features/users/my-page/ChildUpdateModal';
 import ChildrenListSection from '@/features/users/my-page/ChildrenListSection';
 import UserSection from '@/features/users/my-page/UserSection';
 
