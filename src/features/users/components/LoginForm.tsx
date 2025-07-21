@@ -45,7 +45,7 @@ export default function LoginForm({
         // 로그인 API 문제 발생 시 임시로 다음 페이지도 넘어가게 하는 용도
         // setIsUser(false);
       })}
-      className='flex flex-col w-full gap-5 px-[33px]'
+      className='flex flex-1 flex-col w-full gap-5 px-[33px]'
     >
       <Input
         id='username'
@@ -73,7 +73,7 @@ export default function LoginForm({
           isActive ? (login.isPending ? 'disabled' : 'default') : 'disabled'
         }`}
         type={`${isActive ? (login.isPending ? 'button' : 'submit') : 'button'}`}
-        className='h-[48px] mb-[55px] mt-[21vh]'
+        className='h-[48px] mt-auto'
       >
         {login.isPending ? ' · · · ' : '로그인'}
       </Button>
