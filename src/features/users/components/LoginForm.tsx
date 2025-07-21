@@ -9,6 +9,7 @@ import type { userData } from '@/types/user.type';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLogin } from '../api/useLoginMutation';
+import { toast } from 'sonner';
 
 type LoginFormProps = {
   watch: UseFormWatch<userData>;
@@ -29,6 +30,21 @@ export default function LoginForm({
 
   const login = useLogin(usernameValue, navigate);
 
+  const handleInputError = (
+    e: React.FormEvent<HTMLInputElement>,
+    type: string
+  ) => {
+    e.preventDefault();
+    if (type === 'id')
+      toast.error(
+        '아이디는 영어 또는 엉어와 숫자의 조합으로 3자 이상 작성해야 합니다.'
+      );
+    else if (type === 'password')
+      toast.error(
+        '비밀번호는 영어와 숫자의 조합으로 4자 이상 작성해야 합니다.'
+      );
+  };
+
   useEffect(() => {
     if (usernameValue.trim() !== '' && passwordValue.trim() !== '') {
       setIsActive(true);
@@ -42,14 +58,14 @@ export default function LoginForm({
       id='login'
       onSubmit={handleSubmit((data) => {
         login.mutate(data);
-        // 로그인 API 문제 발생 시 임시로 다음 페이지도 넘어가게 하는 용도
-        // setIsUser(false);
       })}
       className='flex flex-1 flex-col w-full gap-5 px-[33px]'
     >
       <Input
         id='username'
         placeholder='아이디를 입력하세요'
+        pattern='^(?=.*[a-zA-Z])[a-zA-Z0-9]*'
+        onInvalid={(e) => handleInputError(e, 'id')}
         className='px-[15px] py-[9px] h-[52px] box-border border-primary border-[1px] rounded-[12px]'
         {...register('username')}
         minLength={3}
@@ -60,6 +76,8 @@ export default function LoginForm({
       <Input
         type='password'
         id='password'
+        pattern='^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]*'
+        onInvalid={(e) => handleInputError(e, 'password')}
         placeholder='비밀번호를 입력하세요'
         minLength={4}
         className='px-[15px] py-[9px] h-[52px] box-border border-primary border-[1px] rounded-[12px]'

@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import OnBoardingIntro from '@/features/users/components/OnBoardingIntro';
 import ChildInfoInput from '@/features/users/components/ChildInfoInput';
 import type { userData } from '@/types/user.type';
 
 export default function OnboardingPage() {
+  const [isUser, setIsUser] = useState<boolean>(false);
+
   const {
     register,
     control,
@@ -22,13 +25,15 @@ export default function OnboardingPage() {
 
   return (
     <div className='w-full h-full mt-[50px]'>
-      <OnBoardingIntro />
-      <ChildInfoInput
-        watch={watch}
-        control={control}
-        handleSubmit={handleSubmit}
-        register={register}
-      />
+      {OnBoardingIntro()}
+      {!isUser && (
+        <ChildInfoInput
+          watch={watch}
+          control={control}
+          handleSubmit={handleSubmit}
+          register={register}
+        />
+      )}
     </div>
   );
 }
