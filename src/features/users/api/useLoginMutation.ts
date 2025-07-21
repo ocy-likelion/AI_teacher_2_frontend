@@ -7,10 +7,6 @@ import type { NavigateFunction } from 'react-router-dom';
 import type { AxiosError } from 'axios';
 
 const login = async (data: userData) => {
-  console.log('로그인 요청 보내는 데이터:', {
-    username: data.username,
-    password: data.password,
-  });
   return await httpClient.post('/member/login', {
     username: data.username,
     password: data.password,
