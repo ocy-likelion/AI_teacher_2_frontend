@@ -1,5 +1,5 @@
 export default function OnBoardingIntro() {
-  var introMessage = (
+  let introMessage = (
     <>
       안녕하세요!
       <br />
