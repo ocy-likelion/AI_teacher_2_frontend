@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import OnBoardingIntro from '@/features/users/components/OnBoardingIntro';
+// import OnBoardingIntro from '@/features/users/components/OnBoardingIntro';
 import ChildInfoInput from '@/features/users/components/ChildInfoInput';
 import type { userData } from '@/types/user.type';
 
@@ -22,7 +22,7 @@ export default function OnboardingPage() {
 
   return (
     <div className='w-full h-full mt-[50px]'>
-      {OnBoardingIntro()}
+      {/* {OnBoardingIntro()} */}
       <ChildInfoInput
         watch={watch}
         control={control}

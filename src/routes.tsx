@@ -6,6 +6,7 @@ const HomePage = lazy(() => import('./pages/HomePage'));
 const LandingPage = lazy(() => import('./pages/LandingPage'));
 const MyPage = lazy(() => import('./pages/MyPage'));
 const LoginPage = lazy(() => import('./pages/LoginPage'));
+const IntroPage = lazy(() => import('./pages/IntroPage'));
 const OnboardingPage = lazy(() => import('./pages/OnboardingPage'));
 const ProblemHistoryPage = lazy(() => import('./pages/ProblemHistoryPage'));
 const ProblemUploadPage = lazy(() => import('./pages/ProblemUploadPage'));
@@ -54,6 +55,11 @@ const router = createBrowserRouter([
           </RequireAuth>
         ),
       },
+      {
+        path: '/intro',
+        element: <IntroPage />,
+      },
+
       {
         path: '/login',
         element: (
