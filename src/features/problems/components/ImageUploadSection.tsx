@@ -10,7 +10,7 @@ export default function ImageUploadSection() {
         onClick={() => {
           uploadRef.current?.click();
         }}
-        className='px-3 py-5 flex flex-col items-center gap-3 rounded-[16px] shadow-[var(--shadow)] dark:shadow-[var(--shadow-dark)] cursor-pointer active:scale-95 transition-transform duration-200'
+        className='px-3 py-10 h-full flex flex-col items-center gap-3 rounded-[16px] shadow-[var(--shadow)] dark:shadow-[var(--shadow-dark)] cursor-pointer active:scale-95 transition-transform duration-200'
       >
         <div className='flex flex-col items-center gap-1'>
           <img

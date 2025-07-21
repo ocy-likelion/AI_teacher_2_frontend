@@ -20,16 +20,16 @@ const guideItems = [
 
 export default function HomePage() {
   return (
-    <section className='w-full h-full py-8 px-7 flex flex-col items-center gap-10'>
+    <section className='w-full h-full py-8 px-7 flex flex-col items-center gap-4'>
       <div className='relative w-full flex flex-col gap-2'>
         <h2 className='break-keep title-sm'>
           수학 문제, 혼자 고민하지 마세요
           <br />
           <span className='text-primary'>사진</span> 한 장이면 충분해요
         </h2>
-        <div className='flex gap-2'>
-          <p className='break-keep text-[14px] text-gray6 dark:text-gray2'>
-            AI가 수학 문제를 쉽게 설명해드려요.
+        <div className='flex'>
+          <p className='flex-1 break-keep text-[14px] text-gray6 dark:text-gray2'>
+            수학 문제를 AI가 쉽게 설명해드려요.
           </p>
           <img
             src='/images/characters/yellow.svg'
