@@ -28,23 +28,24 @@ type LoadingCompleteData = {
 
 export default function ProblemUploadPage() {
   const navigate = useNavigate();
-  
+
   // 상태 정의 - 카멜 케이스 사용
   const imageFile = useImageStore((state: imageStore) => state.imageUrl);
   const [image, setImage] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [problemData, setProblemData] = useState<ProblemData | null>(null);
-  
+
   // refs 정의
   const cropperRef = useRef<ReactCropperElement>(null);
   const uploadRef = useRef<HTMLInputElement>(null);
 
   // 상수 정의 - 대문자 스네이크 케이스
   const NAVIGATION_DELAY = 0;
-  
+
   const imageUpload = useMutation({
     mutationKey: ['imageUpload'],
-    mutationFn: async (formData: FormData) => await httpClient.post('/image/upload', formData),
+    mutationFn: async (formData: FormData) =>
+      await httpClient.post('/image/upload', formData),
     onError: (err) => {
       console.error(err);
     },
@@ -53,7 +54,7 @@ export default function ProblemUploadPage() {
       toast.info('암튼 됐네 ㅊㅋㅊㅋ');
     },
   });
-  
+
   // 크롭 데이터 가져오기 함수
   const getCropData = (): string | null => {
     const cropper = cropperRef.current?.cropper;
@@ -79,7 +80,7 @@ export default function ProblemUploadPage() {
 
     // 크롭된 이미지 데이터 준비
     const croppedImageData = getCropData();
-    
+
     if (!croppedImageData) {
       toast.error('이미지 처리 중 오류가 발생했습니다.');
       return;
@@ -91,17 +92,17 @@ export default function ProblemUploadPage() {
   // 로딩 완료 후 처리
   const handleLoadingComplete = (data?: LoadingCompleteData) => {
     toast.success('해설이 완성되었습니다!');
-    
+
     // 결과 페이지로 이동
     navigate('/history', {
       replace: true,
-      state: { 
+      state: {
         problemData: data?.problemData,
         explanationData: data?.explanationData,
-        from: 'loading' 
-      }
+        from: 'loading',
+      },
     });
-    
+
     // 현재 페이지 상태 초기화
     setIsLoading(false);
     setProblemData(null);
@@ -133,7 +134,7 @@ export default function ProblemUploadPage() {
   // 로딩 중이면 로딩 컴포넌트 표시
   if (isLoading) {
     return (
-      <ProblemUploadComponent 
+      <ProblemUploadComponent
         problemData={problemData}
         onComplete={handleLoadingComplete}
         onBack={handleBackFromLoading}
