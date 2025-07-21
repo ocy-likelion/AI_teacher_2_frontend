@@ -9,3 +9,9 @@ export const GRADE_OPTIONS = [
   { label: '중등 2학년', value: 8 },
   { label: '중등 3학년', value: 9 },
 ];
+
+export const getGradeLabel = (grade: number) => {
+  const result = GRADE_OPTIONS.find((option) => option.value === grade);
+
+  return result ? result.label : '학년 정보 없음';
+};

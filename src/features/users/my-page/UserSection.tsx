@@ -7,7 +7,7 @@ export default function UserSection() {
       <div className='flex flex-col items-center gap-1'>
         <p className='title-sm'>보호자 이름</p>
         <p className='body-md'>username@example.com</p>
-        <p className='label text-gray5 dark:text-gray3 cursor-pointer active:font-semibold active:scale-105 duration-300 ease-in-out'>
+        <p className='label text-gray5 dark:text-gray3 cursor-pointer active:font-semibold active:scale-105 duration-300 ease-in-out underline'>
           프로필 수정
         </p>
       </div>

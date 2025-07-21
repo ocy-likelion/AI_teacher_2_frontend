@@ -1,4 +1,15 @@
+import { useState } from 'react';
 import ChildCard from './ChildCard';
+
+const data = {
+  id: 1,
+  name: '자녀1',
+  grade: 4,
+  concepts: [
+    { id: 1, name: '분수' },
+    { id: 2, name: '소수점' },
+  ],
+};
 
 export default function ChildrenListSection() {
   return (
@@ -10,7 +21,7 @@ export default function ChildrenListSection() {
           태그를 눌러 개념 설명을 확인해보세요.
         </p>
       </div>
-      <ChildCard />
+      <ChildCard name={data.name} grade={data.grade} concepts={data.concepts} />
     </section>
   );
 }
