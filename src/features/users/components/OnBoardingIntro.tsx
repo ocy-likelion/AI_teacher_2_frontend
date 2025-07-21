@@ -1,13 +1,9 @@
-export default function OnBoardingIntro(isUser: boolean) {
-  var introMessage = isUser ? (
-    <>
-      <span className='text-primary'>일타</span>에 오신 걸 환영합니다!
-    </>
-  ) : (
+export default function OnBoardingIntro() {
+  var introMessage = (
     <>
       안녕하세요!
       <br />
-      <span className='text-primary'>일타</span>는 처음 이용하시는 군요?{' '}
+      <span className='text-primary'>일타</span>는 처음 이용하시는 군요?
     </>
   );
   return (
@@ -17,7 +13,9 @@ export default function OnBoardingIntro(isUser: boolean) {
         alt=''
         className='aspect-square size-[49px]'
       />
-      <h1 className='font-korean-title font-medium text-3xl'>{introMessage}</h1>
+      <h1 className='font-korean-title font-medium text-3xl break-keep'>
+        {introMessage}
+      </h1>
     </div>
   );
 }

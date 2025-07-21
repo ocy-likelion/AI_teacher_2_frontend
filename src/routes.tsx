@@ -57,7 +57,9 @@ const router = createBrowserRouter([
         path: '/history',
         element: (
           <BasicLayout>
-            <ProblemHistoryPage />
+            <RequireAuth>
+              <ProblemHistoryPage />
+            </RequireAuth>
           </BasicLayout>
         ),
       },
@@ -65,7 +67,9 @@ const router = createBrowserRouter([
         path: '/profile',
         element: (
           <BasicLayout>
-            <MyPage />
+            <RequireAuth>
+              <MyPage />
+            </RequireAuth>
           </BasicLayout>
         ),
       },
@@ -83,11 +87,19 @@ const router = createBrowserRouter([
           },
           {
             path: ':_id',
-            element: <ProblemDetailPage />,
+            element: (
+              <RequireAuth>
+                <ProblemDetailPage />
+              </RequireAuth>
+            ),
           },
           {
             path: 'upload',
-            element: <ProblemUploadPage />,
+            element: (
+              <RequireAuth>
+                <ProblemUploadPage />
+              </RequireAuth>
+            ),
           },
         ],
       },
