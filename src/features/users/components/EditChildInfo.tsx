@@ -20,7 +20,7 @@ import { GRADE_OPTIONS } from '@/utils/constants/grades';
 import { SquarePen } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import useUserStore from '@/stores/userStore';
-import { useUpdateCurrentChild } from '../api/get-user-info';
+import { useUpdateCurrentChild } from '../api/update-child-info';
 
 export default function EditChildInfoForm() {
   const { user } = useUserStore();
@@ -30,8 +30,8 @@ export default function EditChildInfoForm() {
   const [childName, setChildName] = useState<string>(
     user?.childName ? user.childName : '고길동'
   );
-  const [tempName, setTempName] = useState<string>("");
-  const [childGrade, setChildGrade] = useState<string>("1");
+  const [tempName, setTempName] = useState<string>('');
+  const [childGrade, setChildGrade] = useState<string>('1');
 
   useEffect(() => {
     if (user?.childGrade !== undefined) {
