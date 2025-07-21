@@ -5,6 +5,7 @@ import RequireAuth from './utils/RequireAuth.tsx';
 const Layout = lazy(() => import('./components/layout/Layout'));
 const HomePage = lazy(() => import('./pages/HomePage'));
 const MyPage = lazy(() => import('./pages/MyPage'));
+const LoginPage = lazy(() => import('./pages/LoginPage'));
 const OnboardingPage = lazy(() => import('./pages/OnboardingPage'));
 const ProblemHistoryPage = lazy(() => import('./pages/ProblemHistoryPage'));
 const ProblemUploadPage = lazy(() => import('./pages/ProblemUploadPage'));
@@ -45,10 +46,20 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: '/login',
+        element: (
+          <RequireAuth>
+            <LoginPage />
+          </RequireAuth>
+        ),
+      },
+      {
         path: '/history',
         element: (
           <BasicLayout>
-            <ProblemHistoryPage />
+            <RequireAuth>
+              <ProblemHistoryPage />
+            </RequireAuth>
           </BasicLayout>
         ),
       },
@@ -56,7 +67,9 @@ const router = createBrowserRouter([
         path: '/profile',
         element: (
           <BasicLayout>
-            <MyPage />
+            <RequireAuth>
+              <MyPage />
+            </RequireAuth>
           </BasicLayout>
         ),
       },
@@ -74,11 +87,19 @@ const router = createBrowserRouter([
           },
           {
             path: ':_id',
-            element: <ProblemDetailPage />,
+            element: (
+              <RequireAuth>
+                <ProblemDetailPage />
+              </RequireAuth>
+            ),
           },
           {
             path: 'upload',
-            element: <ProblemUploadPage />,
+            element: (
+              <RequireAuth>
+                <ProblemUploadPage />
+              </RequireAuth>
+            ),
           },
         ],
       },

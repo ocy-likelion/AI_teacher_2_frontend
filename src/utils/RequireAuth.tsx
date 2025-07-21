@@ -9,12 +9,18 @@ export default function RequireAuth({
   const user = useUserStore((store: userStore) => store.user);
 
   if (!user) {
-    if (window.location.pathname === '/')
-      return <Navigate to='/onboarding' replace />;
+    if (
+      window.location.pathname !== '/login' &&
+      window.location.pathname !== '/onboarding'
+    )
+      return <Navigate to='/login' replace />;
   }
 
   if (user) {
-    if (window.location.pathname === '/onboarding')
+    if (
+      window.location.pathname === '/onboarding' ||
+      window.location.pathname === '/login'
+    )
       return <Navigate to='/' replace />;
   }
 
