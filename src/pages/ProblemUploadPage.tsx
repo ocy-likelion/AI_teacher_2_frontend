@@ -55,7 +55,7 @@ export default function ProblemUploadPage() {
       console.log('현재 주소: ', location.href);
     }
 
-    const onPopState = (e: PopStateEvent) => {
+    const onPopState = () => {
       if (isLoadingRef.current) {
         const check = confirm(
           '사이트 이탈 시 변경사항이 저장되지 않습니다. 정말 나가시겠습니까?',
