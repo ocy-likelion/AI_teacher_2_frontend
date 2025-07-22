@@ -14,7 +14,7 @@ const guideItems = [
   {
     id: 2,
     imageUrl: '/images/Icon_Scissors.svg',
-    description: '한 문제만\n잘라주세요.',
+    description: '한 문제만 보이게\n잘라주세요.',
   },
 ];
 
