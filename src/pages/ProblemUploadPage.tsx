@@ -1,11 +1,9 @@
 import SubHeader from '@/components/layout/SubHeader';
 import { Button } from '@/components/ui/button';
+import { getCropData } from '@/features/problems/api/uploadImage';
 import ImageCropper from '@/features/problems/components/ImageCropper';
 import ImageUpload from '@/features/problems/components/ImageUploadInput';
-import { httpClient } from '@/lib/api-client';
 import useImageStore, { type imageStore } from '@/stores/imageStore';
-import { useMutation } from '@tanstack/react-query';
-import type { AxiosError } from 'axios';
 import { Info } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import type { ReactCropperElement } from 'react-cropper';
@@ -50,7 +48,7 @@ export default function ProblemUploadPage() {
     },
     onError: (err: AxiosError) => {
       toast.error(
-        `문제가 발생했습니다. ${err.message ? err.message : '알 수 없는 오류'}`
+        `문제가 발생했습니다. ${err.message ? err.message : '알 수 없는 오류'}`,
       );
       console.error(err);
     },
