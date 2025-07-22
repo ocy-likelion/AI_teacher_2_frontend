@@ -30,12 +30,12 @@ export default function Footer() {
         minHeight: 'calc(var(--h-header) + var(--safe-bottom))',
       }}
     >
-      <nav className='w-full flex items-center justify-between px-15 py-1'>
+      <nav className='w-full flex items-center gap-2 px-8 py-1'>
         {links.map((link) => (
           <Link
             key={link.title}
             to={link.to}
-            className={`flex flex-col items-center justify-center gap-1 text-btn-disabled ${pathname === link.to && 'text-primary'}`}
+            className={`flex-1 flex flex-col items-center justify-center gap-1 text-btn-disabled ${pathname === link.to && 'text-primary'}`}
           >
             {link.icon}
             <span className='badge'>{link.title}</span>

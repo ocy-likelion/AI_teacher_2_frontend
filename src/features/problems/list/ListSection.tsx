@@ -29,7 +29,7 @@ export default function ListSection() {
 
   if (isPending) return <Loading />;
   if (problems.length === 0) {
-    return <Empty description='하단의 버튼을 눌러 문제를 등록해보세요' />;
+    return <Empty description='아직 등록된 문제가 없어요.' />;
   }
 
   const ViewComponent = view === 'list' ? ListView : GridView;
