@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 export default function LandingTypeA() {
   return (
     <section className='relative h-full w-full px-5'>
-      <div className='pointer-events-none w-[380px] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-2/5 z-10 star-pulse'>
+      <div className='pointer-events-none w-[380px] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-2/5 z-0 star-pulse'>
         <img src='/images/Star_Yellow.svg' alt='star' className='w-full z-0' />
       </div>
 
-      <section className='relative flex flex-col gap-3 z-50'>
+      <section className='relative flex flex-col gap-3 z-50 will-change-transform'>
         <h1 className='title-md z-50'>
           "엄마, 이거 어떻게 풀어?"
           <br />
