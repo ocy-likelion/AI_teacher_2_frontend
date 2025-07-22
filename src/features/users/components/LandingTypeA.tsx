@@ -1,24 +1,26 @@
+import { Link } from 'react-router-dom';
+
 export default function LandingTypeA() {
   return (
-    <section className='relative h-full w-full px-5 '>
-      <div className='relative flex flex-col gap-3 z-100'>
+    <section className='relative h-full w-full px-5'>
+      <section className='relative flex flex-col gap-3 z-100'>
         <h1 className='title-md'>
           "엄마, 이거 어떻게 풀어?"
           <br />
           <span className='text-primary'>AI</span>가 부모님께
           <br />
-          <span className='text-primary'>설명방법을</span> 알려드려요{''}
+          <span className='text-primary'>설명방법을</span> 알려드려요
         </h1>
-        <div className='text-gray5 dark:text-gray2 body-md'>
+        <div className='text-gray5 dark:text-gray4 body-md z-100'>
           어려운 수학 문제, 이제 쉽게 설명해줄 수 있어요
         </div>
-      </div>
+      </section>
+
       <div className='w-[380px] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-2/5 z-0 star-pulse'>
-        <img src='/images/Star_Yellow.svg' alt='star' className='w-full' />
+        <img src='/images/Star_Yellow.svg' alt='star' className='w-full z-0' />
       </div>
-      {/* 도형들 컨테이너 - 배경 별 안쪽에 배치 */}
-      <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-2/5 w-80 h-96 z-10'>
-        {/* 초록 사각형 - 왼쪽 위 */}
+
+      <section className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-2/5 w-80 h-96 z-10'>
         <div className='absolute top-13 left-0 rotate-green'>
           <img
             src='/images/characters/green.svg'
@@ -27,7 +29,6 @@ export default function LandingTypeA() {
           />
         </div>
 
-        {/* 노랑 도형 - 오른쪽 위 */}
         <div className='absolute top-20 right-3 rotate-yellow'>
           <img
             src='/images/characters/yellow.svg'
@@ -43,17 +44,19 @@ export default function LandingTypeA() {
             className='w-30 h-30 transform rotate-[-15deg]'
           />
         </div>
-      </div>
-      <div className='absolute bottom-0 left-1/2 -translate-x-1/2 z-10'>
-        <div className='flex flex-col items-center gap-4 z-100'>
-          <div className='w-12 h-12 rounded-md flex items-center justify-center'>
-            <img src='/images/Kakao.svg' alt='kakao' className='w-45 h-45' />
-          </div>
-          <div className='text-gray5 dark:text-gray2 body-md' >
-            아이디로 로그인할래요!
-          </div>
-        </div>
-      </div>
+      </section>
+
+      <section className='absolute bottom-0 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-100'>
+        <button className='w-12 h-12 rounded-md flex items-center justify-center cursor-pointer hover:scale-110 active:scale-110 duration-150 ease-in'>
+          <img src='/images/Kakao.svg' alt='kakao' className='w-45 h-45' />
+        </button>
+        <Link
+          to='/login'
+          className='text-gray5 dark:text-gray2 body-sm cursor-pointer hover:scale-110 hover:text-black dark:hover:text-white active:scale-110 active:text-black dark:active:text-white duration-150 ease-in'
+        >
+          아이디로 로그인할래요!
+        </Link>
+      </section>
     </section>
   );
 }
