@@ -3,6 +3,7 @@ import type { userData } from '@/types/user.type';
 import { useMutation } from '@tanstack/react-query';
 import useUserStore from '@/stores/userStore';
 import { handleLoginError } from '@/utils/handle-api-error';
+import { toast } from 'sonner';
 
 const login = async (data: userData) => {
   return await httpClient.post('/member/login', {
@@ -21,6 +22,7 @@ export const useLogin = () => {
         sessionStorage.setItem('token', token);
         setUser({ accessToken: token });
       }
+      toast.success(res.data.message || '로그인 성공!');
     },
     onError: handleLoginError,
   });

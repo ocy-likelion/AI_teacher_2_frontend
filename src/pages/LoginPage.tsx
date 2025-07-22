@@ -3,10 +3,7 @@ import Loading from '@/components/ui/Loading';
 import { useLogin } from '@/features/users/api/useLoginMutation';
 import LoginForm from '@/features/users/components/LoginForm';
 import type { userData } from '@/types/user.type';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
 
 export default function LoginPage() {
   const { register, watch, handleSubmit } = useForm<userData>({
@@ -17,16 +14,10 @@ export default function LoginPage() {
     mode: 'onSubmit',
   });
 
-  const navigate = useNavigate();
   const login = useLogin();
 
   const handleLogin = (data: userData) => {
-    login.mutate(data, {
-      onSuccess: () => {
-        toast.success('로그인 성공!');
-        navigate('/');
-      },
-    });
+    login.mutate(data);
   };
 
   if (login.isPending) return <Loading />;
