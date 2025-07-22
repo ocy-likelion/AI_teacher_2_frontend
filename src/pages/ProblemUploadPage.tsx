@@ -11,20 +11,6 @@ import { toast } from 'sonner';
 import ProblemUploadComponent from '../features/problems/components/ProblemUploadLoading';
 import UploadButton from '@/features/problems/components/UploadButton';
 
-type ProblemData = {
-  id: string;
-  imageData: string;
-  uploadedAt: string;
-  status: string;
-};
-
-type LoadingCompleteData = {
-  problemData?: ProblemData;
-  explanationData?: any;
-  from?: string;
-};
-// 타입 정의
-
 export default function ProblemUploadPage() {
   const navigate = useNavigate();
 
@@ -32,7 +18,6 @@ export default function ProblemUploadPage() {
   const imageFile = useImageStore((state: imageStore) => state.imageUrl);
   const [image, setImage] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  // const [problemData, setProblemData] = useState<ProblemData | null>(null);
 
   // refs 정의
   const cropperRef = useRef<ReactCropperElement>(null);
@@ -43,8 +28,6 @@ export default function ProblemUploadPage() {
 
   // 크롭 데이터 가져오기 함수
   const cropper = cropperRef.current?.cropper;
-
-  // 로딩 완료 후 처리
 
   // 재업로드 버튼 클릭 처리
   const handleReupload = () => {
