@@ -40,7 +40,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/intro',
-        element: <LandingPage />,
+        element: (
+          <RequireAuth>
+            <LandingPage />
+          </RequireAuth>
+        ),
       },
       {
         path: '/onboarding',
