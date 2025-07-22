@@ -1,6 +1,5 @@
 import SubHeader from '@/components/layout/SubHeader';
 import { Button } from '@/components/ui/button';
-import UploadButton from '@/features/problems/api/uploadButton';
 import ImageCropper from '@/features/problems/components/ImageCropper';
 import ImageUpload from '@/features/problems/components/ImageUploadInput';
 import useImageStore, { type imageStore } from '@/stores/imageStore';
@@ -10,6 +9,7 @@ import type { ReactCropperElement } from 'react-cropper';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import ProblemUploadComponent from '../features/problems/components/ProblemUploadLoading';
+import UploadButton from '@/features/problems/components/uploadButton';
 
 // 타입 정의
 type ProblemData = {
@@ -41,62 +41,8 @@ export default function ProblemUploadPage() {
   // 상수 정의 - 대문자 스네이크 케이스
   const NAVIGATION_DELAY = 0;
 
-  const imageUpload = useMutation({
-    mutationKey: ['imageUpload'],
-    mutationFn: async (formData: FormData) => {
-      return await httpClient.post('/image/upload', formData);
-    },
-    onError: (err: AxiosError) => {
-      toast.error(
-        `문제가 발생했습니다. ${err.message ? err.message : '알 수 없는 오류'}`,
-      );
-      console.error(err);
-    },
-    onSuccess: (res) => {
-      console.log(res);
-      toast.info('문제 해설이 완료되었습니다.');
-    },
-    onMutate: () => {
-      toast.info('현재 로딩중');
-    },
-  });
-
   // 크롭 데이터 가져오기 함수
-  const getCropData = (): string | null => {
-    const cropper = cropperRef.current?.cropper;
-    if (cropper) {
-      const croppedImage = cropper.getCroppedCanvas().toDataURL();
-      setImage(croppedImage);
-      const formData = new FormData();
-      cropper.getCroppedCanvas().toBlob((blob) => {
-        if (!blob) return;
-        const randomName = `image_${Date.now()}_${Math.random().toString(36).substring(2, 8)}.png`;
-        const file = new File([blob], randomName, { type: 'image/png' });
-        if (blob) formData.append('file', file);
-
-        imageUpload.mutate(formData);
-      });
-    }
-    return null;
-  };
-
-  // 확인 버튼 클릭 처리
-  const handleConfirm = () => {
-    if (!image) {
-      toast.error('이미지를 선택해주세요.');
-      return;
-    }
-
-    // 크롭된 이미지 데이터 준비
-    const croppedImageData = getCropData();
-
-    if (!croppedImageData) {
-      toast.error('이미지 처리 중 오류가 발생했습니다.');
-      return;
-    }
-
-    setIsLoading(true);
-  };
+  const cropper = cropperRef.current?.cropper;
 
   // 로딩 완료 후 처리
   const handleLoadingComplete = (data?: LoadingCompleteData) => {
@@ -173,16 +119,12 @@ export default function ProblemUploadPage() {
           >
             재업로드
           </Button>
-          <UploadButton cropper={cropper} setImage={setImage} />
+          <UploadButton
+            cropper={cropper}
+            setImage={setImage}
+            setIsLoading={setIsLoading}
+          />
           <ImageUpload uploadRef={uploadRef} />
-          <Button
-            onClick={handleConfirm}
-            className='w-[100px]'
-            size='lg'
-            disabled={!image}
-          >
-            확인
-          </Button>
         </div>
       </section>
     </section>

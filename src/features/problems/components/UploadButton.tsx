@@ -7,9 +7,11 @@ import { toast } from 'sonner';
 export default function UploadButton({
   cropper,
   setImage,
+  setIsLoading,
 }: {
   cropper: Cropper | undefined;
   setImage: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const getCropData = ({
     cropper,
@@ -40,7 +42,7 @@ export default function UploadButton({
     },
     onError: (err: AxiosError) => {
       toast.error(
-        `문제가 발생했습니다. ${err.message ? err.message : '알 수 없는 오류'}`
+        `문제가 발생했습니다. ${err.message ? err.message : '알 수 없는 오류'}`,
       );
       console.error(err);
     },
@@ -56,6 +58,7 @@ export default function UploadButton({
   return (
     <Button
       onClick={() => {
+        setIsLoading(true);
         getCropData({ cropper, setImage });
         // navigate('/problem/1', {
         //   replace: true,
