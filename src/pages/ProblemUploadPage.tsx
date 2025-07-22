@@ -1,6 +1,6 @@
 import SubHeader from '@/components/layout/SubHeader';
 import { Button } from '@/components/ui/button';
-import { getCropData } from '@/features/problems/api/uploadImage';
+import UploadButton from '@/features/problems/api/uploadButton';
 import ImageCropper from '@/features/problems/components/ImageCropper';
 import ImageUpload from '@/features/problems/components/ImageUploadInput';
 import useImageStore, { type imageStore } from '@/stores/imageStore';
@@ -173,6 +173,7 @@ export default function ProblemUploadPage() {
           >
             재업로드
           </Button>
+          <UploadButton cropper={cropper} setImage={setImage} />
           <ImageUpload uploadRef={uploadRef} />
           <Button
             onClick={handleConfirm}

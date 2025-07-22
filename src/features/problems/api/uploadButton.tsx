@@ -4,7 +4,13 @@ import { useMutation } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
 import { toast } from 'sonner';
 
-export default function UploadImage() {
+export default function UploadButton({
+  cropper,
+  setImage,
+}: {
+  cropper: Cropper | undefined;
+  setImage: React.Dispatch<React.SetStateAction<string | undefined>>;
+}) {
   const getCropData = ({
     cropper,
     setImage,
