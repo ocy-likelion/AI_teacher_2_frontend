@@ -9,7 +9,7 @@ import type { ReactCropperElement } from 'react-cropper';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import ProblemUploadComponent from '../features/problems/components/ProblemUploadLoading';
-import UploadButton from '@/features/problems/components/uploadButton';
+import UploadButton from '@/features/problems/components/UploadButton';
 
 // 타입 정의
 type ProblemData = {

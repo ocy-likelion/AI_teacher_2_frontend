@@ -48,6 +48,7 @@ export default function UploadButton({
     },
     onSuccess: (res) => {
       console.log(res);
+      setIsLoading(false);
       toast.info('문제 해설 생성이 완료되었습니다.');
     },
     onMutate: () => {
