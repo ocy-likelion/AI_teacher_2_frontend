@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button';
 import { httpClient } from '@/lib/api-client';
 import { useMutation } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
@@ -6,44 +5,18 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-type UploadButtonProps = {
-  cropper: Cropper | undefined;
-  setImage: React.Dispatch<React.SetStateAction<string | undefined>>;
+type UseUploadImageProps = {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   controllerRef: React.RefObject<AbortController | null>;
-  isLoadingRef: React.RefObject<Boolean>;
+  isLoadingRef: React.RefObject<boolean>;
 };
 
-export default function UploadButton({
-  cropper,
-  setImage,
+export const useUploadImage = ({
   setIsLoading,
   controllerRef,
   isLoadingRef,
-}: UploadButtonProps) {
+}: UseUploadImageProps) => {
   const navigate = useNavigate();
-
-  const getCropData = ({
-    cropper,
-    setImage,
-  }: {
-    cropper: Cropper | undefined;
-    setImage: React.Dispatch<React.SetStateAction<string | undefined>>;
-  }) => {
-    if (cropper) {
-      const croppedImage = cropper.getCroppedCanvas().toDataURL();
-      setImage(croppedImage);
-      const formData = new FormData();
-      cropper.getCroppedCanvas().toBlob((blob) => {
-        if (!blob) return;
-        const randomName = `image_${Date.now()}_${Math.random().toString(36).substring(2, 8)}.png`;
-        const file = new File([blob], randomName, { type: 'image/png' });
-        if (blob) formData.append('file', file);
-
-        useImageUpload.mutate(formData);
-      });
-    }
-  };
 
   const handleUploadStart = (controller: AbortController) => {
     controllerRef.current = controller;
@@ -57,7 +30,7 @@ export default function UploadButton({
     setIsLoading(false);
   };
 
-  const useImageUpload = useMutation({
+  const { mutate } = useMutation({
     mutationKey: ['imageUpload'],
     mutationFn: async (formData: FormData) => {
       const controller = new AbortController();
@@ -71,18 +44,19 @@ export default function UploadButton({
       handleUploadEnd();
       if (axios.isCancel(err)) {
         toast.error('요청을 취소하셨습니다.');
-      } else
+      } else {
         toast.error(
-          `문제가 발생했습니다. ${(err as AxiosError).message ? (err as AxiosError).message : '알 수 없는 오류'}`,
+          `문제가 발생했습니다. ${(err as AxiosError).message || '알 수 없는 오류'}`,
         );
+      }
       console.error(err);
     },
-    onSuccess: (res) => {
+    onSuccess: (res: any) => {
       console.log(res);
       handleUploadEnd();
       const data = res.data;
       toast.info('문제 해설 생성이 완료되었습니다.');
-      return navigate('/history', {
+      navigate('/history', {
         replace: true,
         state: {
           problemData: data?.problemData,
@@ -96,15 +70,24 @@ export default function UploadButton({
     },
   });
 
-  return (
-    <Button
-      onClick={() => {
-        getCropData({ cropper, setImage });
-      }}
-      className='w-[100px]'
-      size={'lg'}
-    >
-      확인
-    </Button>
-  );
-}
+  const getCroppedData = (
+    cropper: Cropper | undefined,
+    setImage: React.Dispatch<React.SetStateAction<string | undefined>>,
+  ) => {
+    if (cropper) {
+      const croppedImage = cropper.getCroppedCanvas().toDataURL();
+      setImage(croppedImage);
+      const formData = new FormData();
+      cropper.getCroppedCanvas().toBlob((blob) => {
+        if (!blob) return;
+        const randomName = `image_${Date.now()}_${Math.random().toString(36).substring(2, 8)}.png`;
+        const file = new File([blob], randomName, { type: 'image/png' });
+        if (blob) formData.append('file', file);
+
+        mutate(formData);
+      });
+    }
+  };
+
+  return { getCroppedData };
+};

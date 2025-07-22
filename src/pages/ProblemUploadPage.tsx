@@ -8,8 +8,10 @@ import { useEffect, useRef, useState } from 'react';
 import type { ReactCropperElement } from 'react-cropper';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-import ProblemUploadComponent from '../features/problems/components/ProblemUploadLoading';
-import UploadButton from '@/features/problems/components/UploadButton';
+import { useUploadImage } from '@/features/problems/api/use-upload-image';
+import ProblemUploadLoading from '../features/problems/components/ProblemUploadLoading';
+
+const NAVIGATION_DELAY = 0;
 
 export default function ProblemUploadPage() {
   const navigate = useNavigate();
@@ -24,9 +26,13 @@ export default function ProblemUploadPage() {
   const controllerRef = useRef<AbortController | null>(null);
   const isLoadingRef = useRef(false);
 
-  const NAVIGATION_DELAY = 0;
-
   const cropper = cropperRef.current?.cropper;
+
+  const { getCroppedData } = useUploadImage({
+    setIsLoading,
+    controllerRef,
+    isLoadingRef,
+  });
 
   const handleReupload = () => {
     uploadRef.current?.click();
@@ -68,7 +74,7 @@ export default function ProblemUploadPage() {
 
   if (isLoading) {
     console.log(isLoadingRef.current);
-    return <ProblemUploadComponent />;
+    return <ProblemUploadLoading />;
   }
 
   return (
@@ -92,13 +98,15 @@ export default function ProblemUploadPage() {
           >
             재업로드
           </Button>
-          <UploadButton
-            cropper={cropper}
-            setImage={setImage}
-            setIsLoading={setIsLoading}
-            controllerRef={controllerRef}
-            isLoadingRef={isLoadingRef}
-          />
+          <Button
+            onClick={() => {
+              getCroppedData(cropper, setImage);
+            }}
+            className='w-[100px]'
+            size={'lg'}
+          >
+            확인
+          </Button>
           <ImageUpload uploadRef={uploadRef} />
         </div>
       </section>

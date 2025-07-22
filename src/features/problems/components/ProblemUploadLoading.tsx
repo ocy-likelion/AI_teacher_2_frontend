@@ -8,12 +8,11 @@ type StepData = {
   content: string;
 };
 
-export default function ProblemUploadComponent() {
-  const [currentStep, setCurrentStep] = useState<number>(0);
+const DEFAULT_ANIMATION_DELAY = 0.1;
+const STEP_DISPLAY_TIME = 5000;
 
-  // 상수 정의
-  const DEFAULT_ANIMATION_DELAY = 0.1;
-  const STEP_DISPLAY_TIME = 5000; // 각 스텝 10초씩
+export default function ProblemUploadLoading() {
+  const [currentStep, setCurrentStep] = useState<number>(0);
 
   const steps: StepData[] = [
     {
@@ -33,10 +32,8 @@ export default function ProblemUploadComponent() {
     },
   ];
 
-  // 자동으로 단계 진행
   useEffect(() => {
     if (currentStep < 2) {
-      // 0단계, 1단계 각각 3초씩 진행
       const timer = setTimeout(() => {
         setCurrentStep(currentStep + 1);
       }, STEP_DISPLAY_TIME);
@@ -51,7 +48,6 @@ export default function ProblemUploadComponent() {
     }
   }, [currentStep]);
 
-  // 컨텐츠 렌더링 함수
   const renderContent = (): JSX.Element | null => {
     const step = steps[currentStep];
 
