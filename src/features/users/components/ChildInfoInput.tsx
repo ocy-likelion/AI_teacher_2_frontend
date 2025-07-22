@@ -46,7 +46,7 @@ export default function ChildInfoInput({
       //   childName: data.childName,
       //   childGrade: Number(data.childGrade),
       // });
-      // navigate('/');
+      navigate('/');
     }
   };
 
