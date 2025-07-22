@@ -2,34 +2,123 @@ import SubHeader from '@/components/layout/SubHeader';
 import { Button } from '@/components/ui/button';
 import ImageCropper from '@/features/problems/components/ImageCropper';
 import ImageUpload from '@/features/problems/components/ImageUploadInput';
+import { httpClient } from '@/lib/api-client';
 import useImageStore, { type imageStore } from '@/stores/imageStore';
+import { useMutation } from '@tanstack/react-query';
 import { Info } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import type { ReactCropperElement } from 'react-cropper';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import ProblemUploadComponent from '../features/problems/components/ProblemUploadLoading';
+
+// 타입 정의
+type ProblemData = {
+  id: string;
+  imageData: string;
+  uploadedAt: string;
+  status: string;
+};
+
+type LoadingCompleteData = {
+  problemData?: ProblemData;
+  explanationData?: any;
+  from?: string;
+};
 
 export default function ProblemUploadPage() {
   const navigate = useNavigate();
-
+  
+  // 상태 정의 - 카멜 케이스 사용
   const imageFile = useImageStore((state: imageStore) => state.imageUrl);
-
   const [image, setImage] = useState<string | undefined>();
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [problemData, setProblemData] = useState<ProblemData | null>(null);
+  
+  // refs 정의
   const cropperRef = useRef<ReactCropperElement>(null);
-
   const uploadRef = useRef<HTMLInputElement>(null);
 
-  const getCropData = () => {
-    // TODO: 구현 예정
+  // 상수 정의 - 대문자 스네이크 케이스
+  const NAVIGATION_DELAY = 0;
+  
+  const imageUpload = useMutation({
+    mutationKey: ['imageUpload'],
+    mutationFn: async (formData: FormData) => await httpClient.post('/image/upload', formData),
+    onError: (err) => {
+      console.error(err);
+    },
+    onSuccess: (res) => {
+      console.log(res);
+      toast.info('암튼 됐네 ㅊㅋㅊㅋ');
+    },
+  });
+  
+  // 크롭 데이터 가져오기 함수
+  const getCropData = (): string | null => {
     const cropper = cropperRef.current?.cropper;
-    console.log(cropper);
     if (cropper) {
       const croppedImage = cropper.getCroppedCanvas().toDataURL();
       setImage(croppedImage);
+      const formData = new FormData();
+      cropper.getCroppedCanvas().toBlob((blob) => {
+        if (blob) formData.append('file', blob);
+      }, 'image/png');
+      imageUpload.mutate(formData);
+      return croppedImage;
     }
+    return null;
   };
 
+  // 확인 버튼 클릭 처리
+  const handleConfirm = () => {
+    if (!image) {
+      toast.error('이미지를 선택해주세요.');
+      return;
+    }
+
+    // 크롭된 이미지 데이터 준비
+    const croppedImageData = getCropData();
+    
+    if (!croppedImageData) {
+      toast.error('이미지 처리 중 오류가 발생했습니다.');
+      return;
+    }
+
+    setIsLoading(true);
+  };
+
+  // 로딩 완료 후 처리
+  const handleLoadingComplete = (data?: LoadingCompleteData) => {
+    toast.success('해설이 완성되었습니다!');
+    
+    // 결과 페이지로 이동
+    navigate('/history', {
+      replace: true,
+      state: { 
+        problemData: data?.problemData,
+        explanationData: data?.explanationData,
+        from: 'loading' 
+      }
+    });
+    
+    // 현재 페이지 상태 초기화
+    setIsLoading(false);
+    setProblemData(null);
+  };
+
+  // 로딩에서 뒤로가기 처리
+  const handleBackFromLoading = () => {
+    setIsLoading(false);
+    setProblemData(null);
+  };
+
+  // 재업로드 버튼 클릭 처리
+  const handleReupload = () => {
+    uploadRef.current?.click();
+  };
+
+  // 이미지 파일 효과 처리
   useEffect(() => {
     if (imageFile) {
       setImage(imageFile);
@@ -37,10 +126,22 @@ export default function ProblemUploadPage() {
       setTimeout(() => {
         navigate('/');
         toast.error('유효하지 않은 접근이 감지되어 홈으로 이동합니다.');
-      }, 0);
+      }, NAVIGATION_DELAY);
     }
   }, [imageFile, navigate]);
 
+  // 로딩 중이면 로딩 컴포넌트 표시
+  if (isLoading) {
+    return (
+      <ProblemUploadComponent 
+        problemData={problemData}
+        onComplete={handleLoadingComplete}
+        onBack={handleBackFromLoading}
+      />
+    );
+  }
+
+  // 기본 업로드 UI 렌더링
   return (
     <section className='flex flex-1 flex-col w-full h-full'>
       <SubHeader type='close' title='문제 등록하기' />
@@ -57,24 +158,17 @@ export default function ProblemUploadPage() {
         <div className='flex justify-center gap-6'>
           <Button
             className='w-[100px] dark:bg-gray7 bg-white text-primary border-1 border-primary hover:bg-primary/75 hover:border-primary/75 hover:text-white'
-            size={'lg'}
-            onClick={() => {
-              uploadRef.current?.click();
-            }}
+            size='lg'
+            onClick={handleReupload}
           >
             재업로드
           </Button>
           <ImageUpload uploadRef={uploadRef} />
           <Button
-            onClick={() => {
-              getCropData();
-              // navigate('/problem/1', {
-              //   replace: true,
-              //   state: { from: 'upload' },
-              // });
-            }}
+            onClick={handleConfirm}
             className='w-[100px]'
-            size={'lg'}
+            size='lg'
+            disabled={!image}
           >
             확인
           </Button>
