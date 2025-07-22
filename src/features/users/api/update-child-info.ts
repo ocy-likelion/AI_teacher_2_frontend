@@ -31,21 +31,3 @@ export const useUpdateChildInfo = () => {
     },
   });
 };
-
-export const useUpdateCurrentChild = () => {
-  const updateChildMutation = useUpdateChildInfo();
-
-  // TODO : 임시로 8번 고정 (카카오 로그인 적용시 변경 예정)
-  const updateCurrentChild = (data: UpdateChildRequest) => {
-    updateChildMutation.mutate({
-      memberId: 8,
-      data,
-    });
-  };
-
-  return {
-    updateCurrentChild,
-    isLoading: updateChildMutation.isPending,
-    error: updateChildMutation.error,
-  };
-};
