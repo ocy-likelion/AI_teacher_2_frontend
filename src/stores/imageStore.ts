@@ -3,7 +3,6 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 
 export type imageStore = {
   imageUrl: string | undefined;
-
   setImageFile: (file: File | undefined) => void;
 };
 

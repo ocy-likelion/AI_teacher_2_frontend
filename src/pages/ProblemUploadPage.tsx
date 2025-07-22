@@ -5,6 +5,7 @@ import ImageUpload from '@/features/problems/components/ImageUploadInput';
 import { httpClient } from '@/lib/api-client';
 import useImageStore, { type imageStore } from '@/stores/imageStore';
 import { useMutation } from '@tanstack/react-query';
+import type { AxiosError } from 'axios';
 import { Info } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import type { ReactCropperElement } from 'react-cropper';
@@ -45,11 +46,12 @@ export default function ProblemUploadPage() {
   const imageUpload = useMutation({
     mutationKey: ['imageUpload'],
     mutationFn: async (formData: FormData) => {
-      console.log('요청한 데이터: ', formData.get('file'));
       return await httpClient.post('/image/upload', formData);
     },
-    onError: (err) => {
-      toast.error('문제가 발생했습니다.');
+    onError: (err: AxiosError) => {
+      toast.error(
+        `문제가 발생했습니다. ${err.message ? err.message : '알 수 없는 오류'}`
+      );
       console.error(err);
     },
     onSuccess: (res) => {
