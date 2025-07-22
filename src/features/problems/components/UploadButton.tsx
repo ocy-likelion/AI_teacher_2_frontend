@@ -3,16 +3,19 @@ import { httpClient } from '@/lib/api-client';
 import { useMutation } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
 import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
+
+type UploadButtonProps = {
+  cropper: Cropper | undefined;
+  setImage: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 export default function UploadButton({
   cropper,
   setImage,
   setIsLoading,
-}: {
-  cropper: Cropper | undefined;
-  setImage: React.Dispatch<React.SetStateAction<string | undefined>>;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+}: UploadButtonProps) {
   const getCropData = ({
     cropper,
     setImage,
@@ -35,12 +38,15 @@ export default function UploadButton({
     }
   };
 
+  const navigate = useNavigate();
+
   const useImageUpload = useMutation({
     mutationKey: ['imageUpload'],
     mutationFn: async (formData: FormData) => {
       return await httpClient.post('/image/upload', formData);
     },
     onError: (err: AxiosError) => {
+      setIsLoading(false);
       toast.error(
         `문제가 발생했습니다. ${err.message ? err.message : '알 수 없는 오류'}`,
       );
@@ -49,9 +55,19 @@ export default function UploadButton({
     onSuccess: (res) => {
       console.log(res);
       setIsLoading(false);
+      const data = res.data;
       toast.info('문제 해설 생성이 완료되었습니다.');
+      return navigate('/history', {
+        replace: true,
+        state: {
+          problemData: data?.problemData,
+          explanationData: data?.explanationData,
+          from: 'loading',
+        },
+      });
     },
     onMutate: () => {
+      setIsLoading(true);
       toast.info('현재 로딩중');
     },
   });
@@ -61,10 +77,6 @@ export default function UploadButton({
       onClick={() => {
         setIsLoading(true);
         getCropData({ cropper, setImage });
-        // navigate('/problem/1', {
-        //   replace: true,
-        //   state: { from: 'upload' },
-        // });
       }}
       className='w-[100px]'
       size={'lg'}

@@ -11,7 +11,6 @@ import { toast } from 'sonner';
 import ProblemUploadComponent from '../features/problems/components/ProblemUploadLoading';
 import UploadButton from '@/features/problems/components/UploadButton';
 
-// 타입 정의
 type ProblemData = {
   id: string;
   imageData: string;
@@ -24,6 +23,7 @@ type LoadingCompleteData = {
   explanationData?: any;
   from?: string;
 };
+// 타입 정의
 
 export default function ProblemUploadPage() {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ export default function ProblemUploadPage() {
   const imageFile = useImageStore((state: imageStore) => state.imageUrl);
   const [image, setImage] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [problemData, setProblemData] = useState<ProblemData | null>(null);
+  // const [problemData, setProblemData] = useState<ProblemData | null>(null);
 
   // refs 정의
   const cropperRef = useRef<ReactCropperElement>(null);
@@ -45,29 +45,6 @@ export default function ProblemUploadPage() {
   const cropper = cropperRef.current?.cropper;
 
   // 로딩 완료 후 처리
-  const handleLoadingComplete = (data?: LoadingCompleteData) => {
-    toast.success('해설이 완성되었습니다!');
-
-    // 결과 페이지로 이동
-    navigate('/history', {
-      replace: true,
-      state: {
-        problemData: data?.problemData,
-        explanationData: data?.explanationData,
-        from: 'loading',
-      },
-    });
-
-    // 현재 페이지 상태 초기화
-    setIsLoading(false);
-    setProblemData(null);
-  };
-
-  // 로딩에서 뒤로가기 처리
-  const handleBackFromLoading = () => {
-    setIsLoading(false);
-    setProblemData(null);
-  };
 
   // 재업로드 버튼 클릭 처리
   const handleReupload = () => {
@@ -86,15 +63,14 @@ export default function ProblemUploadPage() {
     }
   }, [imageFile, navigate]);
 
+  // 로딩에서 뒤로가기 처리
+  const handleBackFromLoading = () => {
+    setIsLoading(false);
+  };
+
   // 로딩 중이면 로딩 컴포넌트 표시
   if (isLoading) {
-    return (
-      <ProblemUploadComponent
-        problemData={problemData}
-        onComplete={handleLoadingComplete}
-        onBack={handleBackFromLoading}
-      />
-    );
+    return <ProblemUploadComponent onBack={handleBackFromLoading} />;
   }
 
   // 기본 업로드 UI 렌더링
