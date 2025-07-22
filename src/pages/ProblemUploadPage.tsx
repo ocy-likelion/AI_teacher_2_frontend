@@ -47,11 +47,15 @@ export default function ProblemUploadPage() {
     mutationFn: async (formData: FormData) =>
       await httpClient.post('/image/upload', formData),
     onError: (err) => {
+      toast.error('문제가 발생했습니다.');
       console.error(err);
     },
     onSuccess: (res) => {
       console.log(res);
       toast.info('암튼 됐네 ㅊㅋㅊㅋ');
+    },
+    onMutate: () => {
+      toast.info('현재 로딩중');
     },
   });
 
