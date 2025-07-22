@@ -253,3 +253,43 @@ body {
 .animate-float-up {
   animation: float-up 2s ease-in-out infinite;
 }
+
+@keyframes rotateUpDown {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(15deg);
+  }
+  100% {
+    transform: rotate(0 deg);
+  }
+}
+
+@keyframes starPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.rotate-green {
+  animation: rotateUpDown 2.8s ease-in-out infinite 1s;
+}
+
+.rotate-yellow {
+  animation: rotateUpDown 2.8s ease-in-out infinite 1s;
+}
+
+.rotate-orange {
+  animation: rotateUpDown 2.8s ease-in-out infinite 1s;
+}
+
+.star-pulse {
+  animation: starPulse 2.8s ease-in-out infinite 1s;
+}
