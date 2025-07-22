@@ -44,15 +44,17 @@ export default function ProblemUploadPage() {
 
   const imageUpload = useMutation({
     mutationKey: ['imageUpload'],
-    mutationFn: async (formData: FormData) =>
-      await httpClient.post('/image/upload', formData),
+    mutationFn: async (formData: FormData) => {
+      console.log('요청한 데이터: ', formData.get('file'));
+      return await httpClient.post('/image/upload', formData);
+    },
     onError: (err) => {
       toast.error('문제가 발생했습니다.');
       console.error(err);
     },
     onSuccess: (res) => {
       console.log(res);
-      toast.info('암튼 됐네 ㅊㅋㅊㅋ');
+      toast.info('문제 해설이 완료되었습니다.');
     },
     onMutate: () => {
       toast.info('현재 로딩중');
@@ -67,10 +69,13 @@ export default function ProblemUploadPage() {
       setImage(croppedImage);
       const formData = new FormData();
       cropper.getCroppedCanvas().toBlob((blob) => {
-        if (blob) formData.append('file', blob);
-      }, 'image/png');
-      imageUpload.mutate(formData);
-      return croppedImage;
+        if (!blob) return;
+        const randomName = `image_${Date.now()}_${Math.random().toString(36).substring(2, 8)}.png`;
+        const file = new File([blob], randomName, { type: 'image/png' });
+        if (blob) formData.append('file', file);
+
+        imageUpload.mutate(formData);
+      });
     }
     return null;
   };
