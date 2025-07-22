@@ -1,6 +1,5 @@
 import { lazy } from 'react';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
-import RequireAuth from './utils/RequireAuth.tsx';
 
 const Layout = lazy(() => import('./components/layout/Layout'));
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -15,6 +14,7 @@ const ErrorPage = lazy(() => import('./pages/NotFoundPage'));
 const MockApiPage = lazy(() => import('./MockApiPage.tsx'));
 const LayoutWrapper = lazy(() => import('./components/layout/LayoutWrapper'));
 const BasicLayout = lazy(() => import('./components/layout/BasicLayout'));
+const RequireAuth = lazy(() => import('./components/layout/RequireAuth.tsx'));
 
 const router = createBrowserRouter([
   {
@@ -40,7 +40,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/intro',
-        element: <LandingPage />,
+        element: (
+          <RequireAuth>
+            <LandingPage />
+          </RequireAuth>
+        ),
       },
       {
         path: '/onboarding',
