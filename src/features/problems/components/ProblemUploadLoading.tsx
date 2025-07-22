@@ -1,22 +1,14 @@
 import { useState, useEffect } from 'react';
 import type { JSX } from 'react';
-import { ChevronLeft } from 'lucide-react';
+import SubHeader from '@/components/layout/SubHeader';
 
-// Props 타입 정의 - 컴포넌트명 + Props
-type ProblemUploadComponentProps = {
-  onBack?: () => void;
-};
-
-// 단계별 데이터 타입
 type StepData = {
   title: string;
   subtitle: string;
   content: string;
 };
 
-export default function ProblemUploadComponent({
-  onBack = () => {},
-}: ProblemUploadComponentProps) {
+export default function ProblemUploadComponent() {
   const [currentStep, setCurrentStep] = useState<number>(0);
 
   // 상수 정의
@@ -146,14 +138,8 @@ export default function ProblemUploadComponent({
 
   return (
     <div className='w-full h-full flex flex-col'>
-      {/* 헤더 */}
-      <div className='flex items-center p-4'>
-        <button className='mr-4' onClick={onBack}>
-          <ChevronLeft className='w-6 h-6 text-gray-600' />
-        </button>
-      </div>
+      <SubHeader type='back' title='' />
 
-      {/* 메인 컨텐츠 */}
       <div className='flex-1 flex flex-col items-center justify-center text-center h-full -mt-30'>
         <div className='flex flex-col items-center justify-center gap-4 w-full max-w-md space-y-8'>
           <h1 className='text-xl font-bold '>{steps[currentStep].title}</h1>

@@ -4,18 +4,25 @@ import { useMutation } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 type UploadButtonProps = {
   cropper: Cropper | undefined;
   setImage: React.Dispatch<React.SetStateAction<string | undefined>>;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  controllerRef: React.RefObject<AbortController | null>;
+  isLoadingRef: React.RefObject<Boolean>;
 };
 
 export default function UploadButton({
   cropper,
   setImage,
   setIsLoading,
+  controllerRef,
+  isLoadingRef,
 }: UploadButtonProps) {
+  const navigate = useNavigate();
+
   const getCropData = ({
     cropper,
     setImage,
@@ -38,23 +45,41 @@ export default function UploadButton({
     }
   };
 
-  const navigate = useNavigate();
+  const handleUploadStart = (controller: AbortController) => {
+    controllerRef.current = controller;
+    isLoadingRef.current = true;
+    setIsLoading(true);
+  };
+
+  const handleUploadEnd = () => {
+    controllerRef.current = null;
+    isLoadingRef.current = false;
+    setIsLoading(false);
+  };
 
   const useImageUpload = useMutation({
     mutationKey: ['imageUpload'],
     mutationFn: async (formData: FormData) => {
-      return await httpClient.post('/image/upload', formData);
+      const controller = new AbortController();
+      handleUploadStart(controller);
+      const res = await httpClient.post('/image/upload', formData, {
+        signal: controller.signal,
+      });
+      return res;
     },
     onError: (err: AxiosError) => {
-      setIsLoading(false);
-      toast.error(
-        `문제가 발생했습니다. ${err.message ? err.message : '알 수 없는 오류'}`,
-      );
+      handleUploadEnd();
+      if (axios.isCancel(err)) {
+        toast.error('요청을 취소하셨습니다.');
+      } else
+        toast.error(
+          `문제가 발생했습니다. ${(err as AxiosError).message ? (err as AxiosError).message : '알 수 없는 오류'}`,
+        );
       console.error(err);
     },
     onSuccess: (res) => {
       console.log(res);
-      setIsLoading(false);
+      handleUploadEnd();
       const data = res.data;
       toast.info('문제 해설 생성이 완료되었습니다.');
       return navigate('/history', {
@@ -67,7 +92,6 @@ export default function UploadButton({
       });
     },
     onMutate: () => {
-      setIsLoading(true);
       toast.info('현재 로딩중');
     },
   });
@@ -75,7 +99,6 @@ export default function UploadButton({
   return (
     <Button
       onClick={() => {
-        setIsLoading(true);
         getCropData({ cropper, setImage });
       }}
       className='w-[100px]'

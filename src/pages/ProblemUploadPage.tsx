@@ -14,27 +14,24 @@ import UploadButton from '@/features/problems/components/UploadButton';
 export default function ProblemUploadPage() {
   const navigate = useNavigate();
 
-  // 상태 정의 - 카멜 케이스 사용
   const imageFile = useImageStore((state: imageStore) => state.imageUrl);
+
   const [image, setImage] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // refs 정의
   const cropperRef = useRef<ReactCropperElement>(null);
   const uploadRef = useRef<HTMLInputElement>(null);
+  const controllerRef = useRef<AbortController | null>(null);
+  const isLoadingRef = useRef(false);
 
-  // 상수 정의 - 대문자 스네이크 케이스
   const NAVIGATION_DELAY = 0;
 
-  // 크롭 데이터 가져오기 함수
   const cropper = cropperRef.current?.cropper;
 
-  // 재업로드 버튼 클릭 처리
   const handleReupload = () => {
     uploadRef.current?.click();
   };
 
-  // 이미지 파일 효과 처리
   useEffect(() => {
     if (imageFile) {
       setImage(imageFile);
@@ -46,17 +43,34 @@ export default function ProblemUploadPage() {
     }
   }, [imageFile, navigate]);
 
-  // 로딩에서 뒤로가기 처리
-  const handleBackFromLoading = () => {
-    setIsLoading(false);
-  };
+  useEffect(() => {
+    if (isLoadingRef.current) {
+      history.pushState({ preventBack: true }, '', location.href);
+      console.log('현재 주소: ', location.href);
+    }
 
-  // 로딩 중이면 로딩 컴포넌트 표시
+    const onPopState = (e: PopStateEvent) => {
+      if (isLoadingRef.current) {
+        const check = confirm(
+          '사이트 이탈 시 변경사항이 저장되지 않습니다. 정말 나가시겠습니까?',
+        );
+        if (check) {
+          if (controllerRef.current) {
+            controllerRef.current.abort();
+          }
+          window.history.pushState(null, '', location.href);
+        }
+      }
+      window.removeEventListener('popstate', onPopState);
+    };
+    window.addEventListener('popstate', onPopState);
+  }, []);
+
   if (isLoading) {
-    return <ProblemUploadComponent onBack={handleBackFromLoading} />;
+    console.log(isLoadingRef.current);
+    return <ProblemUploadComponent />;
   }
 
-  // 기본 업로드 UI 렌더링
   return (
     <section className='flex flex-1 flex-col w-full h-full'>
       <SubHeader type='close' title='문제 등록하기' />
@@ -82,6 +96,8 @@ export default function ProblemUploadPage() {
             cropper={cropper}
             setImage={setImage}
             setIsLoading={setIsLoading}
+            controllerRef={controllerRef}
+            isLoadingRef={isLoadingRef}
           />
           <ImageUpload uploadRef={uploadRef} />
         </div>
