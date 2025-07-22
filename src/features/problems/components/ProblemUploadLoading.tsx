@@ -50,6 +50,12 @@ export default function ProblemUploadComponent({
       }, STEP_DISPLAY_TIME);
 
       return () => clearTimeout(timer);
+    } else if (currentStep === 2) {
+      const timer = setTimeout(() => {
+        setCurrentStep(0);
+      }, STEP_DISPLAY_TIME);
+
+      return () => clearTimeout(timer);
     }
   }, [currentStep]);
 
