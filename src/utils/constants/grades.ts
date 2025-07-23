@@ -5,10 +5,10 @@ export type Grades = {
 
 export const SCHOOL: Grades[] = [
   { label: '초등학교', value: 0 },
-  { label: '중학교', value: 5 },
+  { label: '중학교', value: 6 },
 ];
 
-export const GRADES_NUM = [
+export const GRADES_NUM: Grades[] = [
   { label: '1학년', value: 1 },
   { label: '2학년', value: 2 },
   { label: '3학년', value: 3 },
@@ -17,7 +17,7 @@ export const GRADES_NUM = [
   { label: '6학년', value: 6 },
 ];
 
-export const GRADE_OPTIONS = [
+export const GRADE_OPTIONS: Grades[] = [
   { label: '초등 1학년', value: 1 },
   { label: '초등 2학년', value: 2 },
   { label: '초등 3학년', value: 3 },

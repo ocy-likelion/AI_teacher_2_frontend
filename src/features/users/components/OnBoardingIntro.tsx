@@ -8,7 +8,7 @@ export default function OnBoardingIntro({ step }: OnBoardingIntroProp) {
       <section className='h-fit'>
         <progress
           id='step'
-          className='w-full'
+          className='w-full transition-transform duration-300'
           value={step === 0 ? step + 1 : step}
           max={3}
         ></progress>
