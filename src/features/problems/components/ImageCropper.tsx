@@ -15,13 +15,26 @@ export default function ImageCropper({
         className='h-full w-full'
         src={image}
         initialAspectRatio={1}
+        aspectRatio={NaN}
         guides={true}
         ref={cropperRef}
         dragMode='move'
         responsive={true}
         background={false}
         checkOrientation={false}
+        viewMode={1}
         autoCropArea={1}
+        ready={() => {
+          const cropper = cropperRef.current?.cropper;
+          const imageData = cropper?.getImageData();
+
+          cropper?.setData({
+            x: 0,
+            y: 0,
+            width: imageData?.naturalWidth,
+            height: imageData?.naturalHeight,
+          });
+        }}
       />
     </section>
   );

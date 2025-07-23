@@ -6,12 +6,14 @@ function authRequestInterceptor(config: InternalAxiosRequestConfig) {
   console.log('Request URL:', config.url);
   if (config.headers) {
     config.headers.Accept = 'application/json';
-    if (
-      config.method === 'post' ||
-      config.method === 'put' ||
-      config.method === 'patch'
-    ) {
-      config.headers['Content-Type'] = 'application/json';
+    if (window.location.pathname !== '/problem/upload') {
+      if (
+        config.method === 'post' ||
+        config.method === 'put' ||
+        config.method === 'patch'
+      ) {
+        config.headers['Content-Type'] = 'application/json';
+      }
     }
     // 로그인 요청은 토큰을 붙이지 않는다
     if (!config.url?.includes('/api/v1/member/login')) {
