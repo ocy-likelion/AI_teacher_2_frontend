@@ -2,7 +2,7 @@ import { INTROMESSAGE } from '@/utils/constants/IntroMessages';
 
 type OnBoardingIntroProp = { step: number };
 
-export default function OnBoardingIntro({ step }: OnBoardingIntroProp) {
+export default function OnboardingIntro({ step }: OnBoardingIntroProp) {
   return (
     <div className='min-h-[115px] px-[31px] mt-[24px] mb-[10vh]'>
       <section className='h-fit'>
@@ -19,7 +19,12 @@ export default function OnBoardingIntro({ step }: OnBoardingIntroProp) {
           {step} / 3
         </label>
       </section>
-      {INTROMESSAGE[step]}
+      <h1 className='font-korean-title font-medium text-3xl break-keep mb-[13px] mt-[8vh]'>
+        {INTROMESSAGE[step].main}
+      </h1>
+      <h5 className='font-korean-title font-medium text-sm text-[#6D6D6D]'>
+        {INTROMESSAGE[step].sub}
+      </h5>
     </div>
   );
 }

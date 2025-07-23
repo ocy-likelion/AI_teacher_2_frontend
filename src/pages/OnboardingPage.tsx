@@ -1,11 +1,11 @@
 import SubHeader from '@/components/layout/SubHeader';
-
-import OnBoardingIntro from '@/features/users/components/OnBoardingIntro';
 import { useEffect, useState } from 'react';
 import IntroButtonGroup from '@/components/ui/introButtonGroup';
 import IntroInput from '@/components/ui/introInput';
 import { Button } from '@/components/ui/button';
 import { GRADES_NUM, SCHOOL } from '@/utils/constants/grades';
+import OnboardingIntro from '@/features/users/components/OnBoardingIntro';
+import OnboardingAnimation from '@/features/users/components/OnBoardingAnimation';
 
 export default function OnboardingPage() {
   const [selectedValue, setSelectedValue] = useState<number>(-1);
@@ -63,22 +63,25 @@ export default function OnboardingPage() {
 
   return (
     <div
-      className={`w-full h-full flex flex-col ${step === 3 ? 'bg-[rgba(255,128,45,0.3)] dark:bg-background-dark' : ''}`}
+      className={`w-full h-full relative flex flex-col ${step === 3 ? 'bg-[rgba(255,128,45,0.3)] dark:bg-background-dark' : ''}`}
     >
       <SubHeader
         type='back'
         title=''
         childConfirm={step === 3 ? true : false}
       />
-      <OnBoardingIntro step={step} />
+      <OnboardingIntro step={step} />
       <section className='max-h-[400px] flex-grow flex flex-col justify-center items-center gap-[max(20px,5%)] px-[33px]'>
-        <IntroButtonGroup
-          type={step}
-          schoolType={schoolType}
-          selectedValue={selectedValue}
-          onSelect={setSelectedValue}
-        />
+        {step < 2 && (
+          <IntroButtonGroup
+            type={step}
+            schoolType={schoolType}
+            selectedValue={selectedValue}
+            onSelect={setSelectedValue}
+          />
+        )}
         {step === 2 && <IntroInput setInputValue={setInputValue} />}
+        {step === 3 && <OnboardingAnimation />}
       </section>
       <section className='px-[33px] mt-auto mb-15'>
         <Button onClick={handleClick} size={'full'}>
