@@ -18,7 +18,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { selectItemsLists } from './SelectItemsLists';
 import { useEffect, useState } from 'react';
-import { SetUser } from '../api/update-user-info';
+//import { SetUser } from '../api/update-user-info';
 
 type ChildInfoNameInputProps = {
   watch: UseFormWatch<userData>;
@@ -40,11 +40,12 @@ export default function ChildInfoInput({
       console.log(data);
     }
     if (data.childGrade !== undefined && data.childGrade !== null) {
-      SetUser({
-        id: data.username,
-        childName: data.childName,
-        childGrade: Number(data.childGrade),
-      });
+      // api 호출 필요(자녀 update)
+      // SetUser({
+      //   id: data.username,
+      //   childName: data.childName,
+      //   childGrade: Number(data.childGrade),
+      // });
       navigate('/');
     }
   };
@@ -98,8 +99,9 @@ export default function ChildInfoInput({
             rules={{ required: '학년을 반드시 선택해야 합니다.' }}
             render={({ field }) => (
               <Select
-                onValueChange={(value) => field.onChange(Number(value))} 
-                value={field.value ? field.value.toString() : undefined}>
+                onValueChange={(value) => field.onChange(Number(value))}
+                value={field.value ? field.value.toString() : undefined}
+              >
                 <SelectTrigger
                   className={`min-h-[52px] w-full rounded-[12px] `}
                 >

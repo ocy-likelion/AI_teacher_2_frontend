@@ -16,7 +16,7 @@
 
 /* 기본 폰트 적용 및 문제 발생 시 sans-serif로 대체 */
 body {
-  font-family: 'Pretendard-kor', 'Montserrat', sans-serif;
+  font-family: 'SUITE', 'Pretendard-kor', 'Montserrat', sans-serif;
   background-color: #fdfbf9;
   color: #1f2937;
 }
@@ -292,4 +292,28 @@ body {
 
 .star-pulse {
   animation: starPulse 2.8s ease-in-out infinite 1s;
+}
+
+@keyframes pop {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.animate-pop {
+  animation: pop 1.5s ease-in-out infinite;
+}
+
+.delay-0 {
+  animation-delay: 0ms;
+}
+.delay-200 {
+  animation-delay: 200ms;
+}
+.delay-400 {
+  animation-delay: 400ms;
 }

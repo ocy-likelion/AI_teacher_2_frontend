@@ -1,21 +1,26 @@
 import SubHeader from '@/components/layout/SubHeader';
+import Loading from '@/components/ui/Loading';
+import { useLogin } from '@/features/users/api/useLoginMutation';
 import LoginForm from '@/features/users/components/LoginForm';
 import type { userData } from '@/types/user.type';
 import { useForm } from 'react-hook-form';
 
 export default function LoginPage() {
-  const {
-    register,
-    watch,
-    handleSubmit,
-    // formState: { errors },
-  } = useForm<userData>({
+  const { register, watch, handleSubmit } = useForm<userData>({
     defaultValues: {
       username: '',
       password: '',
     },
     mode: 'onSubmit',
   });
+
+  const login = useLogin();
+
+  const handleLogin = (data: userData) => {
+    login.mutate(data);
+  };
+
+  if (login.isPending) return <Loading />;
 
   return (
     <section className='h-[calc(100%-55px)]'>
@@ -34,8 +39,9 @@ export default function LoginPage() {
         </p>
         <LoginForm
           watch={watch}
-          handleSubmit={handleSubmit}
           register={register}
+          onSubmit={handleSubmit(handleLogin)}
+          isPending={login.isPending}
         />
       </div>
     </section>

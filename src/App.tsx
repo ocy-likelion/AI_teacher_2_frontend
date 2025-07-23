@@ -11,7 +11,7 @@ function App() {
       <Suspense
         fallback={
           <LayoutWrapper>
-            <Loading />
+            <Loading description='페이지를 불러오고 있어요...' />
           </LayoutWrapper>
         }
       >
