@@ -58,8 +58,14 @@ export default function IntroPage() {
   };
 
   return (
-    <div className='w-full h-full flex flex-col'>
-      <SubHeader type='back' title='' />
+    <div
+      className={`w-full h-full flex flex-col ${step === 3 ? 'bg-[rgba(255,128,45,0.3)] dark:bg-background-dark' : ''}`}
+    >
+      <SubHeader
+        type='back'
+        title=''
+        childConfirm={step === 3 ? true : false}
+      />
       <OnBoardingIntro step={step} />
       <section className='max-h-[400px] flex-grow flex flex-col justify-center items-center gap-[max(20px,5%)] px-[33px]'>
         <IntroButtonGroup
