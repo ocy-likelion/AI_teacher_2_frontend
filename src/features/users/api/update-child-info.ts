@@ -20,7 +20,7 @@ export const useUpdateChildInfo = () => {
       data: UpdateChildRequest;
     }) => updateChildInfo(memberId, data),
 
-    onMutate: async ({ memberId, data }) => {
+    onMutate: async ({ memberId: _memberId, data }) => {
       await queryClient.cancelQueries({ queryKey: ['child'] });
 
       const prevData = queryClient.getQueryData<Child>(['child']);
