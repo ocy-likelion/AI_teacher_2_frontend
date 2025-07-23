@@ -6,6 +6,7 @@ import { useProblemList } from '../api/get-problem-list';
 import { useRef } from 'react';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 import Loading from '@/components/ui/Loading';
+import ListLoading from './ListLoading';
 
 export default function ListSection() {
   const [params] = useSearchParams();
@@ -36,7 +37,7 @@ export default function ListSection() {
   return (
     <section className='w-full'>
       <ViewComponent items={problems} />
-      {isFetchingNextPage && <Loading />}
+      {isFetchingNextPage && <ListLoading />}
       <div ref={targetRef} className='h-[1px]' />
     </section>
   );
