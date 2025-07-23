@@ -6,7 +6,6 @@ import { useModalStore } from '@/stores/modalStore';
 import type { UpdateChildRequest } from '@/types/user.type';
 import { getGradeLabel } from '@/utils/constants/grades';
 import { useUpdateChildInfo } from '../api/update-child-info';
-import Loading from '@/components/ui/Loading';
 
 type ChildCardProps = {
   name: string;
@@ -20,8 +19,6 @@ export default function ChildCard({ name, grade, concepts }: ChildCardProps) {
   const handleConfirm = (data: UpdateChildRequest) => {
     updateChild({ memberId: 8, data });
   };
-
-  if (isUpdating) return <Loading />;
 
   return (
     <div className='relative w-full h-full flex flex-col items-center gap-3 bg-white dark:bg-gray6 rounded-[16px] shadow-[var(--shadow)] dark:shadow-[var(--shadow-dark)] p-4'>
