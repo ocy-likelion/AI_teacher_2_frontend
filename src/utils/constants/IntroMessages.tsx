@@ -17,10 +17,10 @@ export const INTROMESSAGE = [
   </>,
   <>
     <h1 className='font-korean-title font-medium text-3xl break-keep mb-[13px]'>
-      우리 아이<span className='text-primary'>이름</span>이 뭐예요?
+      우리 아이 이름이 뭐예요?
     </h1>
     <p className='font-korean-title font-medium text-sm text-[#6D6D6D]'>
-      이름을 알려주지면 더 정확해져요
+      이름을 알려주시면 더 정확해져요
     </p>
   </>,
   <>

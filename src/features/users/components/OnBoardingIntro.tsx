@@ -1,12 +1,25 @@
 import { INTROMESSAGE } from '@/utils/constants/IntroMessages';
-import { useState } from 'react';
 
-export default function OnBoardingIntro() {
-  const [step, setStep] = useState(0);
+type OnBoardingIntroProp = { step: number };
 
+export default function OnBoardingIntro({ step }: OnBoardingIntroProp) {
   return (
     <div className='min-h-[115px] px-[31px] mt-[24px] mb-[10vh]'>
-      {INTROMESSAGE[0]}
+      <section className='h-fit'>
+        <progress
+          id='step'
+          className='w-full'
+          value={step === 0 ? step + 1 : step}
+          max={3}
+        ></progress>
+        <label
+          htmlFor='step'
+          className='preahvihear-regular text-[13px] block text-right mt-[5px] mr-[2px]'
+        >
+          {step === 0 ? step + 1 : step} / 3
+        </label>
+      </section>
+      {INTROMESSAGE[step]}
     </div>
   );
 }

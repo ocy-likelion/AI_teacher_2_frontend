@@ -1,3 +1,22 @@
+export type Grades = {
+  label: string;
+  value: number;
+};
+
+export const SCHOOL: Grades[] = [
+  { label: '초등학교', value: 0 },
+  { label: '중학교', value: 5 },
+];
+
+export const GRADES_NUM = [
+  { label: '1학년', value: 1 },
+  { label: '2학년', value: 2 },
+  { label: '3학년', value: 3 },
+  { label: '4학년', value: 4 },
+  { label: '5학년', value: 5 },
+  { label: '6학년', value: 6 },
+];
+
 export const GRADE_OPTIONS = [
   { label: '초등 1학년', value: 1 },
   { label: '초등 2학년', value: 2 },

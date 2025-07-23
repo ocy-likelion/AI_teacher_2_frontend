@@ -56,7 +56,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/intro',
+        path: '/childIntro',
         element: <IntroPage />,
       },
 
