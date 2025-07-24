@@ -317,3 +317,7 @@ body {
 .delay-400 {
   animation-delay: 400ms;
 }
+
+.animate-infinity {
+  animation: pop 2s ease-in-out infinite;
+}

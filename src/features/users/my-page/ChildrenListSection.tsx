@@ -4,7 +4,7 @@ import { handleApiError } from '@/utils/handle-api-error';
 import axios from 'axios';
 import NotFoundPage from '@/pages/NotFoundPage';
 import ServerErrorPage from '@/pages/ServerErrorPage';
-import Loading from '@/components/ui/Loading';
+import ListLoading from '@/components/ui/ListLoading';
 
 const concepts = [
   { id: 1, name: '분수' },
@@ -22,7 +22,8 @@ export default function ChildrenListSection() {
     return <ServerErrorPage />;
   }
 
-  if (isPending) return <Loading />;
+  if (isPending)
+    return <ListLoading description='아이 정보를 불러오고 있어요...' />;
 
   return (
     <section className='flex flex-col items-center gap-4'>

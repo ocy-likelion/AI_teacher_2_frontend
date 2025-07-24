@@ -5,7 +5,7 @@ import ListView from './ListView';
 import { useProblemList } from '../api/get-problem-list';
 import { useRef } from 'react';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
-import Loading from '@/components/ui/Loading';
+import ListLoading from '@/components/ui/ListLoading';
 
 export default function ListSection() {
   const [params] = useSearchParams();
@@ -27,7 +27,12 @@ export default function ListSection() {
     enabled: hasNextPage && !isFetchingNextPage,
   });
 
-  if (isPending) return <Loading />;
+  if (isPending)
+    return (
+      <section className='w-full h-full flex flex-col justify-center items-center'>
+        <ListLoading description='해설 기록을 가져오는 중이에요...' />
+      </section>
+    );
   if (problems.length === 0) {
     return <Empty description='아직 등록된 문제가 없어요.' />;
   }
@@ -36,7 +41,7 @@ export default function ListSection() {
   return (
     <section className='w-full'>
       <ViewComponent items={problems} />
-      {isFetchingNextPage && <Loading />}
+      {isFetchingNextPage && <ListLoading />}
       <div ref={targetRef} className='h-[1px]' />
     </section>
   );
