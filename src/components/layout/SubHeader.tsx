@@ -2,7 +2,7 @@ import { ChevronLeft, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 type SubHeaderProps = {
-  type: 'close' | 'back' | 'reset';
+  type: 'close' | 'back';
   title: string;
   childConfirm?: boolean;
   onBackClick?: () => void;
