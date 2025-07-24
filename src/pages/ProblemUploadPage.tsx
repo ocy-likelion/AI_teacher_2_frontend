@@ -8,8 +8,9 @@ import { useEffect, useRef, useState } from 'react';
 import type { ReactCropperElement } from 'react-cropper';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-import { useUploadImage } from '@/features/problems/api/use-upload-image';
 import ProblemUploadLoading from '../features/problems/components/ProblemUploadLoading';
+import getCroppedData from '@/features/problems/api/get-cropped-data';
+import { useUploadImage } from '@/features/problems/api/use-upload-image';
 
 const NAVIGATION_DELAY = 0;
 
@@ -28,10 +29,11 @@ export default function ProblemUploadPage() {
 
   const cropper = cropperRef.current?.cropper;
 
-  const { getCroppedData } = useUploadImage({
+  const { mutate } = useUploadImage({
     setIsLoading,
     controllerRef,
     isLoadingRef,
+    navigate,
   });
 
   const handleReupload = () => {
@@ -100,7 +102,7 @@ export default function ProblemUploadPage() {
           </Button>
           <Button
             onClick={() => {
-              getCroppedData(cropper, setImage);
+              getCroppedData(cropper, setImage, mutate);
             }}
             className='w-[100px]'
             size={'lg'}
