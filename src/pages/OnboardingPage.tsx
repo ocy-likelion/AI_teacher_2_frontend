@@ -59,11 +59,12 @@ export default function OnboardingPage() {
           break;
 
         case 3:
+          // 여기서 API 연동 TODO
           console.log(formData);
           break;
 
         default:
-          throw new Error('지정된 단계 이상이 지정되었습니다.');
+          throw new Error('지정된 단계 이상이 선택되었습니다.');
       }
     }
   };

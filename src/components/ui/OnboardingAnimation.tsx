@@ -16,11 +16,6 @@ export default function OnboardingAnimation() {
             key={value}
             data={`/images/characters/${OBJECTELEMENTS[value].image}`}
             type='image/svg+xml'
-            style={
-              {
-                // animationDuration: `${Math.floor(Math.random() * 5000 + 1000)}ms`,
-              }
-            }
             className={`absolute size-[15vh] ${OBJECTELEMENTS[value].style} aspect-square drop-shadow-[1rem_-1rem_0_rgba(255,128,45,0.3)] dark:drop-shadow-[1rem_-1rem_0_var(--color-primary2)] animate-up-and-down`}
           />
         );
