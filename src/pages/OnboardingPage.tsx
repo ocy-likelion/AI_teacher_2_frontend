@@ -40,7 +40,6 @@ export default function OnboardingPage() {
     if (selectedValue !== -1) {
       switch (step) {
         case 0:
-          console.log(grade);
           setStep(1);
           setSchoolType(selectedValue);
           setGrade(grade + SCHOOL[selectedValue].value);
@@ -48,7 +47,6 @@ export default function OnboardingPage() {
           break;
 
         case 1:
-          console.log(grade);
           setStep(2);
           setGrade(grade + GRADES_NUM[selectedValue].value);
           break;
