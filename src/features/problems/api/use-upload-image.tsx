@@ -4,6 +4,7 @@ import type { AxiosError } from 'axios';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { handleApiError } from '@/utils/handle-api-error';
 
 type UseUploadImageProps = {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -45,24 +46,17 @@ export const useUploadImage = ({
       if (axios.isCancel(err)) {
         toast.error('요청을 취소하셨습니다.');
       } else {
-        toast.error(
-          `문제가 발생했습니다. ${(err as AxiosError).message || '알 수 없는 오류'}`,
-        );
+        handleApiError(err);
       }
       console.error(err);
     },
-    onSuccess: (res: any) => {
+    onSuccess: (res: { data: { id: number } }) => {
       console.log(res);
       handleUploadEnd();
-      const data = res.data;
+      const id = res.data.id;
       toast.info('문제 해설 생성이 완료되었습니다.');
-      navigate('/history', {
+      navigate(`/problem/${id}`, {
         replace: true,
-        state: {
-          problemData: data?.problemData,
-          explanationData: data?.explanationData,
-          from: 'loading',
-        },
       });
     },
     onMutate: () => {
