@@ -23,13 +23,15 @@ const buttonVariants = cva(
         lg: 'h-10 rounded-md px-6 has-[>svg]:px-4',
         icon: 'size-9',
         full: 'w-full h-11 rounded-md px-6 has-[>svg]:px-4',
+        onboarding:
+          'w-full max-h-[57px] min-h-fit py-[13px] text-center rounded-[12px] text-lg font-medium flex items-center justify-center bg-primary hover:bg-primary/80',
       },
     },
     defaultVariants: {
       variant: 'default',
       size: 'default',
     },
-  }
+  },
 );
 
 function Button({

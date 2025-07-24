@@ -116,8 +116,8 @@ export default function OnboardingPage() {
         {step === 2 && <IntroInput setInputValue={setInputValue} />}
         {step === 3 && <OnboardingAnimation />}
       </section>
-      <section className='px-[33px] mt-auto mb-15'>
-        <Button onClick={handleClick} size={'full'}>
+      <section className='px-[33px] relative w-full mt-auto mb-15'>
+        <Button onClick={handleClick} size={'onboarding'}>
           {buttonText}
         </Button>
       </section>
