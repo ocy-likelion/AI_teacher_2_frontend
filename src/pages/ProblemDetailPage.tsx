@@ -70,7 +70,14 @@ export default function ProblemDetailPage() {
         <ImageSection url={data.imageUrl} alt={String(data.id)} />
         <DetailSection>
           <Title size='lg'>문제</Title>
-          <CardWrapper>{data.ocrResult}</CardWrapper>
+          <CardWrapper>
+            <Markdown
+              remarkPlugins={[remarkMath, remarkGfm]}
+              rehypePlugins={[rehypeKatex]}
+            >
+              {sanitizeMathMarkdown(data.ocrResult)}
+            </Markdown>
+          </CardWrapper>
         </DetailSection>
         {data.concepts.length > 0 && (
           <DetailSection>
