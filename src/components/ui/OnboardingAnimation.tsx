@@ -1,10 +1,10 @@
 const OBJECTELEMENTS = [
   {
     image: 'orange_triangle.svg',
-    style: 'left-[60%] top-[30vh] rotate-[10deg]',
+    style: 'left-[60%] top-[-10%] rotate-[10deg]',
   },
-  { image: 'green.svg', style: 'left-[10%] top-[45vh] rotate-[-15deg]' },
-  { image: 'blue.svg', style: 'left-[53%] top-[60vh] rotate-[5deg]' },
+  { image: 'green.svg', style: 'left-[10%] top-[30%] rotate-[-15deg]' },
+  { image: 'blue.svg', style: 'left-[53%] top-[60%] rotate-[5deg]' },
 ];
 
 export default function OnboardingAnimation() {

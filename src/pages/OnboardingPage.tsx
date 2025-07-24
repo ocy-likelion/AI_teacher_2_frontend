@@ -104,7 +104,7 @@ export default function OnboardingPage() {
         onBackClick={onBackClick}
       />
       <OnboardingIntro step={step} />
-      <section className='max-h-[400px] flex-grow flex flex-col justify-center items-center gap-[max(20px,5%)] px-[33px] mb-10'>
+      <section className='relative max-h-[400px] flex-grow flex flex-col justify-center items-center gap-[max(20px,5%)] px-[33px] mb-10'>
         {step < 2 && (
           <IntroButtonGroup
             type={step}
