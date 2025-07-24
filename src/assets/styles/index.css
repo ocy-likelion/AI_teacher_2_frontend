@@ -14,6 +14,12 @@
   unicode-range: U+AC00-D7A3;
 }
 
+.preahvihear-regular {
+  font-family: 'Preahvihear', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 /* 기본 폰트 적용 및 문제 발생 시 sans-serif로 대체 */
 body {
   font-family: 'SUITE', 'Pretendard-kor', 'Montserrat', sans-serif;
@@ -241,6 +247,32 @@ body {
   line-height: var(--space-16);
 }
 
+/* progress style */
+
+progress {
+  display: block;
+  height: 8px;
+  border-radius: 15px;
+}
+
+progress::-webkit-progress-value {
+  background-color: #ff802d;
+  border-radius: 15px;
+}
+
+progress::-webkit-progress-bar {
+  background-color: var(--color-gray5);
+  border-radius: 15px;
+}
+
+.selectButtonElement {
+  background-color: #eeeeee;
+  padding: 14px 0;
+  border-radius: 12px;
+  width: 100%;
+  text-align: center;
+}
+
 @keyframes float-up {
   0%,
   100% {
@@ -320,4 +352,18 @@ body {
 
 .animate-infinity {
   animation: pop 2s ease-in-out infinite;
+}
+
+@keyframes up-and-down {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(25px);
+  }
+}
+
+.animate-up-and-down {
+  animation: up-and-down ease-in-out 3s infinite;
 }
