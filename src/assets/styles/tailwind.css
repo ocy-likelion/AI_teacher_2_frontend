@@ -4,6 +4,7 @@
 /* 모든 스타일링을 리셋하는 preflight 비활성화 */
 /* @import "tailwindcss/preflight.css" layer(base); */
 @import 'tailwindcss/utilities.css' layer(utilities);
+@plugin '@tailwindcss/typography';
 
 /* 커스텀 테마 컬러 정의 */
 @theme {
