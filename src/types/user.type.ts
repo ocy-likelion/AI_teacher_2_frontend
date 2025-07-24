@@ -22,3 +22,5 @@ export type Child = {
   childName: string;
   childGrade: number;
 };
+
+export type CreateChildRequest = UpdateChildRequest;

@@ -9,6 +9,7 @@ import OnboardingAnimation from '@/components/OnboardingAnimation';
 import validateInput from '@/utils/validate-input';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
+import { useCreateChildInfo } from '@/features/users/api/create-child-info';
 
 export default function OnboardingPage() {
   const [selectedValue, setSelectedValue] = useState<number>(-1);
@@ -17,16 +18,18 @@ export default function OnboardingPage() {
   const [grade, setGrade] = useState(0);
   const [step, setStep] = useState(0);
   const [buttonText, setButtonText] = useState('다음');
-  const [formData, setFormData] = useState({
+  const [data, setData] = useState({
     name: '',
     grade: 0,
   });
+
+  const { mutate: createChild } = useCreateChildInfo();
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (step === 2) {
-      setFormData({
+      setData({
         name: inputValue,
         grade: grade,
       });
@@ -58,7 +61,8 @@ export default function OnboardingPage() {
 
         case 3:
           // 여기서 API 연동 TODO
-          console.log(formData);
+          createChild({ data });
+          console.log(data);
           break;
 
         default:
