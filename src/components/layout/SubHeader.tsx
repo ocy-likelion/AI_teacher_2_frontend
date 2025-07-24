@@ -2,19 +2,22 @@ import { ChevronLeft, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 type SubHeaderProps = {
-  type: 'close' | 'back';
+  type: 'close' | 'back' | 'reset';
   title: string;
   childConfirm?: boolean;
+  onBackClick?: () => void;
 };
 
 export default function SubHeader({
   type,
   title,
   childConfirm = false,
+  onBackClick,
 }: SubHeaderProps) {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(-1);
+    if (!onBackClick) navigate(-1);
+    else onBackClick();
   };
 
   return (

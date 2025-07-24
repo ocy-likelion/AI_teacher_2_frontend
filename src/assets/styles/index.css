@@ -353,3 +353,17 @@ progress::-webkit-progress-bar {
 .animate-infinity {
   animation: pop 2s ease-in-out infinite;
 }
+
+@keyframes up-and-down {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(25px);
+  }
+}
+
+.animate-up-and-down {
+  animation: up-and-down ease-in-out 3s infinite;
+}

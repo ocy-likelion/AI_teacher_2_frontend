@@ -12,7 +12,7 @@ export default function IntroInput({
       flex items-center justify-center'
       placeholder='한글 또는 영어 이름을 입력해주세요'
       onChange={(e) => {
-        if (e.target.value.length > 2) {
+        if (e.target.value) {
           setInputValue(e.target.value);
         }
       }}
