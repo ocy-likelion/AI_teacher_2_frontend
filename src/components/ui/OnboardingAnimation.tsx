@@ -9,7 +9,7 @@ const OBJECTELEMENTS = [
 
 export default function OnboardingAnimation() {
   return (
-    <div>
+    <>
       {Array.from({ length: 3 }, (_, i) => i).map((value) => {
         return (
           <object
@@ -22,6 +22,6 @@ export default function OnboardingAnimation() {
           />
         );
       })}
-    </div>
+    </>
   );
 }

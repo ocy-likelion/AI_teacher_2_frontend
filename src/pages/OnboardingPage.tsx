@@ -4,8 +4,8 @@ import IntroButtonGroup from '@/components/ui/introButtonGroup';
 import IntroInput from '@/components/ui/introInput';
 import { Button } from '@/components/ui/button';
 import { GRADES_NUM, SCHOOL } from '@/utils/constants/grades';
-import OnboardingIntro from '@/features/users/components/OnBoardingIntro';
-import OnboardingAnimation from '@/features/users/components/OnBoardingAnimation';
+import OnboardingIntro from '@/components/ui/OnboardingIntro';
+import OnboardingAnimation from '@/components/ui/OnboardingAnimation';
 
 export default function OnboardingPage() {
   const [selectedValue, setSelectedValue] = useState<number>(-1);
