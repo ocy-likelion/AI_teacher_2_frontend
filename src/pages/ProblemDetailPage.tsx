@@ -1,5 +1,10 @@
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import Markdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import remarkGfm from 'remark-gfm';
+import 'katex/dist/katex.min.css';
 import ServerErrorPage from '@/pages/ServerErrorPage';
 import NotFoundPage from '@/pages/NotFoundPage';
 import SubHeader from '@/components/layout/SubHeader';
@@ -13,6 +18,32 @@ import Loading from '@/components/ui/Loading';
 import { formatDetailDate } from '@/utils/date';
 import { useProblemDetail } from '@/features/problems/api/get-problem-detail';
 import { handleApiError } from '@/utils/handle-api-error';
+
+// 인라인 수식 처리를 위해 추가 (추후 수식을 $$ 형식으로 받으면 삭제 예정)
+export function sanitizeMathMarkdown(raw: string): string {
+  return (
+    raw
+      // 블록 수식 형태 (예: //( ... ) 또는 (//))
+      .replace(/\(\/\/\)/g, '$$') // (//) → $$
+      .replace(/\/\/\)/g, '$$') // //) → $$
+      .replace(/\(\/\/\s*/g, '$$') // (// → $$
+      .replace(/\/\/\s*\)/g, '$$') // //) → $$
+
+      // 인라인 수식 형태: \( ... \) → $ ... $
+      .replace(/\\\(/g, '$')
+      .replace(/\\\)/g, '$')
+
+      // 혹시 escape 때문에 생긴 \\( ... \\) → $ ... $
+      .replace(/\\\\\(/g, '$')
+      .replace(/\\\\\)/g, '$')
+
+      // 기타 흔한 오타 처리 (예: ^? → ^{?})
+      .replace(/\^(\?)/g, '^{$1}')
+
+      // 마무리: 여분의 줄 정리
+      .trim()
+  );
+}
 
 export default function ProblemDetailPage() {
   const { _id } = useParams();
@@ -39,22 +70,38 @@ export default function ProblemDetailPage() {
         <ImageSection url={data.imageUrl} alt={String(data.id)} />
         <DetailSection>
           <Title size='lg'>문제</Title>
-          <CardWrapper>{data.ocrResult}</CardWrapper>
-        </DetailSection>
-        <DetailSection>
-          <Title
-            size='lg'
-            description='해시태그를 누르면 자세한 설명을 볼 수 있어요'
-          >
-            핵심 개념
-          </Title>
           <CardWrapper>
-            <ConceptList concepts={data.concepts} />
+            <Markdown
+              remarkPlugins={[remarkMath, remarkGfm]}
+              rehypePlugins={[rehypeKatex]}
+            >
+              {sanitizeMathMarkdown(data.ocrResult)}
+            </Markdown>
           </CardWrapper>
         </DetailSection>
+        {data.concepts.length > 0 && (
+          <DetailSection>
+            <Title
+              size='lg'
+              description='해시태그를 누르면 자세한 설명을 볼 수 있어요'
+            >
+              핵심 개념
+            </Title>
+            <CardWrapper>
+              <ConceptList concepts={data.concepts} />
+            </CardWrapper>
+          </DetailSection>
+        )}
         <DetailSection>
           <Title size='lg'>이렇게 설명해볼까요?</Title>
-          <CardWrapper>{data.llmResult}</CardWrapper>
+          <CardWrapper className='prose prose-sm sm:prose lg:prose-lg dark:prose-invert prose-li:m-0 prose-p:m-0'>
+            <Markdown
+              remarkPlugins={[remarkMath, remarkGfm]}
+              rehypePlugins={[rehypeKatex]}
+            >
+              {sanitizeMathMarkdown(data.llmResult)}
+            </Markdown>
+          </CardWrapper>
         </DetailSection>
       </main>
       <DetailFooter id={_id!} isFavorite={data.favorite} />

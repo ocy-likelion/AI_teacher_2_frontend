@@ -5,5 +5,5 @@ type DetailSectionProps = {
 };
 
 export default function DetailSection({ children }: DetailSectionProps) {
-  return <section className='flex flex-col gap-2'>{children}</section>;
+  return <section className='flex flex-col gap-2 mt-4'>{children}</section>;
 }
