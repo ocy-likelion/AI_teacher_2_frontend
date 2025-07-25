@@ -45,7 +45,7 @@
 
 |                                                해설 보기                                                 |                                            해설 기록(리스트)                                             |                                            해설 기록(그리드)                                             |
 | :------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------: |
-| <img src="https://github.com/user-attachments/assets/9b5782f8-e8d0-4ba7-9f54-64c47ae48fc2" width="200"/> | <img src="https://github.com/user-attachments/assets/e336aa3a-47f3-4f28-8081-0cd486d00aaa" width="200"/> | <img src="https://github.com/user-attachments/assets/67328723-6ff2-4d2a-91c5-1eac9398ecf4" width="200"/> |
+| <img src="https://github.com/user-attachments/assets/67328723-6ff2-4d2a-91c5-1eac9398ecf4" width="200"/> | <img src="https://github.com/user-attachments/assets/9b5782f8-e8d0-4ba7-9f54-64c47ae48fc2" width="200"/> | <img src="https://github.com/user-attachments/assets/e336aa3a-47f3-4f28-8081-0cd486d00aaa" width="200"/> |
 
 > 사용자의 문제 해결 과정을 직관적으로 확인할 수 있도록 구성되어 있습니다.
 
