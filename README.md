@@ -1,69 +1,94 @@
-# React + TypeScript + Vite
+<div align="center">
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<!-- logo -->
+<img src="https://github.com/user-attachments/assets/0cd4b453-6226-4766-bcef-42506ca75961" width="400"/>
 
-Currently, two official plugins are available:
+### 🎯 일타 - 우리 아이 수학 설명 도우미
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**멋쟁이 사자처럼 로켓단 12기 ✅**
 
-## Expanding the ESLint configuration
+[<img src="https://img.shields.io/badge/-readme.md-important?style=flat&logo=google-chrome&logoColor=white" />]()
+[<img src="https://img.shields.io/badge/-tech blog-blue?style=flat&logo=google-chrome&logoColor=white" />]()
+[<img src="https://img.shields.io/badge/release-v1.1.0-yellow?style=flat&logo=google-chrome&logoColor=white" />]()
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+<br/>
+[<img src="https://img.shields.io/badge/프로젝트 기간-2025.06.30~2025.07.30-green?style=flat&logo=&logoColor=white" />]()
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+</div>
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 📝 프로젝트 소개
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+**"모르는 걸 묻는 아이, 설명 못해 답답한 부모님을 위한 AI 일타강사 앱"**
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+**일타**는 자녀가 수학 문제를 물어볼 때,  
+**학부모가 마치 '일타강사'처럼 쉽게 설명할 수 있도록** 도와주는 AI 서비스입니다.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- 📷 **문제 사진 업로드** → 🤖 **AI가 핵심 개념 분석** → 🗣️ **부모용 설명 가이드 제공**
+- 👪 부모가 **직접 설명할 수 있게** 돕는 국내 최초의 '부모 중심' 수학 학습 보조 도구
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+> “아이에게 이렇게 말해보세요: ‘12를 나눌 수 있는 수에는 어떤 게 있을까?’”
+
+<br/>
+
+👉 현재 모바일 웹 기반 MVP 개발 중
+
+---
+
+### 📱 화면 구성
+
+|                                            메인 홈                                             |                                          문제 촬영 화면                                          |                                          등록 전 편집                                          |                                               해설 보기                                               |
+| :--------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------: |
+| <img src="https://user-images.githubusercontent.com/80824750/000000001-home.png" width="200"/> | <img src="https://user-images.githubusercontent.com/80824750/000000002-camera.png" width="200"/> | <img src="https://user-images.githubusercontent.com/80824750/000000003-edit.png" width="200"/> | <img src="https://user-images.githubusercontent.com/80824750/000000004-explanation.png" width="200"/> |
+
+|                                           해설 기록(리스트)                                           |                                             해설 기록(검색)                                             |                                           해설 기록(그리드)                                           |
+| :---------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------: |
+| <img src="https://user-images.githubusercontent.com/80824750/000000005-record-list.png" width="200"/> | <img src="https://user-images.githubusercontent.com/80824750/000000006-record-search.png" width="200"/> | <img src="https://user-images.githubusercontent.com/80824750/000000007-record-grid.png" width="200"/> |
+
+> 사용자의 문제 해결 과정을 직관적으로 확인할 수 있도록 구성되어 있습니다.
+
+---
+
+## ⚙ 기술 스택
+
+### Front-end
+
+<div>
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/HTMLCSS.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/TypeScript.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/React.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/ReactQuery.png?raw=true" width="80">
+
+</div>
+
+### Infra
+
+<div>
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/AWSEC2.png?raw=true" width="80">
+</div>
+
+### Tools
+
+<div>
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Github.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Figma.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Discord.png?raw=true" width="80">
+</div>
+
+---
+
+## 🤔 기술적 이슈와 해결 과정
+
+- 📌 **이미지 CORS 문제**  
+  `React`에서 S3 이미지 업로드 후 프리뷰 시 CORS 이슈가 발생하여 pre-signed URL을 사용해 해결
+
+- 📌 **이미지 업로드 시점에 따른 UI 동기화**  
+  촬영 후 즉시 업로드가 되지 않고 사용자 확인 후 업로드하도록 UX 개선
+
+---
+
+## 💁‍♀️ 프로젝트 팀원
+
+|                    Backend                    |                    Backend                    |                    Backend                     |                  Frontend                  |                    Frontend                    |
+| :-------------------------------------------: | :-------------------------------------------: | :--------------------------------------------: | :----------------------------------------: | :--------------------------------------------: |
+| ![](https://github.com/yeonju52.png?size=120) | ![](https://github.com/ysang989.png?size=120) | ![](https://github.com/suuny0321.png?size=120) | ![](https://github.com/EJ-99.png?size=120) | ![](https://github.com/Taiho1998.png?size=120) |
+|     [이연주](https://github.com/yeonju52)     |     [박상연](https://github.com/ysang989)     |     [주선경](https://github.com/suuny0321)     |     [박은지](https://github.com/EJ-99)     |     [고태호](https://github.com/Taiho1998)     |
