@@ -39,6 +39,7 @@ export default function OnboardingPage() {
     }
   }, [inputValue, step]);
 
+  // 각 스텝 당 할당된 이벤트
   const handleClick = () => {
     if (selectedValue !== -1) {
       switch (step) {
@@ -62,7 +63,6 @@ export default function OnboardingPage() {
         case 3:
           // 여기서 API 연동 TODO
           createChild({ data });
-          console.log(data);
           break;
 
         default:
@@ -71,6 +71,7 @@ export default function OnboardingPage() {
     }
   };
 
+  // 헤더의 뒤로가기 이벤트 처리
   const onBackClick = () => {
     switch (step) {
       case 1:

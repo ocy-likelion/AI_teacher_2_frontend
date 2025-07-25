@@ -49,7 +49,6 @@ export const useUploadImage = ({
       }
     },
     onSuccess: (res: { data: { id: number } }) => {
-      console.log(res);
       handleUploadEnd();
       const id = res.data.id;
       toast.info('문제 해설 생성이 완료되었습니다.');
@@ -63,6 +62,11 @@ export const useUploadImage = ({
       });
       queryClient.invalidateQueries({
         queryKey: problemListKey({ favorite: true }),
+      });
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['imageUpload'],
       });
     },
   });

@@ -24,9 +24,6 @@ export const useCreateChildInfo = () => {
 
     onError: (error) => {
       handleApiError(error);
-      // 현재 API 연동이 힘든 상황에 있어 임시적으로 오류 발생 시에도 메인 페이지로 이동.
-      // 추후 navigate 제거 후 API 연동 작업을 재개
-      navigate('/');
     },
 
     onSettled: () => {
