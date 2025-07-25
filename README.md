@@ -64,10 +64,12 @@
 <img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/TypeScript.png?raw=true" width="80">
 <img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/React.png?raw=true" width="80">
 <img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/ReactQuery.png?raw=true" width="80">
+<img src="https://github.com/user-attachments/assets/089e266f-9201-4b54-8d75-7f23831a1188" width="80">
 <img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Axios.png?raw=true" width="80">
 <img src="https://github.com/user-attachments/assets/fc0553c9-f052-49df-bda6-aa05a3f6447c" width="80"/>
 <img src="https://github.com/user-attachments/assets/e34365f7-a8d4-48d0-9583-6d3d026f4d41" width="80">
 <img src="https://github.com/user-attachments/assets/598f2a56-3d63-4877-8079-7d3bdcd96a23" width="80"/>
+<img src="https://github.com/user-attachments/assets/7eae4057-a266-4da4-b2b2-a64b8c97dad5" width="80"/>
 </div>
 
 ### Infra
