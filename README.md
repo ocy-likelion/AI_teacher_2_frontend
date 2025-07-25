@@ -57,6 +57,7 @@
 <img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/TypeScript.png?raw=true" width="80">
 <img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/React.png?raw=true" width="80">
 <img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/ReactQuery.png?raw=true" width="80">
+<img src="https://github.com/user-attachments/assets/fc0553c9-f052-49df-bda6-aa05a3f6447c" width="80"/>
 
 </div>
 
