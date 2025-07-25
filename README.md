@@ -12,6 +12,7 @@
 [<img src="https://img.shields.io/badge/release-v1.1.0-yellow?style=flat&logo=google-chrome&logoColor=white" />]()
 
 <br/>
+
 [<img src="https://img.shields.io/badge/프로젝트 기간-2025.06.30~2025.07.30-green?style=flat&logo=&logoColor=white" />]()
 
 </div>
@@ -30,19 +31,21 @@
 
 <br/>
 
-👉 현재 모바일 웹 기반 MVP 개발 중
+✅ 모바일 웹 기반 1차 MVP 개발 완료
+✅ UI 개선 완료
+👉 **현재 모바일 웹 기반 2차 MVP 개발**
 
 ---
 
 ### 📱 화면 구성
 
-|                                            메인 홈                                             |                                          문제 촬영 화면                                          |                                          등록 전 편집                                          |                                               해설 보기                                               |
-| :--------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------: |
-| <img src="https://user-images.githubusercontent.com/80824750/000000001-home.png" width="200"/> | <img src="https://user-images.githubusercontent.com/80824750/000000002-camera.png" width="200"/> | <img src="https://user-images.githubusercontent.com/80824750/000000003-edit.png" width="200"/> | <img src="https://user-images.githubusercontent.com/80824750/000000004-explanation.png" width="200"/> |
+|                                                  인트로                                                  |                                                  온보딩                                                  |                                                 메인 홈                                                  |                                               등록 전 편집                                               | 해설 보기                                                                                             |
+| :------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------: | ----------------------------------------------------------------------------------------------------- |
+| <img src="https://github.com/user-attachments/assets/3a2e21a8-db76-4ec0-aac7-0f6e0d4c7ff5" width="200"/> | <img src="https://github.com/user-attachments/assets/cf16074d-3c61-4ab5-bda6-d639b4c3b34b" width="200"/> | <img src="https://github.com/user-attachments/assets/2df80e80-2adc-4e76-941d-d5558e23d390" width="200"/> | <img src="https://github.com/user-attachments/assets/158bf378-900f-4bd6-b4db-030bde3ab2fe" width="200"/> | <img src="https://user-images.githubusercontent.com/80824750/000000004-explanation.png" width="200"/> |
 
-|                                           해설 기록(리스트)                                           |                                             해설 기록(검색)                                             |                                           해설 기록(그리드)                                           |
-| :---------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------: |
-| <img src="https://user-images.githubusercontent.com/80824750/000000005-record-list.png" width="200"/> | <img src="https://user-images.githubusercontent.com/80824750/000000006-record-search.png" width="200"/> | <img src="https://user-images.githubusercontent.com/80824750/000000007-record-grid.png" width="200"/> |
+|                                           해설 기록(리스트)                                           |                                           해설 기록(그리드)                                           |
+| :---------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------: |
+| <img src="https://user-images.githubusercontent.com/80824750/000000005-record-list.png" width="200"/> | <img src="https://user-images.githubusercontent.com/80824750/000000007-record-grid.png" width="200"/> |
 
 > 사용자의 문제 해결 과정을 직관적으로 확인할 수 있도록 구성되어 있습니다.
 
@@ -57,14 +60,18 @@
 <img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/TypeScript.png?raw=true" width="80">
 <img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/React.png?raw=true" width="80">
 <img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/ReactQuery.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Axios.png?raw=true" width="80">
 <img src="https://github.com/user-attachments/assets/fc0553c9-f052-49df-bda6-aa05a3f6447c" width="80"/>
-
+<img src="https://github.com/user-attachments/assets/e34365f7-a8d4-48d0-9583-6d3d026f4d41" width="80">
+<img src="https://github.com/user-attachments/assets/598f2a56-3d63-4877-8079-7d3bdcd96a23" width="80"/>
 </div>
 
 ### Infra
 
 <div>
-<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/AWSEC2.png?raw=true" width="80">
+<img src="https://github.com/user-attachments/assets/6a511b9e-0b74-4197-97cd-e566763e1325" width="80"/>
+<img src="https://github.com/user-attachments/assets/9efff7c5-be2b-4130-9b5d-6c04b2a2cf2c" width="80"/>
+<img src="https://github.com/user-attachments/assets/6996202a-0d00-436b-abfa-5bd8c153ff00" width="80"/>
 </div>
 
 ### Tools
@@ -73,6 +80,8 @@
 <img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Github.png?raw=true" width="80">
 <img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Figma.png?raw=true" width="80">
 <img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Discord.png?raw=true" width="80">
+<img src="https://github.com/user-attachments/assets/6e13b122-9216-4862-87a4-f89f3ba78b34" width="80">
+<img src="https://github.com/user-attachments/assets/f33c4b13-7697-40ce-8e63-178d81c9f68f" width="80">
 </div>
 
 ---
@@ -83,7 +92,10 @@
   `React`에서 S3 이미지 업로드 후 프리뷰 시 CORS 이슈가 발생하여 pre-signed URL을 사용해 해결
 
 - 📌 **이미지 업로드 시점에 따른 UI 동기화**  
-  촬영 후 즉시 업로드가 되지 않고 사용자 확인 후 업로드하도록 UX 개선
+  촬영 후 즉시 업로드가 되지 않고 사용자 확인 후 편집본을 업로드하도록 UX 개선
+
+- 📌 **Svg 컴포넌트 IOS 에서의 Blur 문제**  
+  Object Tag를 활용해 불러오도록 개선
 
 ---
 
