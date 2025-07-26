@@ -16,10 +16,7 @@ import Loading from '@/components/ui/Loading';
 import { formatDetailDate } from '@/utils/date';
 import { useProblemDetail } from '@/features/problems/api/get-problem-detail';
 import { handleApiError } from '@/utils/handle-api-error';
-
-function sanitizeMathMarkdown(input: string) {
-  return JSON.stringify(input).slice(1, -1);
-}
+import { sanitizeMathMarkdown } from '@/utils/sanitize-math-markdown';
 
 export default function ProblemDetailPage() {
   const { _id } = useParams();

@@ -14,7 +14,7 @@ const getProblemList = async ({ pageParam }: CursorPaginationParams) => {
 
 export const useProblemList = () => {
   return useInfiniteQuery({
-    queryKey: ['problemList'],
+    queryKey: ['problemList', { favorite: false }],
     queryFn: getProblemList,
     initialPageParam: '',
     getNextPageParam: (lastPage) =>
