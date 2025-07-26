@@ -2,9 +2,8 @@ import ChildCard from './ChildCard';
 import { useChildInfo } from '../api/get-child-info';
 import { handleApiError } from '@/utils/handle-api-error';
 import axios from 'axios';
-import NotFoundPage from '@/pages/NotFoundPage';
-import ServerErrorPage from '@/pages/ServerErrorPage';
 import ListLoading from '@/components/ui/ListLoading';
+import { useNavigate } from 'react-router-dom';
 
 const concepts = [
   { id: 1, name: '분수' },
@@ -13,13 +12,22 @@ const concepts = [
 
 export default function ChildrenListSection() {
   const { data, isPending, isError, error } = useChildInfo(8);
+  const navigate = useNavigate();
 
   if (isError) {
     handleApiError(error);
 
     const status = axios.isAxiosError(error) ? error.response?.status : null;
-    if (status === 404) return <NotFoundPage />;
-    return <ServerErrorPage />;
+    if (status === 403 || status === 404)
+      navigate('/not-found', {
+        state: { from: 'api-error' },
+      });
+    else
+      navigate('/error', {
+        state: { from: 'api-error' },
+      });
+
+    return null;
   }
 
   if (isPending)

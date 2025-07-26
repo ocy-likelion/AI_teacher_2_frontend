@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
-import type { JSX } from 'react';
 import SubHeader from '@/components/layout/SubHeader';
+import OrangeCircle from '@/assets/images/characters/orange_circle.svg?react';
+import Blue from '@/assets/images/characters/blue.svg?react';
+import Green from '@/assets/images/characters/green.svg?react';
 
 type StepData = {
   title: string;
@@ -48,90 +50,6 @@ export default function ProblemUploadLoading() {
     }
   }, [currentStep]);
 
-  const renderContent = (): JSX.Element | null => {
-    const step = steps[currentStep];
-
-    switch (step.content) {
-      case 'generating':
-        return (
-          <div className='flex flex-col items-center space-y-6'>
-            <div className='flex space-x-4'>
-              <img
-                src='/images/characters/green.svg'
-                alt='AI Icon 1'
-                className='w-12 h-12 animate-bounce'
-              />
-              <img
-                src='/images/characters/orange_circle.svg'
-                alt='AI Icon 2'
-                className='w-12 h-12 animate-bounce'
-                style={{ animationDelay: `${DEFAULT_ANIMATION_DELAY}s` }}
-              />
-              <img
-                src='/images/characters/blue.svg'
-                alt='AI Icon 3'
-                className='w-12 h-12 animate-bounce'
-                style={{ animationDelay: `${DEFAULT_ANIMATION_DELAY * 2}s` }}
-              />
-            </div>
-          </div>
-        );
-
-      case 'analyzing':
-        return (
-          <div className='flex flex-col items-center space-y-6'>
-            <div className='flex space-x-4'>
-              <img
-                src='/images/characters/green.svg'
-                alt='AI Icon 1'
-                className='w-12 h-12 animate-bounce'
-              />
-              <img
-                src='/images/characters/orange_circle.svg'
-                alt='AI Icon 2'
-                className='w-12 h-12 animate-bounce'
-                style={{ animationDelay: `${DEFAULT_ANIMATION_DELAY}s` }}
-              />
-              <img
-                src='/images/characters/blue.svg'
-                alt='AI Icon 3'
-                className='w-12 h-12 animate-bounce'
-                style={{ animationDelay: `${DEFAULT_ANIMATION_DELAY * 2}s` }}
-              />
-            </div>
-          </div>
-        );
-
-      case 'completed':
-        return (
-          <div className='flex flex-col items-center space-y-6'>
-            <div className='flex space-x-4'>
-              <img
-                src='/images/characters/green.svg'
-                alt='AI Icon 1'
-                className='w-12 h-12 animate-bounce'
-              />
-              <img
-                src='/images/characters/orange_circle.svg'
-                alt='AI Icon 2'
-                className='w-12 h-12 animate-bounce'
-                style={{ animationDelay: `${DEFAULT_ANIMATION_DELAY}s` }}
-              />
-              <img
-                src='/images/characters/blue.svg'
-                alt='AI Icon 3'
-                className='w-12 h-12 animate-bounce'
-                style={{ animationDelay: `${DEFAULT_ANIMATION_DELAY * 2}s` }}
-              />
-            </div>
-          </div>
-        );
-
-      default:
-        return null;
-    }
-  };
-
   return (
     <div className='w-full h-full flex flex-col'>
       <SubHeader type='back' title='' />
@@ -139,7 +57,19 @@ export default function ProblemUploadLoading() {
       <div className='flex-1 flex flex-col items-center justify-center text-center h-full -mt-30'>
         <div className='flex flex-col items-center justify-center gap-4 w-full max-w-md space-y-8'>
           <h1 className='text-xl font-bold '>{steps[currentStep].title}</h1>
-          {renderContent()}
+          <div className='flex flex-col items-center space-y-6'>
+            <div className='flex space-x-4'>
+              <Green className='w-12 h-12 animate-bounce' />
+              <OrangeCircle
+                className='w-12 h-12 animate-bounce'
+                style={{ animationDelay: `${DEFAULT_ANIMATION_DELAY}s` }}
+              />
+              <Blue
+                className='w-12 h-12 animate-bounce'
+                style={{ animationDelay: `${DEFAULT_ANIMATION_DELAY * 2}s` }}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
