@@ -1,12 +1,10 @@
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
 import 'katex/dist/katex.min.css';
-import ServerErrorPage from '@/pages/ServerErrorPage';
-import NotFoundPage from '@/pages/NotFoundPage';
 import SubHeader from '@/components/layout/SubHeader';
 import ConceptList from '@/features/concepts/components/ConceptList';
 import CardWrapper from '@/features/problems/components/CardWrapper';
@@ -19,34 +17,13 @@ import { formatDetailDate } from '@/utils/date';
 import { useProblemDetail } from '@/features/problems/api/get-problem-detail';
 import { handleApiError } from '@/utils/handle-api-error';
 
-// 인라인 수식 처리를 위해 추가 (추후 수식을 $$ 형식으로 받으면 삭제 예정)
-export function sanitizeMathMarkdown(raw: string): string {
-  return (
-    raw
-      // 블록 수식 형태 (예: //( ... ) 또는 (//))
-      .replace(/\(\/\/\)/g, '$$') // (//) → $$
-      .replace(/\/\/\)/g, '$$') // //) → $$
-      .replace(/\(\/\/\s*/g, '$$') // (// → $$
-      .replace(/\/\/\s*\)/g, '$$') // //) → $$
-
-      // 인라인 수식 형태: \( ... \) → $ ... $
-      .replace(/\\\(/g, '$')
-      .replace(/\\\)/g, '$')
-
-      // 혹시 escape 때문에 생긴 \\( ... \\) → $ ... $
-      .replace(/\\\\\(/g, '$')
-      .replace(/\\\\\)/g, '$')
-
-      // 기타 흔한 오타 처리 (예: ^? → ^{?})
-      .replace(/\^(\?)/g, '^{$1}')
-
-      // 마무리: 여분의 줄 정리
-      .trim()
-  );
+function sanitizeMathMarkdown(input: string) {
+  return JSON.stringify(input).slice(1, -1);
 }
 
 export default function ProblemDetailPage() {
   const { _id } = useParams();
+  const navigate = useNavigate();
 
   const { data, isPending, isError, error } = useProblemDetail(_id!);
 
@@ -54,8 +31,16 @@ export default function ProblemDetailPage() {
     handleApiError(error);
 
     const status = axios.isAxiosError(error) ? error.response?.status : null;
-    if (status === 404) return <NotFoundPage />;
-    return <ServerErrorPage />;
+    if (status === 403 || status === 404)
+      navigate('/not-found', {
+        state: { from: 'api-error' },
+      });
+    else
+      navigate('/error', {
+        state: { from: 'api-error' },
+      });
+
+    return null;
   }
 
   if (isPending) return <Loading />;
@@ -75,7 +60,7 @@ export default function ProblemDetailPage() {
               remarkPlugins={[remarkMath, remarkGfm]}
               rehypePlugins={[rehypeKatex]}
             >
-              {sanitizeMathMarkdown(data.ocrResult)}
+              {data.ocrResult}
             </Markdown>
           </CardWrapper>
         </DetailSection>
