@@ -4,6 +4,7 @@ import { useLogin } from '@/features/users/api/useLoginMutation';
 import LoginForm from '@/features/users/components/LoginForm';
 import type { userData } from '@/types/user.type';
 import { useForm } from 'react-hook-form';
+import Logo from '@/assets/images/logo/Logo_Img_noBg.svg?react';
 
 export default function LoginPage() {
   const { register, watch, handleSubmit } = useForm<userData>({
@@ -26,11 +27,7 @@ export default function LoginPage() {
     <section className='h-[calc(100%-55px)]'>
       <SubHeader type='back' title='' />
       <div className='w-full h-full pt-[15px] pb-[55px] flex flex-1 flex-col items-center-safe'>
-        <img
-          src='/images/logo/Logo_Img_noBg.svg'
-          alt='일타_로고.svg'
-          className='size-25 mx-auto'
-        />
+        <Logo className='mx-auto size-25' />
         <h3 className='mt-2 title-md '>
           <span className='text-primary'>일타</span>에 오신걸 환영해요!
         </h3>

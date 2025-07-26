@@ -1,5 +1,8 @@
+import Yellow from '@/assets/images/characters/yellow.svg?react';
+import OrangeTriangle from '@/assets/images/characters/orange_triangle.svg?react';
+
 type ProfileProps = {
-  imageUrl: string;
+  imageUrl?: string;
   size?: 'small';
 };
 
@@ -13,7 +16,13 @@ export default function Profile({ imageUrl, size }: ProfileProps) {
     <div
       className={`bg-white dark:bg-gray1 ${containerSize} flex items-center justify-center shadow-[var(--shadow)] dark:shadow-[var(--shadow-dark)] rounded-full`}
     >
-      <img src={imageUrl} alt='profile' className={`${imageSize}`} />
+      {imageUrl ? (
+        <img src={imageUrl} alt='profile' className={`${imageSize}`} />
+      ) : isSmall ? (
+        <Yellow className={`${imageSize}`} />
+      ) : (
+        <OrangeTriangle className={`${imageSize}`} />
+      )}
     </div>
   );
 }

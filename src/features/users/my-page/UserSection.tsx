@@ -3,7 +3,7 @@ import Profile from './Profile';
 export default function UserSection() {
   return (
     <section className='flex flex-col items-center gap-6'>
-      <Profile imageUrl='images/characters/orange_triangle.svg' />
+      <Profile />
       <div className='flex flex-col items-center gap-1'>
         <p className='title-sm'>보호자 이름</p>
         <p className='body-md'>username@example.com</p>
