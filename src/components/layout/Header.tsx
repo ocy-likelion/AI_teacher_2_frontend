@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Logo from '@/assets/images/logo.svg?react';
 
 export default function Header() {
   return (
@@ -10,7 +11,7 @@ export default function Header() {
       }}
     >
       <Link to='/'>
-        <img src='/images/logo/Logo_Header.svg' alt='로고' />
+        <Logo />
       </Link>
     </header>
   );
