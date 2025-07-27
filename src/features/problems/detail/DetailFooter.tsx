@@ -3,6 +3,7 @@ import { Bookmark } from 'lucide-react';
 import { useDeleteProblem } from '../api/delete-problem';
 import { useNavigate } from 'react-router-dom';
 import { useModalStore } from '@/stores/modalStore';
+import { useToggleFavorite } from '../api/toggle-favorite';
 
 type DetailFooterProps = {
   id: string;
@@ -11,6 +12,8 @@ type DetailFooterProps = {
 
 export default function DetailFooter({ id, isFavorite }: DetailFooterProps) {
   const { mutate: deleteProblem, isPending: isDeleting } = useDeleteProblem();
+  const { toggle } = useToggleFavorite();
+
   const navigate = useNavigate();
   const openModal = useModalStore((state) => state.openModal);
 
@@ -26,6 +29,10 @@ export default function DetailFooter({ id, isFavorite }: DetailFooterProps) {
     openModal('DELETE_CONFIRM', { onConfirm: handleDelete });
   };
 
+  const handleFavoriteClick = () => {
+    toggle(Number(id));
+  };
+
   return (
     <footer
       className='w-full max-w-[var(--max-size-mobile)] pt-1 bg-background-light dark:bg-gray7 sticky bottom-0 flex justify-center items-center border-t border-gray2 dark:border-gray6'
@@ -39,6 +46,7 @@ export default function DetailFooter({ id, isFavorite }: DetailFooterProps) {
           variant='border'
           size='full'
           className='flex-1 text-md font-semibold'
+          onClick={handleFavoriteClick}
         >
           <Bookmark
             className='size-[20px]'

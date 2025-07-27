@@ -16,10 +16,7 @@ import Loading from '@/components/ui/Loading';
 import { formatDetailDate } from '@/utils/date';
 import { useProblemDetail } from '@/features/problems/api/get-problem-detail';
 import { handleApiError } from '@/utils/handle-api-error';
-
-function sanitizeMathMarkdown(input: string) {
-  return JSON.stringify(input).slice(1, -1);
-}
+import { useEffect } from 'react';
 
 export default function ProblemDetailPage() {
   const { _id } = useParams();
@@ -27,23 +24,24 @@ export default function ProblemDetailPage() {
 
   const { data, isPending, isError, error } = useProblemDetail(_id!);
 
-  if (isError) {
-    handleApiError(error);
+  useEffect(() => {
+    if (isError) {
+      handleApiError(error);
+      const status = axios.isAxiosError(error) ? error.response?.status : null;
 
-    const status = axios.isAxiosError(error) ? error.response?.status : null;
-    if (status === 403 || status === 404)
-      navigate('/not-found', {
-        state: { from: 'api-error' },
-      });
-    else
-      navigate('/error', {
-        state: { from: 'api-error' },
-      });
-
-    return null;
-  }
+      if (status === 403 || status === 404)
+        navigate('/not-found', {
+          state: { from: 'api-error' },
+        });
+      else
+        navigate('/error', {
+          state: { from: 'api-error' },
+        });
+    }
+  }, [isError, error, navigate]);
 
   if (isPending) return <Loading />;
+  if (isError || !data) return null;
 
   return (
     <section className='w-full h-full flex flex-col'>
@@ -84,7 +82,7 @@ export default function ProblemDetailPage() {
               remarkPlugins={[remarkMath, remarkGfm]}
               rehypePlugins={[rehypeKatex]}
             >
-              {sanitizeMathMarkdown(data.explanation)}
+              {data.explanation}
             </Markdown>
           </CardWrapper>
         </DetailSection>

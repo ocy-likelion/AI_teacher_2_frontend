@@ -5,16 +5,19 @@ import { Bookmark } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type React from 'react';
 import type { Problem } from '@/types/problem.type';
+import { useToggleFavorite } from '../api/toggle-favorite';
 
 type ListViewProps = {
   items: Problem[];
 };
 
 export default function ListView({ items }: ListViewProps) {
-  const handleToggle = (e: React.MouseEvent) => {
+  const { toggle } = useToggleFavorite();
+
+  const handleToggle = (e: React.MouseEvent, id: number) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log('즐겨찾기 토글');
+    toggle(id);
   };
   return (
     <div className='w-full flex flex-col items-center gap-3'>
@@ -26,7 +29,7 @@ export default function ListView({ items }: ListViewProps) {
                 className='absolute left-0 text-primary'
                 size={30}
                 fill={item.favorite ? 'currentColor' : 'none'}
-                onClick={handleToggle}
+                onClick={(e) => handleToggle(e, item.id)}
               />
               <Title size='md'>{item.summary}</Title>
               <p className='body-sm text-gray5 dark:text-gray2 overflow-hidden text-ellipsis whitespace-nowrap'>

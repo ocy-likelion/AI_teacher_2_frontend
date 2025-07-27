@@ -6,6 +6,7 @@ import { type NavigateFunction } from 'react-router-dom';
 import axios from 'axios';
 import { handleApiError } from '@/utils/handle-api-error';
 import { queryClient } from '@/lib/react-query';
+import { problemListKey } from '@/utils/query-key';
 
 type UseUploadImageProps = {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -61,8 +62,12 @@ export const useUploadImage = ({
     },
     onMutate: () => {
       toast.info('현재 로딩중');
-      queryClient.invalidateQueries({ queryKey: ['problemList'] });
-      queryClient.invalidateQueries({ queryKey: ['problemDetail'] });
+      queryClient.invalidateQueries({
+        queryKey: problemListKey({ favorite: false }),
+      });
+      queryClient.invalidateQueries({
+        queryKey: problemListKey({ favorite: true }),
+      });
     },
   });
 

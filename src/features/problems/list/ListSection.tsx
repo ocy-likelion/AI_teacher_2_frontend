@@ -6,16 +6,16 @@ import { useProblemList } from '../api/get-problem-list';
 import { useRef } from 'react';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 import ListLoading from '@/components/ui/ListLoading';
+import { useFavoriteList } from '../api/get-favorite-list';
 
 export default function ListSection() {
   const [params] = useSearchParams();
 
-  // 즐겨찾기 API 연동 시 사용
-  //const favorite = params.get('favorite') === 'true';
+  const favorite = params.get('favorite') === 'true';
   const view = (params.get('view') as 'list' | 'grid') ?? 'list';
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isPending } =
-    useProblemList();
+    favorite ? useFavoriteList() : useProblemList();
 
   const problems = data?.pages.flatMap((page) => page.data) ?? [];
   const targetRef = useRef<HTMLDivElement | null>(null);

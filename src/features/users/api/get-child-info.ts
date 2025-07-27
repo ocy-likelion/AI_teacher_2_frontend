@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { httpClient } from '@/lib/api-client';
 import type { Child } from '@/types/user.type';
+import { childInfoKey } from '@/utils/query-key';
 
 const getChildInfo = async (memberId: number) => {
   const res = await httpClient.get<Child>(`/member/${memberId}`);
@@ -9,7 +10,7 @@ const getChildInfo = async (memberId: number) => {
 
 export const useChildInfo = (memberId: number) => {
   return useQuery({
-    queryKey: ['child'],
+    queryKey: childInfoKey(),
     queryFn: () => getChildInfo(memberId),
   });
 };
