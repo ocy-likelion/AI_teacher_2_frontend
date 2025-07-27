@@ -34,10 +34,9 @@ const router = createBrowserRouter([
         index: true,
         element: (
           <BasicLayout>
-            {/* <RequireAuth>
+            <RequireAuth>
               <HomePage />
-            </RequireAuth> */}
-            <HomePage />
+            </RequireAuth>
           </BasicLayout>
         ),
       },
@@ -86,11 +85,9 @@ const router = createBrowserRouter([
         path: '/history',
         element: (
           <BasicLayout>
-            <ProblemHistoryPage />
-
-            {/* <RequireAuth>
+            <RequireAuth>
               <ProblemHistoryPage />
-            </RequireAuth> */}
+            </RequireAuth>
           </BasicLayout>
         ),
       },
@@ -98,20 +95,18 @@ const router = createBrowserRouter([
         path: '/profile',
         element: (
           <BasicLayout>
-            {/* <RequireAuth>
+            <RequireAuth>
               <MyPage />
-            </RequireAuth> */}
-            <MyPage />
+            </RequireAuth>
           </BasicLayout>
         ),
       },
       {
         path: '/problem',
         element: (
-          // <RequireAuth>
-          //   <Outlet />
-          // </RequireAuth>
-          <Outlet />
+          <RequireAuth>
+            <Outlet />
+          </RequireAuth>
         ),
         children: [
           {
