@@ -6,6 +6,7 @@ const HomePage = lazy(() => import('./pages/HomePage'));
 const LandingPage = lazy(() => import('./pages/LandingPage'));
 const MyPage = lazy(() => import('./pages/MyPage'));
 const LoginPage = lazy(() => import('./pages/LoginPage'));
+const KakaoAuthPage = lazy(() => import('./pages/KakaoAuthPage'));
 const OnboardingPage = lazy(() => import('./pages/OnboardingPage'));
 const ProblemHistoryPage = lazy(() => import('./pages/ProblemHistoryPage'));
 const ProblemUploadPage = lazy(() => import('./pages/ProblemUploadPage'));
@@ -133,6 +134,24 @@ const router = createBrowserRouter([
                 <ProblemUploadPage />
               </AppShell>
             ),
+          },
+        ],
+      },
+      {
+        path: '/oauth',
+        element: <Outlet />,
+        children: [
+          {
+            index: true,
+            element: (
+              <AppShell>
+                <NotFoundPage />
+              </AppShell>
+            ),
+          },
+          {
+            path: 'kakao',
+            element: <KakaoAuthPage />,
           },
         ],
       },
