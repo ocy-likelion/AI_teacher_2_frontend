@@ -1,6 +1,7 @@
 import { httpClient } from '@/lib/api-client';
 import { queryClient } from '@/lib/react-query';
 import { handleApiError } from '@/utils/handle-api-error';
+import { problemListKey } from '@/utils/query-key';
 import { useMutation } from '@tanstack/react-query';
 
 const toggleFavorite = async (id: string) => {
@@ -17,7 +18,12 @@ export const useToggleFAvorite = () => {
     },
 
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['problemList'] });
+      queryClient.invalidateQueries({
+        queryKey: problemListKey({ favorite: true }),
+      });
+      queryClient.invalidateQueries({
+        queryKey: problemListKey({ favorite: false }),
+      });
     },
   });
 };

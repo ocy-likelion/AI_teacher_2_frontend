@@ -4,6 +4,7 @@ import { httpClient } from '@/lib/api-client';
 import { queryClient } from '@/lib/react-query';
 import type { Child, UpdateChildRequest } from '@/types/user.type';
 import { handleApiError } from '@/utils/handle-api-error';
+import { childInfoKey } from '@/utils/query-key';
 
 const updateChildInfo = async (memberId: number, data: UpdateChildRequest) => {
   const res = await httpClient.put(`/member/${memberId}`, data);
@@ -11,6 +12,8 @@ const updateChildInfo = async (memberId: number, data: UpdateChildRequest) => {
 };
 
 export const useUpdateChildInfo = () => {
+  const queryKey = childInfoKey();
+
   return useMutation({
     mutationFn: ({
       memberId,
@@ -21,11 +24,11 @@ export const useUpdateChildInfo = () => {
     }) => updateChildInfo(memberId, data),
 
     onMutate: async ({ memberId: _memberId, data }) => {
-      await queryClient.cancelQueries({ queryKey: ['child'] });
+      await queryClient.cancelQueries({ queryKey });
 
-      const prevData = queryClient.getQueryData<Child>(['child']);
+      const prevData = queryClient.getQueryData<Child>(queryKey);
 
-      queryClient.setQueryData(['child'], (old: any) => {
+      queryClient.setQueryData(queryKey, (old: any) => {
         if (!old) return old;
 
         return {
@@ -44,14 +47,14 @@ export const useUpdateChildInfo = () => {
 
     onError: (error, _variables, context) => {
       if (context?.prevData) {
-        queryClient.setQueryData(['child'], context.prevData);
+        queryClient.setQueryData(queryKey, context.prevData);
       }
       handleApiError(error);
     },
 
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: ['child'],
+        queryKey,
       });
     },
   });

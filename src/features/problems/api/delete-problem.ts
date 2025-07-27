@@ -4,6 +4,7 @@ import { handleApiError } from '@/utils/handle-api-error';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import type { GetProblemListResponse } from '@/types/problem.type';
+import { problemListKey } from '@/utils/query-key';
 
 const deleteProblem = async (id: string) => {
   const res = await httpClient.delete(`/problem?problemId=${id}`);
@@ -11,36 +12,47 @@ const deleteProblem = async (id: string) => {
 };
 
 export const useDeleteProblem = () => {
+  const keys = [
+    problemListKey({ favorite: false }),
+    problemListKey({ favorite: true }),
+  ];
+
   return useMutation({
     mutationFn: deleteProblem,
 
     onMutate: async (id: string) => {
-      await queryClient.cancelQueries({ queryKey: ['problemList'] });
+      await Promise.all(
+        keys.map((key) => queryClient.cancelQueries({ queryKey: key })),
+      );
 
-      const prevData = queryClient.getQueryData<{
-        pages: GetProblemListResponse[];
-        pageParams: any[];
-      }>(['problemList']);
+      const prevData = keys.map((key) => ({
+        key,
+        data: queryClient.getQueryData<{
+          pages: GetProblemListResponse[];
+          pageParams: any[];
+        }>(key),
+      }));
 
-      queryClient.setQueryData(['problemList'], (old: any) => {
-        if (!old) return old;
-
-        return {
-          ...old,
-          pages: old.pages.map((page: GetProblemListResponse) => ({
-            ...page,
-            data: page.data.filter((problem) => problem.id !== Number(id)),
-          })),
-        };
+      keys.forEach((key) => {
+        queryClient.setQueryData(key, (old: any) => {
+          if (!old) return old;
+          return {
+            ...old,
+            pages: old.pages.map((page: GetProblemListResponse) => ({
+              ...page,
+              data: page.data.filter((problem) => problem.id !== Number(id)),
+            })),
+          };
+        });
       });
 
       return { prevData };
     },
 
     onError: (error, _id, context) => {
-      if (context?.prevData) {
-        queryClient.setQueryData(['problemList'], context.prevData);
-      }
+      context?.prevData?.forEach(({ key, data }) => {
+        queryClient.setQueryData(key, data);
+      });
       handleApiError(error);
     },
 
@@ -49,7 +61,9 @@ export const useDeleteProblem = () => {
     },
 
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['problemList'] });
+      keys.forEach((key) => {
+        queryClient.invalidateQueries({ queryKey: key });
+      });
     },
   });
 };

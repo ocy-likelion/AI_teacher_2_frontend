@@ -3,6 +3,7 @@ import {
   type CursorPaginationParams,
   type GetProblemListResponse,
 } from '@/types/problem.type';
+import { problemListKey } from '@/utils/query-key';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 const getProblemList = async ({ pageParam }: CursorPaginationParams) => {
@@ -14,7 +15,7 @@ const getProblemList = async ({ pageParam }: CursorPaginationParams) => {
 
 export const useProblemList = () => {
   return useInfiniteQuery({
-    queryKey: ['problemList', { favorite: false }],
+    queryKey: problemListKey({ favorite: false }),
     queryFn: getProblemList,
     initialPageParam: '',
     getNextPageParam: (lastPage) =>

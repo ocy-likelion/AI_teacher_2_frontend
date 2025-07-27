@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { httpClient } from '@/lib/api-client';
 import { type Problem } from '@/types/problem.type';
+import { problemDetailKey } from '@/utils/query-key';
 
 const getProblemDetail = async (id: string) => {
   const res = await httpClient.get<Problem>(`/problem?problemId=${id}`);
@@ -9,7 +10,7 @@ const getProblemDetail = async (id: string) => {
 
 export const useProblemDetail = (id: string) => {
   return useQuery({
-    queryKey: ['problemDetail', id],
+    queryKey: problemDetailKey(id),
     queryFn: () => getProblemDetail(id),
   });
 };
