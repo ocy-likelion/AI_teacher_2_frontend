@@ -18,7 +18,7 @@ export function handleApiError(error: unknown) {
       window.location.href = '/intro';
     }, 1500);
   } else if (status === 404) {
-    toast.error('데이터를 찾을 수 없습니다.');
+    toast.error(message || '데이터를 찾을 수 없습니다.');
   } else if (status && status >= 500) {
     toast.error('일시적인 서버 오류가 발생했어요.');
   } else {

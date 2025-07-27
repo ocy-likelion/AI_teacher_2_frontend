@@ -4,6 +4,7 @@ import { handleApiError } from '@/utils/handle-api-error';
 import axios from 'axios';
 import ListLoading from '@/components/ui/ListLoading';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const concepts = [
   { id: 1, name: '분수' },
@@ -14,24 +15,26 @@ export default function ChildrenListSection() {
   const { data, isPending, isError, error } = useChildInfo(8);
   const navigate = useNavigate();
 
-  if (isError) {
-    handleApiError(error);
+  useEffect(() => {
+    if (isError) {
+      handleApiError(error);
+      const status = axios.isAxiosError(error) ? error.response?.status : null;
 
-    const status = axios.isAxiosError(error) ? error.response?.status : null;
-    if (status === 403 || status === 404)
-      navigate('/not-found', {
-        state: { from: 'api-error' },
-      });
-    else
-      navigate('/error', {
-        state: { from: 'api-error' },
-      });
+      if (status === 403 || status === 404)
+        navigate('/not-found', {
+          state: { from: 'api-error' },
+        });
+      else
+        navigate('/error', {
+          state: { from: 'api-error' },
+        });
+    }
+  }, [isError, error, navigate]);
 
-    return null;
-  }
-
-  if (isPending)
+  if (isPending) {
     return <ListLoading description='아이 정보를 불러오고 있어요...' />;
+  }
+  if (isError) return null;
 
   return (
     <section className='flex flex-col items-center gap-4'>
