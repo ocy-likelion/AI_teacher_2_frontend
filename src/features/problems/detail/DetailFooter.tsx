@@ -1,14 +1,41 @@
 import { Button } from '@/components/ui/button';
 import { Bookmark } from 'lucide-react';
+import { useDeleteProblem } from '../api/delete-problem';
+import { useNavigate } from 'react-router-dom';
+import { useModalStore } from '@/stores/modalStore';
+import { useToggleFavorite } from '../api/toggle-favorite';
 
 type DetailFooterProps = {
+  id: string;
   isFavorite: boolean;
 };
 
-export default function DetailFooter({ isFavorite }: DetailFooterProps) {
+export default function DetailFooter({ id, isFavorite }: DetailFooterProps) {
+  const { mutate: deleteProblem, isPending: isDeleting } = useDeleteProblem();
+  const { toggle } = useToggleFavorite();
+
+  const navigate = useNavigate();
+  const openModal = useModalStore((state) => state.openModal);
+
+  const handleDelete = () => {
+    deleteProblem(id, {
+      onSuccess: () => {
+        navigate('/history');
+      },
+    });
+  };
+
+  const handleDeleteClick = () => {
+    openModal('DELETE_CONFIRM', { onConfirm: handleDelete });
+  };
+
+  const handleFavoriteClick = () => {
+    toggle(Number(id));
+  };
+
   return (
     <footer
-      className='w-full max-w-[var(--max-size-mobile)] pt-1 bg-background-light dark:bg-gray7 shadow-[var(--bottom-nav-shadow)] dark:shadow-[var(--bottom-nav-shadow-dark)] sticky bottom-0 flex justify-center items-center rounded-t-[32px]'
+      className='w-full max-w-[var(--max-size-mobile)] pt-1 bg-background-light dark:bg-gray7 sticky bottom-0 flex justify-center items-center border-t border-gray2 dark:border-gray6'
       style={{
         paddingBottom: 'calc(4px + var(--safe-bottom))',
         minHeight: 'calc(var(--h-header) + var(--safe-bottom))',
@@ -19,6 +46,7 @@ export default function DetailFooter({ isFavorite }: DetailFooterProps) {
           variant='border'
           size='full'
           className='flex-1 text-md font-semibold'
+          onClick={handleFavoriteClick}
         >
           <Bookmark
             className='size-[20px]'
@@ -28,7 +56,8 @@ export default function DetailFooter({ isFavorite }: DetailFooterProps) {
           {isFavorite ? '해제하기' : '저장하기'}
         </Button>
         <Button
-          variant='default'
+          onClick={handleDeleteClick}
+          variant={`${isDeleting ? 'disabled' : 'default'}`}
           size='full'
           className='flex-1 text-md font-semibold'
         >

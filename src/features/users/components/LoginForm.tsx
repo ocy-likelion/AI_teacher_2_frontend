@@ -1,94 +1,73 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import type {
-  UseFormHandleSubmit,
-  UseFormRegister,
-  UseFormWatch,
-} from 'react-hook-form';
+import type { UseFormRegister, UseFormWatch } from 'react-hook-form';
 import type { userData } from '@/types/user.type';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { UseLogin } from '../api/useLoginMutation';
+import { toast } from 'sonner';
 
 type LoginFormProps = {
   watch: UseFormWatch<userData>;
-  handleSubmit: UseFormHandleSubmit<userData>;
   register: UseFormRegister<userData>;
-  setIsUser: React.Dispatch<React.SetStateAction<boolean>>;
+  onSubmit: () => void;
+  isPending: boolean;
 };
 
 export default function LoginForm({
   watch,
-  handleSubmit,
   register,
-  setIsUser,
+  onSubmit,
+  isPending,
 }: LoginFormProps) {
-  const [isActive, setIsActive] = useState<boolean>(false);
-  const navigate = useNavigate();
-
   const usernameValue = watch('username') ?? '';
   const passwordValue = watch('password') ?? '';
+  const isActive = usernameValue.trim() !== '' && passwordValue.trim() !== '';
 
-  const login = UseLogin(usernameValue, setIsUser, navigate);
-
-  useEffect(() => {
-    if (usernameValue.trim() !== '' && passwordValue.trim() !== '') {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
+  const handleInputError = (
+    e: React.FormEvent<HTMLInputElement>,
+    type: string,
+  ) => {
+    e.preventDefault();
+    if (type === 'id') {
+      toast.error(
+        '아이디는 영어 또는 영어+숫자의 조합으로 3자 이상 작성해야 합니다.',
+      );
+    } else if (type === 'password') {
+      toast.error(
+        '비밀번호는 영어와 숫자의 조합으로 4자 이상 작성해야 합니다.',
+      );
     }
-  }, [usernameValue, passwordValue]);
+  };
 
   return (
     <form
       id='login'
-      onSubmit={handleSubmit((data) => {
-        login.mutate(data);
-        // 로그인 API 문제 발생 시 임시로 다음 페이지도 넘어가게 하는 용도
-        // setIsUser(false);
-      })}
-      className='flex flex-col gap-3 px-[25px]'
+      onSubmit={onSubmit}
+      className='flex flex-1 flex-col w-full gap-5 px-[33px]'
     >
-      <Label htmlFor='username' className='font-korean-title text-xl font-bold'>
-        이름
-      </Label>
       <Input
         id='username'
-        placeholder='이름을 입력하세요.'
-        className='px-[15px] py-[9px] h-[52px] box-border mb-2 border-primary border-[1px] rounded-[12px]'
+        placeholder='아이디를 입력하세요'
+        pattern='^(?=.*[a-zA-Z])[a-zA-Z0-9]*'
+        onInvalid={(e) => handleInputError(e, 'id')}
+        className='px-[15px] py-[9px] h-[52px] box-border border-primary border-[1px] rounded-[12px]'
         {...register('username')}
         minLength={3}
-        onBlur={() => {
-          if (usernameValue !== '' && passwordValue !== '') setIsActive(true);
-        }}
       />
-      <Label htmlFor='password' className='font-korean-title text-xl font-bold'>
-        비밀번호
-      </Label>
       <Input
         type='password'
         id='password'
-        placeholder='******'
+        pattern='^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]*'
+        onInvalid={(e) => handleInputError(e, 'password')}
+        placeholder='비밀번호를 입력하세요'
         minLength={4}
-        className='px-[15px] py-[9px] h-[52px] box-border mb-2 border-primary border-[1px] rounded-[12px]'
+        className='px-[15px] py-[9px] h-[52px] box-border border-primary border-[1px] rounded-[12px]'
         {...register('password')}
-        onBlur={() => {
-          if (usernameValue !== '' && passwordValue !== '') setIsActive(true);
-        }}
       />
       <Button
-        variant={`${
-          isActive ? (login.isPending ? 'disabled' : 'default') : 'disabled'
-        }`}
-        type={`${isActive ? (login.isPending ? 'button' : 'submit') : 'button'}`}
-        className='h-[48px]'
+        variant={isActive ? (isPending ? 'disabled' : 'default') : 'disabled'}
+        type={isActive && !isPending ? 'submit' : 'button'}
+        className='h-[48px] mt-auto'
       >
-        {isActive
-          ? login.isPending
-            ? ' · · · '
-            : '로그인'
-          : '아이디 및 비밀번호를 입력해주세요.'}
+        {isPending ? '로그인 중' : '로그인'}
       </Button>
     </form>
   );

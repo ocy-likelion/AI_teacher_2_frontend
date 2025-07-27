@@ -6,13 +6,11 @@ export default function TabSection() {
   const [searchParams, setSearchParams] = useSearchParams();
   const view = searchParams.get('view') || 'list';
   const isFavorite = searchParams.get('favorite') === 'true';
-  const q = searchParams.get('q');
 
   const handleFavoriteChange = (favorite: boolean) => {
-    if (isFavorite === favorite && !q) return;
+    if (isFavorite === favorite) return;
 
     const newParams = new URLSearchParams(searchParams);
-    newParams.delete('q');
 
     if (favorite) {
       newParams.set('favorite', 'true');
@@ -33,13 +31,13 @@ export default function TabSection() {
     <section className='w-full flex justify-between items-center py-3'>
       <div className='flex gap-3'>
         <Badge
-          className={`badge cursor-pointer ${isFavorite ? 'bg-primary3 text-black' : ''} transition-transform active:scale-105 duration-300 ease-out`}
+          className={`badge cursor-pointer ${isFavorite ? 'bg-primary2 text-black' : ''} transition-transform active:scale-105 duration-300 ease-out`}
           onClick={() => handleFavoriteChange(false)}
         >
           전체
         </Badge>
         <Badge
-          className={`badge cursor-pointer ${!isFavorite ? 'bg-primary3 text-black' : ''} transition-transform active:scale-105 duration-300 ease-out`}
+          className={`badge cursor-pointer ${!isFavorite ? 'bg-primary2 text-black' : ''} transition-transform active:scale-105 duration-300 ease-out`}
           onClick={() => handleFavoriteChange(true)}
         >
           즐겨찾기

@@ -17,9 +17,9 @@ export default function ServerErrorPage() {
           variant='link'
           className='body-sm'
           size='sm_link'
-          onClick={() => navigate(-1)}
+          onClick={() => navigate('/', { replace: true })}
         >
-          이전 페이지로 돌아가기
+          홈으로 가기
         </Button>
       </div>
     </section>

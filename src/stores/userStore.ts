@@ -2,9 +2,7 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 type user = {
-  id?: string;
-  childName?: string;
-  childGrade?: string;
+  accessToken: string;
 };
 
 export type userStore = {
@@ -21,8 +19,8 @@ const useUserStore = create<userStore>()(
     {
       name: 'user',
       storage: createJSONStorage(() => sessionStorage),
-    }
-  )
+    },
+  ),
 );
 
 export default useUserStore;

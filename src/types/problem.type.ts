@@ -6,8 +6,9 @@ export type Problem = {
   concepts: Omit<Concept, 'description'>[];
   favorite: boolean;
   ocrResult: string;
-  llmResult: string;
-  createdAt: string;
+  summary: string;
+  explanation: string;
+  activatedAt: string;
 };
 
 export type GetProblemListResponse = {
@@ -25,4 +26,17 @@ export type GetProblemListResponse = {
 
 export type CursorPaginationParams = {
   pageParam?: string | null;
+};
+
+export type GetFavoriteListResponse = {
+  data: (Problem & { problemId: number })[];
+  pagination: {
+    limit: number;
+    hasNextPage: boolean;
+    nextCursor: string;
+  };
+  links: {
+    self: string;
+    next: string;
+  };
 };

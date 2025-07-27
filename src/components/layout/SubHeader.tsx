@@ -4,17 +4,25 @@ import { useNavigate } from 'react-router-dom';
 type SubHeaderProps = {
   type: 'close' | 'back';
   title: string;
+  childConfirm?: boolean;
+  onBackClick?: () => void;
 };
 
-export default function SubHeader({ type, title }: SubHeaderProps) {
+export default function SubHeader({
+  type,
+  title,
+  childConfirm = false,
+  onBackClick,
+}: SubHeaderProps) {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(-1);
+    if (!onBackClick) navigate(-1);
+    else onBackClick();
   };
 
   return (
     <header
-      className='bg-background-light dark:bg-gray7 sticky top-0 flex justify-center items-center px-4 pb-2'
+      className={`${childConfirm ? 'bg-none' : 'bg-background-light dark:bg-gray7'}  sticky top-0 flex justify-center items-center px-4 pb-2`}
       style={{
         paddingTop: 'calc(8px + var(--safe-top))',
         minHeight: 'calc(var(--h-header) + var(--safe-top))',

@@ -1,52 +1,62 @@
-import { Badge } from '@/components/ui/badge';
 import ImageUploadSection from '@/features/problems/components/ImageUploadSection';
-import EditChildInfoForm from '@/features/users/components/EditChildInfo';
-import { useModalStore } from '@/stores/modalStore';
+import Yellow from '@/assets/images/characters/yellow.svg?react';
+import IconCamera from '@/assets/images/Icon_Camera.svg?react';
+import IconScissors from '@/assets/images/Icon_Scissors.svg?react';
+import type { ReactNode } from 'react';
 
-const conceptData = [
+type GuideCardProps = {
+  children: ReactNode;
+  description: string;
+};
+
+const guideItems = [
   {
     id: 1,
-    name: '원',
-    description: 'description',
+    image: <IconCamera />,
+    description: '문제가 잘 보이게\n촬영해주세요',
   },
   {
     id: 2,
-    name: '원의 넓이',
-    description: 'description',
+    image: <IconScissors />,
+    description: '한 문제만 보이게\n잘라주세요.',
   },
 ];
 
 export default function HomePage() {
-  const { openModal } = useModalStore();
   return (
-    <>
-      <div className='flex max-w-full min-h-[30vh] px-[25px] box-border mt-[10vh]'>
-        <div className='w-full flex flex-col flex-grow'>
-          <EditChildInfoForm />
-          <ImageUploadSection />
-        </div>
-      </div>
-      <div className='mx-[29px] max-w-full min-h-[55px] mt-[53px] flex flex-grow flex-col'>
-        <h2 className='font-korean-title font-bold text-2xl'>
-          자녀분이 어려워하는 <span className='text-primary'>주제</span>예요!
+    <section className='w-full h-full py-8 px-7 flex flex-col items-center gap-4'>
+      <div className='relative w-full flex flex-col gap-2'>
+        <h2 className='break-keep title-sm'>
+          수학 문제, 혼자 고민하지 마세요
+          <br />
+          <span className='text-primary'>사진</span> 한 장이면 충분해요
         </h2>
-        <div className='flex mt-5 gap-5 flex-wrap'>
-          {conceptData.map((concept) => (
-            <Badge
-              key={concept.id}
-              className='text-lg cursor-pointer'
-              onClick={() =>
-                openModal('CONCEPT', {
-                  title: concept.name,
-                  description: concept.description,
-                })
-              }
-            >
-              {concept.name}
-            </Badge>
-          ))}
+        <div className='flex'>
+          <p className='flex-1 break-keep text-[14px] text-gray6 dark:text-gray2'>
+            수학 문제를 AI가 쉽게 설명해드려요.
+          </p>
+          <Yellow className='w-20 h-20 translate-y-[-20%]' />
         </div>
       </div>
-    </>
+      <ImageUploadSection />
+      <section className='w-full flex items-center gap-5'>
+        {guideItems.map((item) => (
+          <GuideCard key={item.id} description={item.description}>
+            {item.image}
+          </GuideCard>
+        ))}
+      </section>
+    </section>
+  );
+}
+
+function GuideCard({ children, description }: GuideCardProps) {
+  return (
+    <div className='w-full flex flex-col items-center gap-2 px-3 py-4 rounded-[16px] shadow-[var(--shadow)] dark:shadow-[var(--shadow-dark)]'>
+      {children}
+      <p className='text-[14px] text-center whitespace-pre-line'>
+        {description}
+      </p>
+    </div>
   );
 }

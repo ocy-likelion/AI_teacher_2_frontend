@@ -1,17 +1,22 @@
 import { lazy } from 'react';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
-import RequireAuth from './utils/RequireAuth.tsx';
 
 const Layout = lazy(() => import('./components/layout/Layout'));
 const HomePage = lazy(() => import('./pages/HomePage'));
+const LandingPage = lazy(() => import('./pages/LandingPage'));
+const MyPage = lazy(() => import('./pages/MyPage'));
+const LoginPage = lazy(() => import('./pages/LoginPage'));
 const OnboardingPage = lazy(() => import('./pages/OnboardingPage'));
 const ProblemHistoryPage = lazy(() => import('./pages/ProblemHistoryPage'));
 const ProblemUploadPage = lazy(() => import('./pages/ProblemUploadPage'));
 const ProblemDetailPage = lazy(() => import('./pages/ProblemDetailPage'));
-const ErrorPage = lazy(() => import('./pages/NotFoundPage'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
+const ServerErrorPage = lazy(() => import('./pages/ServerErrorPage'));
 const MockApiPage = lazy(() => import('./MockApiPage.tsx'));
 const LayoutWrapper = lazy(() => import('./components/layout/LayoutWrapper'));
 const BasicLayout = lazy(() => import('./components/layout/BasicLayout'));
+const RequireAuth = lazy(() => import('./components/layout/RequireAuth'));
+const ErrorLayout = lazy(() => import('./components/layout/ErrorLayout'));
 
 const router = createBrowserRouter([
   {
@@ -20,7 +25,7 @@ const router = createBrowserRouter([
     errorElement: (
       <LayoutWrapper>
         <BasicLayout>
-          <ErrorPage />
+          <NotFoundPage />
         </BasicLayout>
       </LayoutWrapper>
     ),
@@ -36,6 +41,31 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: '/not-found',
+        element: (
+          <ErrorLayout from='api-error'>
+            <NotFoundPage />
+          </ErrorLayout>
+        ),
+      },
+      {
+        path: '/error',
+        element: (
+          <ErrorLayout from='api-error'>
+            <ServerErrorPage />
+          </ErrorLayout>
+        ),
+      },
+
+      {
+        path: '/intro',
+        element: (
+          <RequireAuth>
+            <LandingPage />
+          </RequireAuth>
+        ),
+      },
+      {
         path: '/onboarding',
         element: (
           <RequireAuth>
@@ -44,22 +74,46 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: '/login',
+        element: (
+          <RequireAuth>
+            <LoginPage />
+          </RequireAuth>
+        ),
+      },
+      {
         path: '/history',
         element: (
           <BasicLayout>
-            <ProblemHistoryPage />
+            <RequireAuth>
+              <ProblemHistoryPage />
+            </RequireAuth>
+          </BasicLayout>
+        ),
+      },
+      {
+        path: '/profile',
+        element: (
+          <BasicLayout>
+            <RequireAuth>
+              <MyPage />
+            </RequireAuth>
           </BasicLayout>
         ),
       },
       {
         path: '/problem',
-        element: <Outlet />,
+        element: (
+          <RequireAuth>
+            <Outlet />
+          </RequireAuth>
+        ),
         children: [
           {
             index: true,
             element: (
               <BasicLayout>
-                <ErrorPage />
+                <NotFoundPage />
               </BasicLayout>
             ),
           },
