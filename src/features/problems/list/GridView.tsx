@@ -4,7 +4,6 @@ import { Bookmark } from 'lucide-react';
 import { formatListDate } from '@/utils/date';
 import type { Problem } from '@/types/problem.type';
 import { useToggleFavorite } from '../api/toggle-favorite';
-import { useState } from 'react';
 
 type GridViewProps = {
   items: Problem[];

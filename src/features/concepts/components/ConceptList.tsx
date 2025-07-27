@@ -20,8 +20,8 @@ export default function ConceptList({
           className='text-primary cursor-pointer'
           onClick={() =>
             openModal('CONCEPT', {
+              id: concept.id,
               title: concept.name,
-              description: 'description',
             })
           }
         >
