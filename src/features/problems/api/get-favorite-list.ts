@@ -1,19 +1,20 @@
 import { httpClient } from '@/lib/api-client';
 import type {
   CursorPaginationParams,
-  GetProblemListResponse,
+  GetFavoriteListResponse,
 } from '@/types/problem.type';
 import { problemListKey } from '@/utils/query-key';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 const getFavoriteList = async ({ pageParam }: CursorPaginationParams) => {
-  const res = await httpClient.get<GetProblemListResponse>(
+  const res = await httpClient.get<GetFavoriteListResponse>(
     `/favorite/list?limit=10&memberId=8${pageParam ? `&after_cursor=${pageParam}` : ''}`,
   );
 
   const updatedData = res.data.data.map((item) => ({
     ...item,
     favorite: true,
+    id: item.problemId,
   }));
 
   return {

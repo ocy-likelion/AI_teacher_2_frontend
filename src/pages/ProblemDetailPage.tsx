@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import remarkMath from 'remark-math';
@@ -41,7 +41,7 @@ export default function ProblemDetailPage() {
   }, [isError, error, navigate]);
 
   if (isPending) return <Loading />;
-  if (isError) return null;
+  if (isError || !data) return null;
 
   return (
     <section className='w-full h-full flex flex-col'>

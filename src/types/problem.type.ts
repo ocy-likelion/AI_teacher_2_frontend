@@ -27,3 +27,16 @@ export type GetProblemListResponse = {
 export type CursorPaginationParams = {
   pageParam?: string | null;
 };
+
+export type GetFavoriteListResponse = {
+  data: (Problem & { problemId: number })[];
+  pagination: {
+    limit: number;
+    hasNextPage: boolean;
+    nextCursor: string;
+  };
+  links: {
+    self: string;
+    next: string;
+  };
+};
