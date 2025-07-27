@@ -34,7 +34,7 @@ export default function GridView({ items }: GridViewProps) {
               </button>
               <div className='flex justify-end'>
                 <p className='label text-gray5 dark:text-gray2 pt-4 pr-4'>
-                  {formatListDate(item.createdAt)}
+                  {formatListDate(item.activatedAt)}
                 </p>
               </div>
               <img

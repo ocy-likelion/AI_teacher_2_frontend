@@ -28,7 +28,7 @@ export default function ListView({ items }: ListViewProps) {
                 fill={item.favorite ? 'currentColor' : 'none'}
                 onClick={handleToggle}
               />
-              <Title size='md'>{item.ocrResult}</Title>
+              <Title size='md'>{item.summary}</Title>
               <p className='body-sm text-gray5 dark:text-gray2 overflow-hidden text-ellipsis whitespace-nowrap'>
                 {item.concepts.map((concept) => (
                   <span key={concept.id} className='ml-1'>
@@ -37,7 +37,7 @@ export default function ListView({ items }: ListViewProps) {
                 ))}
               </p>
               <p className='label text-gray5 dark:text-gray2'>
-                {formatListDate(item.createdAt)}
+                {formatListDate(item.activatedAt)}
               </p>
             </div>
           </CardWrapper>
