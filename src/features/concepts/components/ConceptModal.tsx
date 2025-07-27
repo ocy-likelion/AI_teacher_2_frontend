@@ -30,12 +30,12 @@ export default function ConceptModal({
           <DialogTitle className='title-sm'># {title}</DialogTitle>
         </DialogHeader>
         {isPending ? (
-          <ListLoading description='개념을 요약하고 있어요...' />
+          <ListLoading description='개념을 불러오는 중이에요...' />
         ) : (
           <>
             <p className='whitespace-pre-wrap body-sm'>
               {data?.description ||
-                '🤔 곧 이 개념에 대한 설명이 추가될 예정이에요.'}
+                '🤔 이 개념에 대한 설명이 곧 추가될 예정이에요.'}
             </p>
           </>
         )}

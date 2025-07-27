@@ -34,7 +34,7 @@ export const useUploadImage = ({
   };
 
   return useMutation({
-    //mutationKey: ['imageUpload'],
+    mutationKey: ['imageUpload'],
     mutationFn: async (formData: FormData) => {
       const controller = new AbortController();
       handleUploadStart(controller);
