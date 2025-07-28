@@ -45,7 +45,13 @@ export default function ProblemDetailPage() {
 
   return (
     <section className='w-full h-full flex flex-col'>
-      <SubHeader type='back' title='해설 보기' />
+      <SubHeader
+        type='back'
+        title='해설 보기'
+        onBackClick={() => {
+          navigate('/history');
+        }}
+      />
       <main className='flex-1 flex flex-col gap-4 py-3 px-6'>
         <p className='text-right label text-gray5 dark:text-gray2'>
           {formatDetailDate(data.activatedAt)}
