@@ -6,6 +6,11 @@ import { Link } from 'react-router-dom';
 import type React from 'react';
 import type { Problem } from '@/types/problem.type';
 import { useToggleFavorite } from '../api/toggle-favorite';
+import Markdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import remarkGfm from 'remark-gfm';
+import 'katex/dist/katex.min.css';
 
 type ListViewProps = {
   items: Problem[];
@@ -31,7 +36,14 @@ export default function ListView({ items }: ListViewProps) {
                 fill={item.favorite ? 'currentColor' : 'none'}
                 onClick={(e) => handleToggle(e, item.id)}
               />
-              <Title size='md'>{item.summary}</Title>
+              <Title size='md'>
+                <Markdown
+                  remarkPlugins={[remarkMath, remarkGfm]}
+                  rehypePlugins={[rehypeKatex]}
+                >
+                  {item.summary}
+                </Markdown>
+              </Title>
               <p className='body-sm text-gray5 dark:text-gray2 overflow-hidden text-ellipsis whitespace-nowrap'>
                 {item.concepts.map((concept) => (
                   <span key={concept.id} className='ml-1'>
