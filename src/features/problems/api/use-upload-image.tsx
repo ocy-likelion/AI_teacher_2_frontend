@@ -61,7 +61,6 @@ export const useUploadImage = ({
       });
     },
     onMutate: () => {
-      toast.info('현재 로딩중');
       queryClient.invalidateQueries({
         queryKey: problemListKey({ favorite: false }),
       });
