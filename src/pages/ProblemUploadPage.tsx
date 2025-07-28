@@ -26,6 +26,7 @@ export default function ProblemUploadPage() {
   const uploadRef = useRef<HTMLInputElement>(null);
   const controllerRef = useRef<AbortController | null>(null);
   const isLoadingRef = useRef(false);
+  const isHandlingPopRef = useRef(false);
 
   const cropper = cropperRef.current?.cropper;
 
@@ -52,36 +53,47 @@ export default function ProblemUploadPage() {
   }, [imageFile, navigate]);
 
   useEffect(() => {
-    if (isLoadingRef.current) {
-      history.pushState({ preventBack: true }, '', location.href);
-      console.log('현재 주소: ', location.href);
-    }
+    window.history.pushState({ preventBack: true }, '', location.href);
 
     const onPopState = () => {
-      if (isLoadingRef.current) {
-        const check = confirm(
-          '사이트 이탈 시 변경사항이 저장되지 않습니다. 정말 나가시겠습니까?',
-        );
-        if (check) {
-          if (controllerRef.current) {
-            controllerRef.current.abort();
-          }
-          window.history.pushState(null, '', location.href);
-        }
+      if (!isLoadingRef.current || isHandlingPopRef.current) return;
+
+      isHandlingPopRef.current = true; // ✅ confirm 중복 방지
+
+      const check = confirm(
+        '사이트 이탈 시 변경사항이 저장되지 않습니다. 정말 나가시겠습니까?',
+      );
+
+      if (check) {
+        controllerRef.current?.abort();
+        navigate('/', { replace: true });
+      } else {
+        // ❗ forward() 후 다시 popstate가 뜨지 않도록 잠깐 막기
+        setTimeout(() => {
+          isHandlingPopRef.current = false;
+        }, 100); // 브라우저 forward 타이밍보다 살짝 늦게
+        window.history.forward();
       }
+    };
+
+    window.addEventListener('popstate', onPopState);
+
+    return () => {
       window.removeEventListener('popstate', onPopState);
     };
-    window.addEventListener('popstate', onPopState);
   }, []);
 
   if (isLoading) {
-    console.log(isLoadingRef.current);
     return <ProblemUploadLoading />;
   }
 
   return (
     <section className='flex flex-1 flex-col w-full h-full'>
-      <SubHeader type='close' title='문제 등록하기' />
+      <SubHeader
+        type='close'
+        title='문제 등록하기'
+        onBackClick={() => navigate('/')}
+      />
       <section className='flex flex-1 flex-col w-full h-fit pb-10'>
         <div className='mt-16 mb-[15px] ml-[15px] flex flex-row'>
           <Info size={16} className='text-primary mt-[4px] mr-[10px]' />

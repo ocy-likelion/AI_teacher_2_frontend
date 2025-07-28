@@ -5,6 +5,11 @@ import type { BaseModalProps } from '@/types/modal.type';
 import { useConcept } from '../api/get-concept';
 import ListLoading from '@/components/ui/ListLoading';
 import { handleApiError } from '@/utils/handle-api-error';
+import Markdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import remarkGfm from 'remark-gfm';
+import 'katex/dist/katex.min.css';
 
 export interface ConceptModalProps extends BaseModalProps {
   id: number;
@@ -34,8 +39,16 @@ export default function ConceptModal({
         ) : (
           <>
             <p className='whitespace-pre-wrap body-sm'>
-              {data?.description ||
-                '🤔 이 개념에 대한 설명이 곧 추가될 예정이에요.'}
+              {data?.description ? (
+                <Markdown
+                  remarkPlugins={[remarkMath, remarkGfm]}
+                  rehypePlugins={[rehypeKatex]}
+                >
+                  {data?.description}
+                </Markdown>
+              ) : (
+                '🤔 이 개념에 대한 설명이 곧 추가될 예정이에요.'
+              )}
             </p>
           </>
         )}
