@@ -9,7 +9,7 @@ export default function LandingPage() {
   const navigate = useNavigate();
 
   const REST_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY;
-  const REDIRECT_URI = import.meta.env.VITE_FRONT_REDIRECT_URI;
+  const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
 
   const kakaoLoginHandler = () => {
     console.log(REDIRECT_URI);
