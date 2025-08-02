@@ -6,7 +6,7 @@ import useImageStore from '@/stores/imageStore';
 import { Info } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import type { ReactCropperElement } from 'react-cropper';
-import { useNavigate } from 'react-router-dom';
+import { useBlocker, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import ProblemUploadLoading from '../features/problems/components/ProblemUploadLoading';
 import getCroppedData from '@/features/problems/api/get-cropped-data';
@@ -21,12 +21,34 @@ export default function ProblemUploadPage() {
 
   const [image, setImage] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const cropperRef = useRef<ReactCropperElement>(null);
   const uploadRef = useRef<HTMLInputElement>(null);
   const controllerRef = useRef<AbortController | null>(null);
 
   const cropper = cropperRef.current?.cropper;
+
+  const confirmLeave = () => {
+    if (
+      confirm(
+        '뒤로 가면 해설이 생성되지 않을 수 있어요.\n정말 뒤로 가시겠어요?',
+      )
+    ) {
+      controllerRef.current?.abort();
+      setImageFile(undefined);
+      return true;
+    }
+    return false;
+  };
+
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation, historyAction }) => {
+      return (
+        isLoading &&
+        historyAction === 'POP' &&
+        currentLocation.pathname !== nextLocation.pathname
+      );
+    },
+  );
 
   const { mutate } = useUploadImage({
     setIsLoading,
@@ -36,18 +58,6 @@ export default function ProblemUploadPage() {
 
   const handleReupload = () => {
     uploadRef.current?.click();
-  };
-
-  const handleBackClick = () => {
-    if (
-      confirm(
-        '뒤로 가면 해설이 생성되지 않을 수 있어요.\n정말 뒤로 가시겠어요?',
-      )
-    ) {
-      navigate('/');
-      controllerRef.current?.abort();
-      setImageFile(undefined);
-    }
   };
 
   useEffect(() => {
@@ -63,17 +73,23 @@ export default function ProblemUploadPage() {
     }
   }, [imageUrl, navigate]);
 
+  useEffect(() => {
+    if (blocker.state === 'blocked') {
+      if (confirmLeave()) {
+        blocker.proceed();
+      } else {
+        blocker.reset();
+      }
+    }
+  }, [blocker.state]);
+
   if (isLoading) {
-    return <ProblemUploadLoading onBackClick={handleBackClick} />;
+    return <ProblemUploadLoading />;
   }
 
   return (
     <section className='flex flex-1 flex-col w-full h-full'>
-      <SubHeader
-        type='close'
-        title='문제 등록하기'
-        onBackClick={() => navigate('/')}
-      />
+      <SubHeader type='close' title='문제 등록하기' />
       <section className='flex flex-1 flex-col w-full h-fit pb-10'>
         <div className='mt-16 mb-[15px] ml-[15px] flex flex-row'>
           <Info size={16} className='text-primary mt-[4px] mr-[10px]' />
