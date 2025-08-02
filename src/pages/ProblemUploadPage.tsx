@@ -2,7 +2,7 @@ import SubHeader from '@/components/layout/SubHeader';
 import { Button } from '@/components/ui/button';
 import ImageCropper from '@/features/problems/components/ImageCropper';
 import ImageUpload from '@/features/problems/components/ImageUploadInput';
-import useImageStore, { type imageStore } from '@/stores/imageStore';
+import useImageStore from '@/stores/imageStore';
 import { Info } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import type { ReactCropperElement } from 'react-cropper';
@@ -38,7 +38,7 @@ export default function ProblemUploadPage() {
     uploadRef.current?.click();
   };
 
-  const preventGoBack = () => {
+  const handleBackClick = () => {
     if (
       confirm(
         '뒤로 가면 해설이 생성되지 않을 수 있어요.\n정말 뒤로 가시겠어요?',
@@ -64,7 +64,7 @@ export default function ProblemUploadPage() {
   }, [imageUrl, navigate]);
 
   if (isLoading) {
-    return <ProblemUploadLoading onBackClick={preventGoBack} />;
+    return <ProblemUploadLoading onBackClick={handleBackClick} />;
   }
 
   return (

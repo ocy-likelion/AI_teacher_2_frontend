@@ -40,10 +40,11 @@ export const useUploadImage = ({
       return res;
     },
     onError: (err: AxiosError) => {
-      controllerRef.current = null;
       if (axios.isCancel(err)) {
+        controllerRef.current = null;
         toast.error('요청을 취소하셨습니다.');
       } else {
+        handleUploadEnd();
         handleApiError(err);
       }
     },
