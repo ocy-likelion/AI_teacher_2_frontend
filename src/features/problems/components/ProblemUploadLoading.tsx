@@ -10,10 +10,16 @@ type StepData = {
   content: string;
 };
 
+type ProblemUploadLoadingProps = {
+  onBackClick?: () => void;
+};
+
 const DEFAULT_ANIMATION_DELAY = 0.1;
 const STEP_DISPLAY_TIME = 5000;
 
-export default function ProblemUploadLoading() {
+export default function ProblemUploadLoading({
+  onBackClick,
+}: ProblemUploadLoadingProps) {
   const [currentStep, setCurrentStep] = useState<number>(0);
 
   const steps: StepData[] = [
@@ -52,7 +58,7 @@ export default function ProblemUploadLoading() {
 
   return (
     <div className='w-full h-full flex flex-col'>
-      <SubHeader type='back' title='' />
+      <SubHeader type='back' title='' onBackClick={onBackClick} />
 
       <div className='flex-1 flex flex-col items-center justify-center text-center h-full -mt-30'>
         <div className='flex flex-col items-center justify-center gap-4 w-full max-w-md space-y-8'>

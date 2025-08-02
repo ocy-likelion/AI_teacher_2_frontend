@@ -11,25 +11,21 @@ import { problemListKey } from '@/utils/query-key';
 type UseUploadImageProps = {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   controllerRef: React.RefObject<AbortController | null>;
-  isLoadingRef: React.RefObject<boolean>;
   navigate: NavigateFunction;
 };
 
 export const useUploadImage = ({
   setIsLoading,
   controllerRef,
-  isLoadingRef,
   navigate,
 }: UseUploadImageProps) => {
   const handleUploadStart = (controller: AbortController) => {
     controllerRef.current = controller;
-    isLoadingRef.current = true;
     setIsLoading(true);
   };
 
   const handleUploadEnd = () => {
     controllerRef.current = null;
-    isLoadingRef.current = false;
     setIsLoading(false);
   };
 
@@ -44,7 +40,7 @@ export const useUploadImage = ({
       return res;
     },
     onError: (err: AxiosError) => {
-      handleUploadEnd();
+      controllerRef.current = null;
       if (axios.isCancel(err)) {
         toast.error('요청을 취소하셨습니다.');
       } else {
@@ -69,25 +65,4 @@ export const useUploadImage = ({
       });
     },
   });
-
-  // const getCroppedData = (
-  //   cropper: Cropper | undefined,
-  //   setImage: React.Dispatch<React.SetStateAction<string | undefined>>,
-  // ) => {
-  //   if (cropper) {
-  //     const croppedImage = cropper.getCroppedCanvas().toDataURL();
-  //     setImage(croppedImage);
-  //     const formData = new FormData();
-  //     cropper.getCroppedCanvas().toBlob((blob) => {
-  //       if (!blob) return;
-  //       const randomName = `image_${Date.now()}_${Math.random().toString(36).substring(2, 8)}.png`;
-  //       const file = new File([blob], randomName, { type: 'image/png' });
-  //       if (blob) formData.append('file', file);
-
-  //       mutate(formData);
-  //     });
-  //   }
-  // };
-
-  // return { getCroppedData };
 };

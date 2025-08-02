@@ -17,7 +17,7 @@ const NAVIGATION_DELAY = 0;
 export default function ProblemUploadPage() {
   const navigate = useNavigate();
 
-  const imageFile = useImageStore((state: imageStore) => state.imageUrl);
+  const { imageUrl, setImageFile } = useImageStore();
 
   const [image, setImage] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -25,15 +25,12 @@ export default function ProblemUploadPage() {
   const cropperRef = useRef<ReactCropperElement>(null);
   const uploadRef = useRef<HTMLInputElement>(null);
   const controllerRef = useRef<AbortController | null>(null);
-  const isLoadingRef = useRef(false);
-  const isHandlingPopRef = useRef(false);
 
   const cropper = cropperRef.current?.cropper;
 
   const { mutate } = useUploadImage({
     setIsLoading,
     controllerRef,
-    isLoadingRef,
     navigate,
   });
 
@@ -41,50 +38,33 @@ export default function ProblemUploadPage() {
     uploadRef.current?.click();
   };
 
+  const preventGoBack = () => {
+    if (
+      confirm(
+        '뒤로 가면 해설이 생성되지 않을 수 있어요.\n정말 뒤로 가시겠어요?',
+      )
+    ) {
+      navigate('/');
+      controllerRef.current?.abort();
+      setImageFile(undefined);
+    }
+  };
+
   useEffect(() => {
-    if (imageFile) {
-      setImage(imageFile);
-    } else if (imageFile === undefined) {
+    if (isLoading) return;
+
+    if (imageUrl) {
+      setImage(imageUrl);
+    } else if (imageUrl === undefined) {
       setTimeout(() => {
         navigate('/');
-        toast.error('유효하지 않은 접근이 감지되어 홈으로 이동합니다.');
+        toast.error('홈 화면에서 문제 사진을 등록해주세요.');
       }, NAVIGATION_DELAY);
     }
-  }, [imageFile, navigate]);
-
-  useEffect(() => {
-    window.history.pushState({ preventBack: true }, '', location.href);
-
-    const onPopState = () => {
-      if (!isLoadingRef.current || isHandlingPopRef.current) return;
-
-      isHandlingPopRef.current = true; // ✅ confirm 중복 방지
-
-      const check = confirm(
-        '사이트 이탈 시 변경사항이 저장되지 않습니다. 정말 나가시겠습니까?',
-      );
-
-      if (check) {
-        controllerRef.current?.abort();
-        navigate('/', { replace: true });
-      } else {
-        // ❗ forward() 후 다시 popstate가 뜨지 않도록 잠깐 막기
-        setTimeout(() => {
-          isHandlingPopRef.current = false;
-        }, 100); // 브라우저 forward 타이밍보다 살짝 늦게
-        window.history.forward();
-      }
-    };
-
-    window.addEventListener('popstate', onPopState);
-
-    return () => {
-      window.removeEventListener('popstate', onPopState);
-    };
-  }, []);
+  }, [imageUrl, navigate]);
 
   if (isLoading) {
-    return <ProblemUploadLoading />;
+    return <ProblemUploadLoading onBackClick={preventGoBack} />;
   }
 
   return (
