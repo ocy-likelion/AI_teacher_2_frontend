@@ -2,11 +2,11 @@ import SubHeader from '@/components/layout/SubHeader';
 import { Button } from '@/components/ui/button';
 import ImageCropper from '@/features/problems/components/ImageCropper';
 import ImageUpload from '@/features/problems/components/ImageUploadInput';
-import useImageStore, { type imageStore } from '@/stores/imageStore';
+import useImageStore from '@/stores/imageStore';
 import { Info } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import type { ReactCropperElement } from 'react-cropper';
-import { useNavigate } from 'react-router-dom';
+import { useBlocker, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import ProblemUploadLoading from '../features/problems/components/ProblemUploadLoading';
 import getCroppedData from '@/features/problems/api/get-cropped-data';
@@ -17,23 +17,42 @@ const NAVIGATION_DELAY = 0;
 export default function ProblemUploadPage() {
   const navigate = useNavigate();
 
-  const imageFile = useImageStore((state: imageStore) => state.imageUrl);
+  const { imageUrl, setImageFile } = useImageStore();
 
   const [image, setImage] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const cropperRef = useRef<ReactCropperElement>(null);
   const uploadRef = useRef<HTMLInputElement>(null);
   const controllerRef = useRef<AbortController | null>(null);
-  const isLoadingRef = useRef(false);
-  const isHandlingPopRef = useRef(false);
 
   const cropper = cropperRef.current?.cropper;
+
+  const confirmLeave = () => {
+    if (
+      confirm(
+        '뒤로 가면 해설이 생성되지 않을 수 있어요.\n정말 뒤로 가시겠어요?',
+      )
+    ) {
+      controllerRef.current?.abort();
+      setImageFile(undefined);
+      return true;
+    }
+    return false;
+  };
+
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation, historyAction }) => {
+      return (
+        isLoading &&
+        historyAction === 'POP' &&
+        currentLocation.pathname !== nextLocation.pathname
+      );
+    },
+  );
 
   const { mutate } = useUploadImage({
     setIsLoading,
     controllerRef,
-    isLoadingRef,
     navigate,
   });
 
@@ -42,46 +61,27 @@ export default function ProblemUploadPage() {
   };
 
   useEffect(() => {
-    if (imageFile) {
-      setImage(imageFile);
-    } else if (imageFile === undefined) {
+    if (isLoading) return;
+
+    if (imageUrl) {
+      setImage(imageUrl);
+    } else if (imageUrl === undefined) {
       setTimeout(() => {
         navigate('/');
-        toast.error('유효하지 않은 접근이 감지되어 홈으로 이동합니다.');
+        toast.error('홈 화면에서 문제 사진을 등록해주세요.');
       }, NAVIGATION_DELAY);
     }
-  }, [imageFile, navigate]);
+  }, [imageUrl, navigate]);
 
   useEffect(() => {
-    window.history.pushState({ preventBack: true }, '', location.href);
-
-    const onPopState = () => {
-      if (!isLoadingRef.current || isHandlingPopRef.current) return;
-
-      isHandlingPopRef.current = true; // ✅ confirm 중복 방지
-
-      const check = confirm(
-        '사이트 이탈 시 변경사항이 저장되지 않습니다. 정말 나가시겠습니까?',
-      );
-
-      if (check) {
-        controllerRef.current?.abort();
-        navigate('/', { replace: true });
+    if (blocker.state === 'blocked') {
+      if (confirmLeave()) {
+        blocker.proceed();
       } else {
-        // ❗ forward() 후 다시 popstate가 뜨지 않도록 잠깐 막기
-        setTimeout(() => {
-          isHandlingPopRef.current = false;
-        }, 100); // 브라우저 forward 타이밍보다 살짝 늦게
-        window.history.forward();
+        blocker.reset();
       }
-    };
-
-    window.addEventListener('popstate', onPopState);
-
-    return () => {
-      window.removeEventListener('popstate', onPopState);
-    };
-  }, []);
+    }
+  }, [blocker.state]);
 
   if (isLoading) {
     return <ProblemUploadLoading />;
@@ -89,11 +89,7 @@ export default function ProblemUploadPage() {
 
   return (
     <section className='flex flex-1 flex-col w-full h-full'>
-      <SubHeader
-        type='close'
-        title='문제 등록하기'
-        onBackClick={() => navigate('/')}
-      />
+      <SubHeader type='close' title='문제 등록하기' />
       <section className='flex flex-1 flex-col w-full h-fit pb-10'>
         <div className='mt-16 mb-[15px] ml-[15px] flex flex-row'>
           <Info size={16} className='text-primary mt-[4px] mr-[10px]' />
