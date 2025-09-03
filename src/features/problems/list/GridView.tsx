@@ -19,7 +19,7 @@ export default function GridView({ items }: GridViewProps) {
   };
 
   return (
-    <div className='w-full flex justify-center flex-wrap gap-3'>
+    <div className='w-full flex justify-center flex-wrap gap-3 p-2'>
       {items.map((item) => {
         return (
           <Link

@@ -25,7 +25,7 @@ export default function ListView({ items }: ListViewProps) {
     toggle(id);
   };
   return (
-    <div className='w-full flex flex-col items-center gap-3'>
+    <div className='w-full flex flex-col items-center gap-3 p-2'>
       {items.map((item) => (
         <Link className='w-full' to={`/problem/${item.id}`} key={item.id}>
           <CardWrapper>

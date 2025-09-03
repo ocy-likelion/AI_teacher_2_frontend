@@ -24,6 +24,7 @@ export default function ListSection() {
     targetRef,
     onIntersect: fetchNextPage,
     enabled: hasNextPage && !isFetchingNextPage,
+    rootMargin: '200px 0px',
   });
 
   if (isPending)
@@ -38,7 +39,7 @@ export default function ListSection() {
 
   const ViewComponent = view === 'list' ? ListView : GridView;
   return (
-    <section className='w-full'>
+    <section className='w-full h-full md:overflow-y-auto'>
       <ViewComponent items={problems} />
       {isFetchingNextPage && <ListLoading />}
       <div ref={targetRef} className='h-[1px]' />
