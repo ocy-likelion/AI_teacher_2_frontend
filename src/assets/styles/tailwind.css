@@ -28,5 +28,6 @@
   --color-gray7: #1f2937;
   --color-black: #000;
 
-  --max-size: 1200px;
+  --spacing-max-width: 1200px;
+  --spacing-sidebar-width: 230px;
 }
