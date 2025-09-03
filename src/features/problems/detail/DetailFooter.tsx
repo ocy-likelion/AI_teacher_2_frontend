@@ -4,6 +4,7 @@ import { useDeleteProblem } from '../api/delete-problem';
 import { useNavigate } from 'react-router-dom';
 import { useModalStore } from '@/stores/modalStore';
 import { useToggleFavorite } from '../api/toggle-favorite';
+import FooterWrapper from '@/components/ui/footer';
 
 type DetailFooterProps = {
   id: string;
@@ -34,13 +35,7 @@ export default function DetailFooter({ id, isFavorite }: DetailFooterProps) {
   };
 
   return (
-    <footer
-      className='w-full max-w-[var(--max-size-mobile)] pt-1 bg-background-light dark:bg-gray7 sticky bottom-0 flex justify-center items-center border-t border-gray2 dark:border-gray6'
-      style={{
-        paddingBottom: 'calc(4px + var(--safe-bottom))',
-        minHeight: 'calc(var(--h-header) + var(--safe-bottom))',
-      }}
-    >
+    <FooterWrapper>
       <div className='w-full py-2.5 px-6 flex items-center gap-3'>
         <Button
           variant='border'
@@ -64,6 +59,6 @@ export default function DetailFooter({ id, isFavorite }: DetailFooterProps) {
           삭제하기
         </Button>
       </div>
-    </footer>
+    </FooterWrapper>
   );
 }

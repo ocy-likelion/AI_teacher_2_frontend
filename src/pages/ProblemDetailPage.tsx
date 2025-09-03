@@ -12,7 +12,7 @@ import DetailFooter from '@/features/problems/detail/DetailFooter';
 import DetailSection from '@/features/problems/detail/DetailSection';
 import ImageSection from '@/features/problems/detail/ImageSection';
 import Title from '@/features/problems/components/Title';
-import Loading from '@/components/ui/Loading';
+import Loading from '@/components/Loading';
 import { formatDetailDate } from '@/utils/date';
 import { useProblemDetail } from '@/features/problems/api/get-problem-detail';
 import { handleApiError } from '@/utils/handle-api-error';

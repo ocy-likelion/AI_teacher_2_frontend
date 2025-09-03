@@ -5,7 +5,7 @@ import ListView from './ListView';
 import { useProblemList } from '../api/get-problem-list';
 import { useRef } from 'react';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
-import ListLoading from '@/components/ui/ListLoading';
+import ListLoading from '@/components/ListLoading';
 import { useFavoriteList } from '../api/get-favorite-list';
 
 export default function ListSection() {

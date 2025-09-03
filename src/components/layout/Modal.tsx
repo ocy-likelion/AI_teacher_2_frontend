@@ -1,6 +1,6 @@
 import { useModalStore } from '@/stores/modalStore';
 import ConceptModal from '@/features/concepts/components/ConceptModal';
-import DeleteConfirmModal from '@/components/ui/DeleteConfirmModal';
+import DeleteConfirmModal from '@/components/DeleteConfirmModal';
 import type { ModalPropsMap } from '@/types/modal.type';
 import ChildUpdateModal from '@/features/users/my-page/ChildUpdateModal';
 

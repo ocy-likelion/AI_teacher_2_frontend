@@ -1,5 +1,6 @@
 import { CircleUserRound, History, House } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import FooterWrapper from '@/components/ui/footer';
 
 const links = [
   {
@@ -19,17 +20,11 @@ const links = [
   },
 ];
 
-export default function Footer() {
+export default function NavFooter() {
   const { pathname } = useLocation();
 
   return (
-    <footer
-      className='w-full max-w-[var(--max-size-mobile)] pt-1 bg-background-light dark:bg-gray7 sticky bottom-0 flex items-center border-t border-gray2 dark:border-gray6'
-      style={{
-        paddingBottom: 'calc(4px + var(--safe-bottom))',
-        minHeight: 'calc(var(--h-header) + var(--safe-bottom))',
-      }}
-    >
+    <FooterWrapper>
       <nav className='w-full flex items-center gap-2 px-8 py-1'>
         {links.map((link) => (
           <Link
@@ -42,6 +37,6 @@ export default function Footer() {
           </Link>
         ))}
       </nav>
-    </footer>
+    </FooterWrapper>
   );
 }

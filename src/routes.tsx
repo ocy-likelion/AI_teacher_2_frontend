@@ -14,7 +14,9 @@ const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 const ServerErrorPage = lazy(() => import('./pages/ServerErrorPage'));
 const MockApiPage = lazy(() => import('./MockApiPage.tsx'));
 const LayoutWrapper = lazy(() => import('./components/layout/LayoutWrapper'));
-const BasicLayout = lazy(() => import('./components/layout/BasicLayout'));
+const MobileBasicLayout = lazy(
+  () => import('./components/layout/MobileBasicLayout.tsx'),
+);
 const RequireAuth = lazy(() => import('./components/layout/RequireAuth'));
 const ErrorLayout = lazy(() => import('./components/layout/ErrorLayout'));
 
@@ -24,20 +26,20 @@ const router = createBrowserRouter([
     element: <Layout />,
     errorElement: (
       <LayoutWrapper>
-        <BasicLayout>
+        <MobileBasicLayout>
           <NotFoundPage />
-        </BasicLayout>
+        </MobileBasicLayout>
       </LayoutWrapper>
     ),
     children: [
       {
         index: true,
         element: (
-          <BasicLayout>
+          <MobileBasicLayout>
             <RequireAuth>
               <HomePage />
             </RequireAuth>
-          </BasicLayout>
+          </MobileBasicLayout>
         ),
       },
       {
@@ -84,21 +86,21 @@ const router = createBrowserRouter([
       {
         path: '/history',
         element: (
-          <BasicLayout>
+          <MobileBasicLayout>
             <RequireAuth>
               <ProblemHistoryPage />
             </RequireAuth>
-          </BasicLayout>
+          </MobileBasicLayout>
         ),
       },
       {
         path: '/profile',
         element: (
-          <BasicLayout>
+          <MobileBasicLayout>
             <RequireAuth>
               <MyPage />
             </RequireAuth>
-          </BasicLayout>
+          </MobileBasicLayout>
         ),
       },
       {
@@ -112,9 +114,9 @@ const router = createBrowserRouter([
           {
             index: true,
             element: (
-              <BasicLayout>
+              <MobileBasicLayout>
                 <NotFoundPage />
-              </BasicLayout>
+              </MobileBasicLayout>
             ),
           },
           {
