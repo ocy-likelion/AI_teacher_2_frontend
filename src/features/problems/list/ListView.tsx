@@ -41,7 +41,7 @@ export default function ListView({ items }: ListViewProps) {
                   remarkPlugins={[remarkMath, remarkGfm]}
                   rehypePlugins={[rehypeKatex]}
                 >
-                  {item.summary}
+                  {item.ocrResult}
                 </Markdown>
               </Title>
               <p className='body-sm text-gray5 dark:text-gray2 overflow-hidden text-ellipsis whitespace-nowrap'>
@@ -52,7 +52,7 @@ export default function ListView({ items }: ListViewProps) {
                 ))}
               </p>
               <p className='label text-gray5 dark:text-gray2'>
-                {formatListDate(item.activatedAt)}
+                {formatListDate(item.createdAt)}
               </p>
             </div>
           </CardWrapper>
