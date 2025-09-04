@@ -15,6 +15,7 @@
   --color-btn-disabled: #939393;
   --color-background-light: #ffffff;
   --color-background-dark: #1f2937;
+  --color-background-dark-secondary: #101a28;
   --color-red: #ff0000;
   --color-yellow: #fee500;
   --color-white: #fff;
@@ -26,4 +27,7 @@
   --color-gray6: #52525b;
   --color-gray7: #1f2937;
   --color-black: #000;
+
+  --spacing-max-width: 1200px;
+  --spacing-sidebar-width: 230px;
 }

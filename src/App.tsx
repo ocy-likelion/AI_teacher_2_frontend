@@ -2,7 +2,7 @@ import { RouterProvider } from 'react-router-dom';
 import router from './routes';
 import { Suspense } from 'react';
 import LayoutWrapper from './components/layout/LayoutWrapper';
-import Loading from './components/ui/Loading';
+import Loading from './components/Loading';
 
 function App() {
   return (

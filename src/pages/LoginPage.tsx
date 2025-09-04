@@ -1,5 +1,5 @@
 import SubHeader from '@/components/layout/SubHeader';
-import Loading from '@/components/ui/Loading';
+import Loading from '@/components/Loading';
 import { useLogin } from '@/features/users/api/useLoginMutation';
 import LoginForm from '@/features/users/components/LoginForm';
 import type { userData } from '@/types/user.type';

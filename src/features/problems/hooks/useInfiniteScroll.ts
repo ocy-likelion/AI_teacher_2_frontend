@@ -4,6 +4,7 @@ type InfiniteScrollProps = {
   targetRef: React.RefObject<HTMLElement | null>;
   onIntersect: () => void;
   enabled: boolean;
+  rootMargin?: string;
   threshold?: number;
 };
 
@@ -11,7 +12,8 @@ export const useInfiniteScroll = ({
   targetRef,
   onIntersect,
   enabled,
-  threshold = 1,
+  rootMargin,
+  threshold = 0,
 }: InfiniteScrollProps) => {
   useEffect(() => {
     if (!enabled || !targetRef.current) return;
@@ -22,7 +24,7 @@ export const useInfiniteScroll = ({
           onIntersect();
         }
       },
-      { threshold }
+      { threshold, rootMargin },
     );
 
     observer.observe(targetRef.current);

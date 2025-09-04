@@ -19,7 +19,7 @@ export default function GridView({ items }: GridViewProps) {
   };
 
   return (
-    <div className='w-full flex justify-center flex-wrap gap-3'>
+    <div className='w-full flex justify-center flex-wrap gap-3 p-2'>
       {items.map((item) => {
         return (
           <Link
@@ -41,7 +41,7 @@ export default function GridView({ items }: GridViewProps) {
                 </button>
                 <div className='flex justify-end'>
                   <p className='label text-gray5 dark:text-gray2 pt-4 pr-4'>
-                    {formatListDate(item.activatedAt)}
+                    {formatListDate(item.createdAt)}
                   </p>
                 </div>
                 <img

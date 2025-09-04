@@ -5,7 +5,7 @@ import ListView from './ListView';
 import { useProblemList } from '../api/get-problem-list';
 import { useRef } from 'react';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
-import ListLoading from '@/components/ui/ListLoading';
+import ListLoading from '@/components/ListLoading';
 import { useFavoriteList } from '../api/get-favorite-list';
 
 export default function ListSection() {
@@ -24,6 +24,7 @@ export default function ListSection() {
     targetRef,
     onIntersect: fetchNextPage,
     enabled: hasNextPage && !isFetchingNextPage,
+    rootMargin: '200px 0px',
   });
 
   if (isPending)
@@ -38,7 +39,7 @@ export default function ListSection() {
 
   const ViewComponent = view === 'list' ? ListView : GridView;
   return (
-    <section className='w-full'>
+    <section className='w-full h-full md:overflow-y-auto'>
       <ViewComponent items={problems} />
       {isFetchingNextPage && <ListLoading />}
       <div ref={targetRef} className='h-[1px]' />

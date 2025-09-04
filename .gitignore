@@ -26,6 +26,5 @@ dist-ssr
 *.sln
 *.sw?
 
-.bedrock
 /dist/*
-*.ait
+

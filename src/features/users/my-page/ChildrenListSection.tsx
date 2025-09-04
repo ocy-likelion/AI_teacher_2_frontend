@@ -2,7 +2,7 @@ import ChildCard from './ChildCard';
 import { useChildInfo } from '../api/get-child-info';
 import { handleApiError } from '@/utils/handle-api-error';
 import axios from 'axios';
-import ListLoading from '@/components/ui/ListLoading';
+import ListLoading from '@/components/ListLoading';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 

@@ -6,9 +6,11 @@ export type Problem = {
   concepts: Omit<Concept, 'description'>[];
   favorite: boolean;
   ocrResult: string;
-  summary: string;
-  explanation: string;
-  activatedAt: string;
+  llmResult: string;
+  createdAt: string;
+  // summary: string;
+  // explanation: string;
+  // activatedAt: string;
 };
 
 export type GetProblemListResponse = {

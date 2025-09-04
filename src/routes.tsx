@@ -14,9 +14,11 @@ const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 const ServerErrorPage = lazy(() => import('./pages/ServerErrorPage'));
 const MockApiPage = lazy(() => import('./MockApiPage.tsx'));
 const LayoutWrapper = lazy(() => import('./components/layout/LayoutWrapper'));
-const BasicLayout = lazy(() => import('./components/layout/BasicLayout'));
 const RequireAuth = lazy(() => import('./components/layout/RequireAuth'));
 const ErrorLayout = lazy(() => import('./components/layout/ErrorLayout'));
+const AppShell = lazy(() => import('./components/layout/AppShell'));
+const Header = lazy(() => import('./components/layout/Header'));
+const NavFooter = lazy(() => import('./components/layout/NavFooter'));
 
 const router = createBrowserRouter([
   {
@@ -24,20 +26,20 @@ const router = createBrowserRouter([
     element: <Layout />,
     errorElement: (
       <LayoutWrapper>
-        <BasicLayout>
+        <AppShell header={<Header />} footer={<NavFooter />}>
           <NotFoundPage />
-        </BasicLayout>
+        </AppShell>
       </LayoutWrapper>
     ),
     children: [
       {
         index: true,
         element: (
-          <BasicLayout>
+          <AppShell header={<Header />} footer={<NavFooter />}>
             <RequireAuth>
               <HomePage />
             </RequireAuth>
-          </BasicLayout>
+          </AppShell>
         ),
       },
       {
@@ -84,21 +86,21 @@ const router = createBrowserRouter([
       {
         path: '/history',
         element: (
-          <BasicLayout>
+          <AppShell header={<Header />} footer={<NavFooter />}>
             <RequireAuth>
               <ProblemHistoryPage />
             </RequireAuth>
-          </BasicLayout>
+          </AppShell>
         ),
       },
       {
         path: '/profile',
         element: (
-          <BasicLayout>
+          <AppShell header={<Header />} footer={<NavFooter />}>
             <RequireAuth>
               <MyPage />
             </RequireAuth>
-          </BasicLayout>
+          </AppShell>
         ),
       },
       {
@@ -112,18 +114,26 @@ const router = createBrowserRouter([
           {
             index: true,
             element: (
-              <BasicLayout>
+              <AppShell header={<Header />} footer={<NavFooter />}>
                 <NotFoundPage />
-              </BasicLayout>
+              </AppShell>
             ),
           },
           {
             path: ':_id',
-            element: <ProblemDetailPage />,
+            element: (
+              <AppShell>
+                <ProblemDetailPage />
+              </AppShell>
+            ),
           },
           {
             path: 'upload',
-            element: <ProblemUploadPage />,
+            element: (
+              <AppShell>
+                <ProblemUploadPage />
+              </AppShell>
+            ),
           },
         ],
       },

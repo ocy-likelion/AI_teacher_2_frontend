@@ -12,7 +12,7 @@ import DetailFooter from '@/features/problems/detail/DetailFooter';
 import DetailSection from '@/features/problems/detail/DetailSection';
 import ImageSection from '@/features/problems/detail/ImageSection';
 import Title from '@/features/problems/components/Title';
-import Loading from '@/components/ui/Loading';
+import Loading from '@/components/Loading';
 import { formatDetailDate } from '@/utils/date';
 import { useProblemDetail } from '@/features/problems/api/get-problem-detail';
 import { handleApiError } from '@/utils/handle-api-error';
@@ -54,7 +54,7 @@ export default function ProblemDetailPage() {
       />
       <main className='flex-1 flex flex-col gap-4 py-3 px-6'>
         <p className='text-right label text-gray5 dark:text-gray2'>
-          {formatDetailDate(data.activatedAt)}
+          {formatDetailDate(data.createdAt)}
         </p>
         <ImageSection url={data.imageUrl} alt={String(data.id)} />
         <DetailSection>
@@ -64,7 +64,7 @@ export default function ProblemDetailPage() {
               remarkPlugins={[remarkMath, remarkGfm]}
               rehypePlugins={[rehypeKatex]}
             >
-              {data.summary}
+              {data.ocrResult}
             </Markdown>
           </CardWrapper>
         </DetailSection>
@@ -88,7 +88,7 @@ export default function ProblemDetailPage() {
               remarkPlugins={[remarkMath, remarkGfm]}
               rehypePlugins={[rehypeKatex]}
             >
-              {data.explanation}
+              {data.llmResult}
             </Markdown>
           </CardWrapper>
         </DetailSection>

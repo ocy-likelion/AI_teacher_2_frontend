@@ -1,11 +1,11 @@
 import SubHeader from '@/components/layout/SubHeader';
 import { useEffect, useState } from 'react';
-import IntroButtonGroup from '@/components/ui/introButtonGroup';
-import IntroInput from '@/components/ui/introInput';
+import IntroButtonGroup from '@/components/introButtonGroup';
+import IntroInput from '@/components/introInput';
 import { Button } from '@/components/ui/button';
 import { GRADES_NUM, SCHOOL } from '@/utils/constants/grades';
-import OnboardingIntro from '@/components/ui/OnboardingIntro';
-import OnboardingAnimation from '@/components/ui/OnboardingAnimation';
+import OnboardingIntro from '@/components/OnboardingIntro';
+import OnboardingAnimation from '@/components/OnboardingAnimation';
 import validateInput from '@/utils/validateInput';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';

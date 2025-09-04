@@ -4,14 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "bedrock dev",
-    "build": "bedrock build",
+    "dev": "vite",
+    "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview --outDir dist/web",
-    "deploy": "ait deploy"
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@apps-in-toss/web-framework": "^0.0.28",
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-select": "^2.2.5",

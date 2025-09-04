@@ -3,7 +3,7 @@ import { DialogFooter, DialogHeader } from '@/components/ui/dialog';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import type { BaseModalProps } from '@/types/modal.type';
 import { useConcept } from '../api/get-concept';
-import ListLoading from '@/components/ui/ListLoading';
+import ListLoading from '@/components/ListLoading';
 import { handleApiError } from '@/utils/handle-api-error';
 import Markdown from 'react-markdown';
 import remarkMath from 'remark-math';

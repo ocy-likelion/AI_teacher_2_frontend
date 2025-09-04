@@ -136,7 +136,6 @@ body {
   --safe-right: env(safe-area-inset-right, 0px);
 
   /* size */
-  --max-size-mobile: 480px;
   --h-header: 55px;
 
   /* shadow */
