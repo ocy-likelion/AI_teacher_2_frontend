@@ -2,7 +2,7 @@ import ChildCard from './ChildCard';
 import { useChildInfo } from '../api/get-child-info';
 import { handleApiError } from '@/utils/handle-api-error';
 import axios from 'axios';
-import ListLoading from '@/components/ListLoading';
+import DataLoading from '@/components/DataLoading';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
@@ -32,7 +32,7 @@ export default function ChildrenListSection() {
   }, [isError, error, navigate]);
 
   if (isPending) {
-    return <ListLoading description='아이 정보를 불러오고 있어요...' />;
+    return <dataLoading description='아이 정보를 불러오고 있어요...' />;
   }
   if (isError) return null;
 
