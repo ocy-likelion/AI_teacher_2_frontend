@@ -83,7 +83,7 @@ export default function ProblemDetailPage() {
         )}
         <DetailSection>
           <Title size='lg'>이렇게 설명해볼까요?</Title>
-          <CardWrapper className='prose prose-sm sm:prose lg:prose-lg dark:prose-invert prose-li:m-0 prose-p:m-0'>
+          <CardWrapper className='prose !max-w-none w-full mx-0 prose-sm sm:prose lg:prose-lg dark:prose-invert prose-li:m-0 prose-p:m-0'>
             <Markdown
               remarkPlugins={[remarkMath, remarkGfm]}
               rehypePlugins={[rehypeKatex]}

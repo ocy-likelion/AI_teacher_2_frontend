@@ -32,7 +32,7 @@ export default function ChildrenListSection() {
   }, [isError, error, navigate]);
 
   if (isPending) {
-    return <dataLoading description='아이 정보를 불러오고 있어요...' />;
+    return <DataLoading description='아이 정보를 불러오고 있어요...' />;
   }
   if (isError) return null;
 
