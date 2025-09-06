@@ -47,7 +47,7 @@ export default function GridView({ items }: GridViewProps) {
                 <img
                   src={item.imageUrl}
                   alt={Image.name}
-                  className='border-t border-gray1 dark:border-gray4 flex-1 object-contain h-full w-full'
+                  className='border-t border-gray1 dark:border-gray4 flex-1 aspect-square object-contain h-full w-full'
                 />
               </div>
             </CardWrapper>
