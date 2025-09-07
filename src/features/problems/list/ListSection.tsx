@@ -28,7 +28,10 @@ export default function ListSection() {
     rootMargin: '200px 0px',
   });
 
-  if (isPending) return view === 'list' ? <ListSkeleton /> : <GridSkeleton />;
+  const ViewComponent = view === 'list' ? ListView : GridView;
+  const SkeletonComponent = view === 'list' ? ListSkeleton : GridSkeleton;
+
+  if (isPending) return <SkeletonComponent />;
   if (problems.length === 0) {
     return (
       <Empty
@@ -39,15 +42,10 @@ export default function ListSection() {
     );
   }
 
-  const ViewComponent = view === 'list' ? ListView : GridView;
   return (
     <section className='w-full h-full md:overflow-y-auto'>
       <ViewComponent items={problems} />
-      {isFetchingNextPage && view === 'list' ? (
-        <ListSkeleton />
-      ) : (
-        <GridSkeleton />
-      )}
+      {isFetchingNextPage && <SkeletonComponent />}
       <div ref={targetRef} className='h-[1px]' />
     </section>
   );
