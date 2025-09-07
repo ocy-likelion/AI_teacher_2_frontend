@@ -3,7 +3,7 @@ import { DialogFooter, DialogHeader } from '@/components/ui/dialog';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import type { BaseModalProps } from '@/types/modal.type';
 import { useConcept } from '../api/get-concept';
-import ListLoading from '@/components/ListLoading';
+import DataLoading from '@/components/DataLoading';
 import { handleApiError } from '@/utils/handle-api-error';
 import Markdown from 'react-markdown';
 import remarkMath from 'remark-math';
@@ -35,7 +35,7 @@ export default function ConceptModal({
           <DialogTitle className='title-sm'># {title}</DialogTitle>
         </DialogHeader>
         {isPending ? (
-          <ListLoading description='개념을 불러오는 중이에요...' />
+          <DataLoading description='개념을 불러오는 중이에요...' />
         ) : (
           <>
             <p className='whitespace-pre-wrap body-sm'>

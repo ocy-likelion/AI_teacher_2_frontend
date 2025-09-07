@@ -5,8 +5,9 @@ import ListView from './ListView';
 import { useProblemList } from '../api/get-problem-list';
 import { useRef } from 'react';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
-import ListLoading from '@/components/ListLoading';
+import ListSkeleton from '../components/ListSkeleton';
 import { useFavoriteList } from '../api/get-favorite-list';
+import GridSkeleton from '../components/GridSkeleton';
 
 export default function ListSection() {
   const [params] = useSearchParams();
@@ -27,21 +28,24 @@ export default function ListSection() {
     rootMargin: '200px 0px',
   });
 
-  if (isPending)
-    return (
-      <section className='w-full h-full flex flex-col justify-center items-center'>
-        <ListLoading description='해설 기록을 가져오는 중이에요...' />
-      </section>
-    );
+  const ViewComponent = view === 'list' ? ListView : GridView;
+  const SkeletonComponent = view === 'list' ? ListSkeleton : GridSkeleton;
+
+  if (isPending) return <SkeletonComponent />;
   if (problems.length === 0) {
-    return <Empty description='아직 등록된 문제가 없어요.' />;
+    return (
+      <Empty
+        description={
+          favorite ? '저장한 문제가 없어요.' : '아직 등록된 문제가 없어요.'
+        }
+      />
+    );
   }
 
-  const ViewComponent = view === 'list' ? ListView : GridView;
   return (
     <section className='w-full h-full md:overflow-y-auto'>
       <ViewComponent items={problems} />
-      {isFetchingNextPage && <ListLoading />}
+      {isFetchingNextPage && <SkeletonComponent />}
       <div ref={targetRef} className='h-[1px]' />
     </section>
   );
