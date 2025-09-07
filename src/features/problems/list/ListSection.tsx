@@ -43,7 +43,11 @@ export default function ListSection() {
   return (
     <section className='w-full h-full md:overflow-y-auto'>
       <ViewComponent items={problems} />
-      {isFetchingNextPage && <ListSkeleton />}
+      {isFetchingNextPage && view === 'list' ? (
+        <ListSkeleton />
+      ) : (
+        <GridSkeleton />
+      )}
       <div ref={targetRef} className='h-[1px]' />
     </section>
   );
