@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { GRADES_NUM, SCHOOL } from '@/utils/constants/grades';
 import OnboardingIntro from '@/components/OnboardingIntro';
 import OnboardingAnimation from '@/components/OnboardingAnimation';
-import validateInput from '@/utils/validateInput';
+import validateInput from '@/utils/validate-input';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 

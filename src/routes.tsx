@@ -12,7 +12,6 @@ const ProblemUploadPage = lazy(() => import('./pages/ProblemUploadPage'));
 const ProblemDetailPage = lazy(() => import('./pages/ProblemDetailPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 const ServerErrorPage = lazy(() => import('./pages/ServerErrorPage'));
-const MockApiPage = lazy(() => import('./MockApiPage.tsx'));
 const LayoutWrapper = lazy(() => import('./components/layout/LayoutWrapper'));
 const RequireAuth = lazy(() => import('./components/layout/RequireAuth'));
 const ErrorLayout = lazy(() => import('./components/layout/ErrorLayout'));
@@ -136,10 +135,6 @@ const router = createBrowserRouter([
             ),
           },
         ],
-      },
-      {
-        path: '/api-test', // TODO: api 연동 테스트용으로 추후 삭제
-        element: <MockApiPage />,
       },
     ],
   },
