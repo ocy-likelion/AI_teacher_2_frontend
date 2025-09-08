@@ -27,7 +27,7 @@ export default function DesktopItem({
   };
 
   return (
-    <Link to={`/problem/${item.id}`} className='hidden md:block w-full'>
+    <Link to={`/problem/${item.id}`} className='w-full'>
       <CardWrapper>
         <div className='w-full flex justify-between items-start'>
           <div className='w-full flex items-center gap-6'>

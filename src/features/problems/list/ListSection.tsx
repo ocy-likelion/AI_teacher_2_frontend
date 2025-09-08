@@ -3,10 +3,9 @@ import Empty from './Empty';
 import { useProblemList } from '../api/get-problem-list';
 import { useRef } from 'react';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
-import ListSkeleton from '../components/ListSkeleton';
 import { useFavoriteList } from '../api/get-favorite-list';
-import GridSkeleton from '../components/GridSkeleton';
 import ProblemView from './ProblemView';
+import Skeleton from './Skeleton';
 
 export default function ListSection() {
   const [params] = useSearchParams();
@@ -27,9 +26,7 @@ export default function ListSection() {
     rootMargin: '200px 0px',
   });
 
-  const SkeletonComponent = view === 'list' ? ListSkeleton : GridSkeleton;
-
-  if (isPending) return <SkeletonComponent />;
+  if (isPending) return <Skeleton mobileVariant={view} />;
   if (problems.length === 0) {
     return (
       <Empty
@@ -43,7 +40,7 @@ export default function ListSection() {
   return (
     <section className='w-full h-full md:overflow-y-auto'>
       <ProblemView items={problems} mobileVariant={view} />
-      {isFetchingNextPage && <SkeletonComponent />}
+      {isFetchingNextPage && <Skeleton mobileVariant={view} count={2} />}
       <div ref={targetRef} className='h-[1px]' />
     </section>
   );
