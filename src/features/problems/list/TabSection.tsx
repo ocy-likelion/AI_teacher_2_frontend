@@ -43,7 +43,7 @@ export default function TabSection() {
           즐겨찾기
         </Badge>
       </div>
-      <div className='flex gap-2'>
+      <div className='flex gap-2 md:hidden'>
         <StretchHorizontal
           className={`cursor-pointer ${view === 'list' ? 'text-primary' : ''} transition-transform active:scale-105 duration-300 ease-out`}
           onClick={() => handleViewChange('list')}

@@ -10,7 +10,7 @@ import ConceptList from '@/features/concepts/components/ConceptList';
 import CardWrapper from '@/features/problems/components/CardWrapper';
 import DetailFooter from '@/features/problems/detail/DetailFooter';
 import DetailSection from '@/features/problems/detail/DetailSection';
-import ImageSection from '@/features/problems/detail/ImageSection';
+import ImageSection from '@/features/problems/components/ImageSection';
 import Title from '@/features/problems/components/Title';
 import Loading from '@/components/Loading';
 import { formatDetailDate } from '@/utils/date';
@@ -56,7 +56,11 @@ export default function ProblemDetailPage() {
         <p className='text-right label text-gray5 dark:text-gray2'>
           {formatDetailDate(data.createdAt)}
         </p>
-        <ImageSection url={data.imageUrl} alt={String(data.id)} />
+        <ImageSection
+          url={data.imageUrl}
+          alt={String(data.id)}
+          maxWidth={500}
+        />
         <DetailSection>
           <Title size='lg'>문제</Title>
           <CardWrapper>
