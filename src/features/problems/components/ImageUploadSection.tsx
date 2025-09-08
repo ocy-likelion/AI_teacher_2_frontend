@@ -15,9 +15,11 @@ export default function ImageUploadSection() {
       >
         <div className='flex flex-col items-center gap-1'>
           <IconPlus className='w-11 h-11' />
-          <h3 className='text-lg font-semibold'>무엇이 궁금하신가요?</h3>
+          <h3 className='text-lg font-semibold md:title-sm'>
+            무엇이 궁금하신가요?
+          </h3>
         </div>
-        <p className='text-center text-[11px] text-gray5 dark:text-gray2'>
+        <p className='text-center text-[11px] text-gray5 dark:text-gray2 md:body-md'>
           해설이 필요한 문제를 직접 찍거나 <br />
           앨범에서 선택해 주세요
         </p>
