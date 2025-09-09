@@ -48,7 +48,7 @@ function ListBody({ item, onFavorite }: BodyProps) {
         className='absolute top-0 left-0 z-10'
       />
       <Title size='md' isMarkdown={true}>
-        {item.ocrResult}
+        {item.summary}
       </Title>
       <p className='body-sm text-gray5 dark:text-gray2 overflow-hidden text-ellipsis whitespace-nowrap'>
         {item.concepts.map((concept) => (
@@ -58,7 +58,7 @@ function ListBody({ item, onFavorite }: BodyProps) {
         ))}
       </p>
       <p className='label text-gray5 dark:text-gray2'>
-        {formatListDate(item.createdAt)}
+        {formatListDate(item.activatedAt)}
       </p>
     </div>
   );
@@ -75,7 +75,7 @@ function GridBody({ item, onFavorite }: BodyProps) {
       />
       <div className='flex justify-end'>
         <p className='label text-gray5 dark:text-gray2 pt-4 pr-4'>
-          {formatListDate(item.createdAt)}
+          {formatListDate(item.activatedAt)}
         </p>
       </div>
       <img

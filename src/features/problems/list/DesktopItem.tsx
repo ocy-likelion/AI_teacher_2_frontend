@@ -18,13 +18,13 @@ export default function DesktopItem({ item }: DesktopItemProps) {
           <div className='w-full flex items-center gap-6'>
             <ImageSection
               url={item.imageUrl}
-              alt={item.ocrResult}
+              alt={item.summary}
               width={120}
               border={true}
             />
             <div className='w-full flex flex-col gap-2'>
               <Title size='md' isMarkdown={true}>
-                {item.ocrResult}
+                {item.summary}
               </Title>
               <p className='body-sm md:body-md text-gray5 dark:text-gray2 overflow-hidden text-ellipsis whitespace-wrap line-clamp-1'>
                 {item.concepts.map((concept) => (
@@ -34,7 +34,7 @@ export default function DesktopItem({ item }: DesktopItemProps) {
                 ))}
               </p>
               <p className='label md:font-medium md:body-sm text-gray5 dark:text-gray2'>
-                {formatListDate(item.createdAt)}
+                {formatListDate(item.activatedAt)}
               </p>
             </div>
           </div>

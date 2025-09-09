@@ -21,7 +21,7 @@ export default function DetailContent({ problem }: DetailContentProps) {
       <DetailSection>
         <Title size='lg'>문제</Title>
         <CardWrapper>
-          <MarkdownViewer>{problem.ocrResult}</MarkdownViewer>
+          <MarkdownViewer>{problem.summary}</MarkdownViewer>
         </CardWrapper>
       </DetailSection>
       {problem.concepts.length > 0 && (
@@ -40,7 +40,7 @@ export default function DetailContent({ problem }: DetailContentProps) {
       <DetailSection>
         <Title size='lg'>이렇게 설명해볼까요?</Title>
         <CardWrapper className='prose !max-w-none w-full mx-0 prose-sm sm:prose lg:prose-lg dark:prose-invert prose-li:m-0 prose-p:m-0'>
-          <MarkdownViewer>{problem.llmResult}</MarkdownViewer>
+          <MarkdownViewer>{problem.explanation}</MarkdownViewer>
         </CardWrapper>
       </DetailSection>
     </section>

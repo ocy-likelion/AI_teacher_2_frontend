@@ -35,7 +35,7 @@ export default function ProblemDetailPage() {
 
   return (
     <section className='w-full h-full flex flex-col'>
-      <DetailInfo id={id} favorite={data.favorite} date={data.createdAt} />
+      <DetailInfo id={id} favorite={data.favorite} date={data.activatedAt} />
       <DetailContent problem={data} />
       <DetailFooter id={id} isFavorite={data.favorite} />
     </section>
