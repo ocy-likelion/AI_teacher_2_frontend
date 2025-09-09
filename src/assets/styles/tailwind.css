@@ -1,10 +1,24 @@
-/* Tailwind CSS */
+@import url('https://cdn.jsdelivr.net/gh/sun-typeface/SUITE@2/fonts/static/woff2/SUITE.css');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 @layer theme, base, components, utilities;
 @import 'tailwindcss/theme.css' layer(theme);
-/* 모든 스타일링을 리셋하는 preflight 비활성화 */
-/* @import "tailwindcss/preflight.css" layer(base); */
 @import 'tailwindcss/utilities.css' layer(utilities);
 @plugin '@tailwindcss/typography';
+
+@font-face {
+  font-family: 'Pretendard-kor';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+    format('woff');
+  unicode-range: U+AC00-D7A3;
+}
+
+@layer base {
+  body {
+    font-family: 'SUITE', 'Pretendard-kor', 'Montserrat', sans-serif;
+    @apply bg-background-light text-background-dark dark:bg-background-dark dark:text-background-light;
+  }
+}
 
 /* 커스텀 테마 컬러 정의 */
 @theme {
@@ -30,4 +44,179 @@
 
   --spacing-max-width: 1200px;
   --spacing-sidebar-width: 230px;
+}
+
+/* 폰트 사이즈 */
+
+@layer utilities {
+  .title-lg {
+    font-size: var(--fs-32);
+    font-weight: 700;
+    line-height: var(--space-40);
+  }
+  .title-md {
+    font-size: var(--fs-24);
+    font-weight: 700;
+    line-height: var(--space-32);
+  }
+  .title-sm {
+    font-size: var(--fs-20);
+    font-weight: 700;
+    line-height: var(--space-28);
+  }
+
+  .body-lg {
+    font-size: var(--fs-18);
+    font-weight: 500;
+    line-height: var(--space-24);
+  }
+  .body-md {
+    font-size: var(--fs-16);
+    font-weight: 500;
+    line-height: var(--space-24);
+  }
+  .body-sm {
+    font-size: var(--fs-14);
+    font-weight: 500;
+    line-height: var(--space-20);
+  }
+
+  .badge {
+    font-size: var(--fs-12);
+    font-weight: 700;
+    line-height: var(--space-18);
+  }
+  .label {
+    font-size: var(--fs-11);
+    font-weight: 300;
+    line-height: var(--space-16);
+  }
+}
+
+/* ===== md: 별칭 클래스 ===== */
+@layer utilities {
+  @media (min-width: 768px) {
+    .md\:title-md {
+      font-size: var(--fs-24);
+      font-weight: 700;
+      line-height: var(--space-32);
+    }
+    .md\:title-sm {
+      font-size: var(--fs-20);
+      font-weight: 700;
+      line-height: var(--space-28);
+    }
+
+    .md\:body-lg {
+      font-size: var(--fs-18);
+      font-weight: 500;
+      line-height: var(--space-24);
+    }
+    .md\:body-md {
+      font-size: var(--fs-16);
+      font-weight: 500;
+      line-height: var(--space-24);
+    }
+    .md\:body-sm {
+      font-size: var(--fs-14);
+      font-weight: 500;
+      line-height: var(--space-20);
+    }
+
+    .md\:badge {
+      font-size: var(--fs-12);
+      font-weight: 700;
+      line-height: var(--space-18);
+    }
+    .md\:label {
+      font-size: var(--fs-11);
+      font-weight: 300;
+      line-height: var(--space-16);
+    }
+  }
+}
+
+/* 애니메이션 */
+
+@keyframes float-up {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+@keyframes rotate-up-down {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes star-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes pop {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+@keyframes up-and-down {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(25px);
+  }
+}
+
+@layer utilities {
+  .animate-float-up {
+    animation: float-up 2s ease-in-out infinite;
+  }
+  .rotate-green,
+  .rotate-yellow,
+  .rotate-orange {
+    animation: rotate-up-down 2.8s ease-in-out infinite 1s;
+  }
+  .star-pulse {
+    animation: star-pulse 2.8s ease-in-out infinite 1s;
+  }
+  .animate-pop {
+    animation: pop 1.5s ease-in-out infinite;
+  }
+  .animate-infinity {
+    animation: pop 2s ease-in-out infinite;
+  }
+  .animate-up-and-down {
+    animation: up-and-down 3s ease-in-out infinite;
+  }
+
+  .delay-0 {
+    animation-delay: 0ms;
+  }
+  .delay-200 {
+    animation-delay: 200ms;
+  }
+  .delay-400 {
+    animation-delay: 400ms;
+  }
 }

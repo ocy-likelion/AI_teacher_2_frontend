@@ -21,7 +21,7 @@ export default function ChildCard({ name, grade, concepts }: ChildCardProps) {
   };
 
   return (
-    <div className='relative w-full h-full flex flex-col items-center gap-3 bg-white dark:bg-gray6 rounded-[16px] shadow-[var(--shadow)] dark:shadow-[var(--shadow-dark)] p-4'>
+    <div className='relative max-w-[500px] w-full h-full flex flex-col items-center gap-3 bg-white dark:bg-gray6 rounded-[16px] shadow-[var(--shadow)] dark:shadow-[var(--shadow-dark)] p-4'>
       <Profile size='small' />
       <div className='flex flex-col items-center gap-1'>
         <p className='font-semibold'>{name}</p>

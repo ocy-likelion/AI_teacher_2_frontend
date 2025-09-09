@@ -17,7 +17,7 @@ export default function ConceptList({
       {concepts.map((concept) => (
         <li
           key={concept.id}
-          className='text-primary cursor-pointer'
+          className='text-primary cursor-pointer body-sm md:body-md'
           onClick={() =>
             openModal('CONCEPT', {
               id: concept.id,

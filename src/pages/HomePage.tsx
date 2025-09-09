@@ -1,5 +1,4 @@
 import ImageUploadSection from '@/features/problems/components/ImageUploadSection';
-import Yellow from '@/assets/images/characters/yellow.svg?react';
 import IconCamera from '@/assets/images/Icon_Camera.svg?react';
 import IconScissors from '@/assets/images/Icon_Scissors.svg?react';
 import type { ReactNode } from 'react';
@@ -24,20 +23,17 @@ const guideItems = [
 
 export default function HomePage() {
   return (
-    <section className='w-full h-full py-8 px-7 flex flex-col items-center gap-4'>
-      <div className='relative w-full flex flex-col gap-2'>
-        <h2 className='break-keep title-sm'>
+    <section className='w-full h-full py-8 px-7 flex flex-col items-center gap-10 md:p-20 max-w-[768px] m-auto md:overflow-auto'>
+      <section className='w-full flex flex-col md:text-center md:gap-2'>
+        <h2 className='break-keep title-sm md:title-md'>
           수학 문제, 혼자 고민하지 마세요
           <br />
           <span className='text-primary'>사진</span> 한 장이면 충분해요
         </h2>
-        <div className='flex'>
-          <p className='flex-1 break-keep text-[14px] text-gray6 dark:text-gray2'>
-            수학 문제를 AI가 쉽게 설명해드려요.
-          </p>
-          <Yellow className='w-20 h-20 translate-y-[-20%]' />
-        </div>
-      </div>
+        <p className='flex-1 break-keep text-[14px] md:body-lg text-gray6 dark:text-gray2'>
+          수학 문제를 AI가 쉽게 설명해드려요.
+        </p>
+      </section>
       <ImageUploadSection />
       <section className='w-full flex items-center gap-5'>
         {guideItems.map((item) => (
@@ -54,7 +50,7 @@ function GuideCard({ children, description }: GuideCardProps) {
   return (
     <div className='w-full flex flex-col items-center gap-2 px-3 py-4 rounded-[16px] shadow-[var(--shadow)] dark:shadow-[var(--shadow-dark)]'>
       {children}
-      <p className='text-[14px] text-center whitespace-pre-line'>
+      <p className='text-[14px] text-center whitespace-pre-line md:body-md'>
         {description}
       </p>
     </div>

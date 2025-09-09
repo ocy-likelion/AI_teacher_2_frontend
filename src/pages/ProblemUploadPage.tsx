@@ -10,7 +10,7 @@ import { useBlocker, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import ProblemUploadLoading from '../features/problems/components/ProblemUploadLoading';
 import getCroppedData from '@/features/problems/api/get-cropped-data';
-import { useUploadImage } from '@/features/problems/api/use-upload-image';
+import { useUploadImage } from '@/features/problems/api/upload-image';
 
 const NAVIGATION_DELAY = 0;
 
