@@ -7,7 +7,7 @@ export interface BaseModalProps {
 export type ModalPropsMap = {
   CONCEPT: { id: number; title: string };
   DELETE_CONFIRM: {
-    onConfirm: () => void;
+    onConfirm?: () => void;
   };
   CHILD_UPDATE: {
     name: string;

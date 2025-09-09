@@ -1,12 +1,6 @@
 import type React from 'react';
-import Markdown from 'react-markdown';
-import remarkMath from 'remark-math';
-import rehypeKatex from 'rehype-katex';
-import remarkGfm from 'remark-gfm';
-import 'katex/dist/katex.min.css';
 
-const REMARK_PLUGINS = [remarkMath, remarkGfm] as const;
-const REHYPE_PLUGINS = [rehypeKatex] as const;
+import MarkdownViewer from '@/components/MarkdownViewer';
 
 type TitleProps = {
   children: React.ReactNode;
@@ -26,24 +20,16 @@ export default function Title({
       <h3
         className={`${
           size === 'lg'
-            ? 'title-sm'
-            : 'text-[16px] font-semibold overflow-hidden line-clamp-1'
+            ? 'title-sm md:title-md'
+            : 'text-base font-semibold md:title-sm overflow-hidden line-clamp-1'
         }`}
       >
-        {isMarkdown ? (
-          <Markdown
-            remarkPlugins={REMARK_PLUGINS as any}
-            rehypePlugins={REHYPE_PLUGINS as any}
-          >
-            {children as string}
-          </Markdown>
-        ) : (
-          children
-        )}
+        {isMarkdown ? <MarkdownViewer>{children}</MarkdownViewer> : children}
       </h3>
-
       {description && (
-        <p className='label text-gray6 dark:text-gray2'>{description}</p>
+        <p className='label md:body-sm text-gray6 dark:text-gray2'>
+          {description}
+        </p>
       )}
     </div>
   );

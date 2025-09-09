@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 import type { GetProblemListResponse } from '@/types/problem.type';
 import { problemListKey } from '@/utils/query-key';
 
-const deleteProblem = async (id: string) => {
+const deleteProblem = async (id: number) => {
   const res = await httpClient.delete(`/problem?problemId=${id}`);
   return res.data;
 };
@@ -20,7 +20,7 @@ export const useDeleteProblem = () => {
   return useMutation({
     mutationFn: deleteProblem,
 
-    onMutate: async (id: string) => {
+    onMutate: async (id: number) => {
       await Promise.all(
         keys.map((key) => queryClient.cancelQueries({ queryKey: key })),
       );

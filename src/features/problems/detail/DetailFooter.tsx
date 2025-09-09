@@ -1,37 +1,21 @@
 import { Button } from '@/components/ui/button';
 import { Bookmark } from 'lucide-react';
-import { useDeleteProblem } from '../api/delete-problem';
 import { useNavigate } from 'react-router-dom';
-import { useModalStore } from '@/stores/modalStore';
-import { useToggleFavorite } from '../api/toggle-favorite';
 import Footer from '@/components/ui/footer';
+import { useProblemActions } from '../hooks/useProblemActions';
 
 type DetailFooterProps = {
-  id: string;
+  id: number;
   isFavorite: boolean;
 };
 
 export default function DetailFooter({ id, isFavorite }: DetailFooterProps) {
-  const { mutate: deleteProblem, isPending: isDeleting } = useDeleteProblem();
-  const { toggle } = useToggleFavorite();
-
   const navigate = useNavigate();
-  const openModal = useModalStore((state) => state.openModal);
+  const { isDeleting, handleDeleteClick, handleFavoriteClick } =
+    useProblemActions(id);
 
   const handleDelete = () => {
-    deleteProblem(id, {
-      onSuccess: () => {
-        navigate('/history');
-      },
-    });
-  };
-
-  const handleDeleteClick = () => {
-    openModal('DELETE_CONFIRM', { onConfirm: handleDelete });
-  };
-
-  const handleFavoriteClick = () => {
-    toggle(Number(id));
+    handleDeleteClick(() => navigate('/history'));
   };
 
   return (
@@ -51,7 +35,7 @@ export default function DetailFooter({ id, isFavorite }: DetailFooterProps) {
           {isFavorite ? '해제하기' : '저장하기'}
         </Button>
         <Button
-          onClick={handleDeleteClick}
+          onClick={handleDelete}
           variant={`${isDeleting ? 'disabled' : 'default'}`}
           size='full'
           className='flex-1 text-md font-semibold'

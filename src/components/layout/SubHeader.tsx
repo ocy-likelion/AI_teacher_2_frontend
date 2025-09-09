@@ -23,7 +23,7 @@ export default function SubHeader({
 
   return (
     <HeaderWrapper
-      className={`${childConfirm ? 'bg-none' : 'bg-background-light dark:bg-gray7'} sticky top-0 flex justify-center items-center px-4 pb-2 md:hidden`}
+      className={`${childConfirm ? 'bg-none' : 'bg-background-light dark:bg-gray7'} flex justify-center items-center px-4 pb-2`}
     >
       <button className='absolute left-4 cursor-pointer' onClick={handleClick}>
         {type === 'close' ? <X /> : <ChevronLeft />}

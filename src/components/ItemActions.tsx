@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,7 +7,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { EllipsisVertical } from 'lucide-react';
 
-type ItemAction = {
+export type ItemAction = {
   key: string;
   label: string;
   onSelect?: () => void;
@@ -15,19 +16,28 @@ type ItemAction = {
 
 type ItemActionsProps = {
   items: ItemAction[];
-  className: string;
+  disabled?: boolean;
 };
 
-export default function ItemActions({ items, className }: ItemActionsProps) {
-  const handleItemClick = (e: React.MouseEvent, item: ItemAction) => {
-    e.stopPropagation();
+export default function ItemActions({
+  items,
+  disabled = false,
+}: ItemActionsProps) {
+  const [open, setOpen] = useState(false);
+
+  const handleItemSelect = (item: ItemAction) => {
+    setOpen(false);
     if (item.onSelect) item.onSelect();
   };
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <button className={className} aria-label='행 동작 메뉴'>
+    <DropdownMenu open={open} onOpenChange={setOpen}>
+      <DropdownMenuTrigger asChild disabled={disabled}>
+        <button
+          className='cursor-pointer rounded-sm hover:bg-gray1 dark:hover:bg-gray5'
+          aria-label='드롭다운 메뉴'
+          disabled={disabled}
+        >
           <EllipsisVertical className='text-gray5 dark:text-gray2' />
         </button>
       </DropdownMenuTrigger>
@@ -35,7 +45,11 @@ export default function ItemActions({ items, className }: ItemActionsProps) {
       <DropdownMenuContent align='end'>
         {items.map((item) => (
           <DropdownMenuItem
-            onClick={(e) => handleItemClick(e, item)}
+            key={item.key}
+            onSelect={() => handleItemSelect(item)}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
             className='flex gap-2'
           >
             {item.icon && <span>{item.icon}</span>}

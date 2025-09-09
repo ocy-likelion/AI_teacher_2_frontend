@@ -10,23 +10,24 @@ import { DialogDescription } from '@radix-ui/react-dialog';
 import type { BaseModalProps } from '@/types/modal.type';
 
 export interface ConfirmModalProps extends BaseModalProps {
-  onConfirm: () => void;
+  onConfirm?: () => void;
 }
 export default function DeleteConfirmModal({
   onConfirm,
   onClose,
 }: ConfirmModalProps) {
   const handleConfirm = () => {
-    onConfirm();
+    if (onConfirm) onConfirm();
     onClose();
   };
   return (
     <Dialog defaultOpen onOpenChange={onClose}>
       <DialogContent className='flex flex-col items-center gap-6'>
         <DialogHeader>
-          <DialogTitle className='title-sm'>정말 삭제하시겠습니까?</DialogTitle>
-          <DialogDescription className='body-sm text-gray5 dark:text-gray2'>
-            {' '}
+          <DialogTitle className='title-sm text-center'>
+            정말 삭제하시겠습니까?
+          </DialogTitle>
+          <DialogDescription className='body-sm md:body-md text-gray5 dark:text-gray2 text-center'>
             삭제하면 복구할 수 없어요.
           </DialogDescription>
         </DialogHeader>

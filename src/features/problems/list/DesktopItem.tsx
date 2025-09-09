@@ -4,28 +4,13 @@ import ImageSection from '../components/ImageSection';
 import CardWrapper from '../components/CardWrapper';
 import Title from '../components/Title';
 import { formatListDate } from '@/utils/date';
-import { Bookmark, Trash2 } from 'lucide-react';
-import ItemActions from './ItemActions';
+import ProblemActionsMenu from '../components/ProblemActionsMenu';
 
 type DesktopItemProps = {
   item: Problem;
-  onFavorite: (id: number) => void;
-  onDelete: (id: number) => void;
 };
 
-export default function DesktopItem({
-  item,
-  onFavorite,
-  onDelete,
-}: DesktopItemProps) {
-  const handleDelete = () => {
-    onDelete(item.id);
-  };
-
-  const handleToggle = () => {
-    onFavorite(item.id);
-  };
-
+export default function DesktopItem({ item }: DesktopItemProps) {
   return (
     <Link to={`/problem/${item.id}`} className='w-full'>
       <CardWrapper>
@@ -53,28 +38,7 @@ export default function DesktopItem({
               </p>
             </div>
           </div>
-          <ItemActions
-            items={[
-              {
-                key: 'delete',
-                label: '삭제하기',
-                icon: <Trash2 className='text-primary' />,
-                onSelect: handleDelete,
-              },
-              {
-                key: 'favorite',
-                label: `${item.favorite ? '해제하기' : '저장하기'}`,
-                icon: (
-                  <Bookmark
-                    className='text-primary'
-                    fill={item.favorite ? 'currentColor' : 'none'}
-                  />
-                ),
-                onSelect: handleToggle,
-              },
-            ]}
-            className='cursor-pointer rounded-sm hover:bg-gray1 dark:hover:bg-gray5'
-          />
+          <ProblemActionsMenu id={item.id} favorite={item.favorite} />
         </div>
       </CardWrapper>
     </Link>

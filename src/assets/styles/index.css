@@ -75,6 +75,7 @@
   --sidebar-ring: oklch(0.708 0 0);
 
   /* font-size */
+  --fs-32: 32px;
   --fs-24: 24px;
   --fs-20: 20px;
   --fs-18: 18px;
@@ -84,6 +85,7 @@
   --fs-11: 11px;
 
   /* line-height */
+  --space-40: 40px;
   --space-32: 32px;
   --space-28: 28px;
   --space-24: 24px;

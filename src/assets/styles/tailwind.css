@@ -49,6 +49,11 @@
 /* 폰트 사이즈 */
 
 @layer utilities {
+  .title-lg {
+    font-size: var(--fs-32);
+    font-weight: 700;
+    line-height: var(--space-40);
+  }
   .title-md {
     font-size: var(--fs-24);
     font-weight: 700;
