@@ -12,7 +12,7 @@ export default function ProblemDetailPage() {
   const { _id } = useParams();
   const id = Number(_id);
   const navigate = useNavigate();
-  const { data, isPending, isError, error } = useProblemDetail(_id!);
+  const { data, isPending, isError, error } = useProblemDetail(id);
 
   useEffect(() => {
     if (isError) {

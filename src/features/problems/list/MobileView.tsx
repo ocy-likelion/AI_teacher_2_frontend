@@ -1,6 +1,7 @@
 import type { Problem } from '@/types/problem.type';
 import { useToggleFavorite } from '../api/toggle-favorite';
 import MobileItem from './MobileItem';
+import { useSearchParams } from 'react-router-dom';
 
 type MobileViewProps = {
   items: Problem[];
@@ -8,7 +9,9 @@ type MobileViewProps = {
 };
 
 export default function MobileView({ items, variant }: MobileViewProps) {
-  const { toggle } = useToggleFavorite();
+  const [params] = useSearchParams();
+  const favorite = params.get('favorite') === 'true';
+  const { toggle } = useToggleFavorite(favorite ? 'favorite' : 'list');
 
   return (
     <div className='w-full flex flex-col items-center gap-3 p-2'>

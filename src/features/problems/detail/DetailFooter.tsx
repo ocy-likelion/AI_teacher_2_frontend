@@ -12,7 +12,7 @@ type DetailFooterProps = {
 export default function DetailFooter({ id, isFavorite }: DetailFooterProps) {
   const navigate = useNavigate();
   const { isDeleting, handleDeleteClick, handleFavoriteClick } =
-    useProblemActions(id);
+    useProblemActions(id, 'detail');
 
   const handleDelete = () => {
     handleDeleteClick(() => navigate('/history'));
