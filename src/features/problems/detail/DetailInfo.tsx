@@ -30,6 +30,7 @@ export default function DetailInfo({ id, favorite, date }: DetailInfoProps) {
           <ProblemActionsMenu
             id={id}
             favorite={favorite}
+            source='detail'
             onDelete={() => navigate('/history')}
           />
         )}

@@ -42,3 +42,9 @@ export type GetFavoriteListResponse = {
     next: string;
   };
 };
+
+export type ToggleFavoriteResponse = {
+  favorited: boolean;
+};
+
+export type FavoriteToggleSource = 'favorite' | 'list' | 'detail';

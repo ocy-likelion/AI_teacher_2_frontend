@@ -1,4 +1,4 @@
-import type { Problem } from '@/types/problem.type';
+import type { FavoriteToggleSource, Problem } from '@/types/problem.type';
 import { Link } from 'react-router-dom';
 import ImageSection from '../components/ImageSection';
 import CardWrapper from '../components/CardWrapper';
@@ -8,9 +8,10 @@ import ProblemActionsMenu from '../components/ProblemActionsMenu';
 
 type DesktopItemProps = {
   item: Problem;
+  source: FavoriteToggleSource;
 };
 
-export default function DesktopItem({ item }: DesktopItemProps) {
+export default function DesktopItem({ item, source }: DesktopItemProps) {
   return (
     <Link to={`/problem/${item.id}`} className='w-full'>
       <CardWrapper>
@@ -38,7 +39,11 @@ export default function DesktopItem({ item }: DesktopItemProps) {
               </p>
             </div>
           </div>
-          <ProblemActionsMenu id={item.id} favorite={item.favorite} />
+          <ProblemActionsMenu
+            id={item.id}
+            favorite={item.favorite}
+            source={source}
+          />
         </div>
       </CardWrapper>
     </Link>

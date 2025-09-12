@@ -5,7 +5,7 @@ type ProblemListParams = {
 export const problemListKey = (params: ProblemListParams) =>
   ['problemList', params] as const;
 
-export const problemDetailKey = (problemId: string) =>
+export const problemDetailKey = (problemId: number) =>
   ['problemDetail', problemId] as const;
 
 export const childInfoKey = () => ['child'] as const;

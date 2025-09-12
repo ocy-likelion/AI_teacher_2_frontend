@@ -1,20 +1,23 @@
 import ItemActions from '@/components/ItemActions';
 import { Bookmark, Trash2 } from 'lucide-react';
 import { useProblemActions } from '../hooks/useProblemActions';
+import type { FavoriteToggleSource } from '@/types/problem.type';
 
 type ProblemActionsMenuProps = {
   id: number;
   favorite: boolean;
+  source: FavoriteToggleSource;
   onDelete?: () => void;
 };
 
 export default function ProblemActionsMenu({
   id,
   favorite,
+  source,
   onDelete,
 }: ProblemActionsMenuProps) {
   const { isDeleting, handleDeleteClick, handleFavoriteClick } =
-    useProblemActions(id);
+    useProblemActions(id, source);
 
   const menu = [
     {
