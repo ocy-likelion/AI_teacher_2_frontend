@@ -21,8 +21,7 @@ export default function KakaoAuthPage() {
   }, [searchParams]);
 
   const kakaoLogin = useMutation({
-    mutationFn: (code: string) =>
-      httpClient.get(`/api/v2/oauth?code=${code}`, {}),
+    mutationFn: (code: string) => httpClient.get(`/api/v2/oauth?code=${code}`),
     onSuccess: (res) => {
       const setUser = useUserStore((state) => state.setUser);
       const token = res.data.accessToken;
