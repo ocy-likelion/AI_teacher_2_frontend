@@ -6,7 +6,6 @@ import { toast } from 'sonner';
 import { handleLoginError } from '@/utils/handle-api-error';
 import Loading from '@/components/Loading';
 import useUserStore from '@/stores/userStore';
-import Loading from '@/components/Loading';
 
 export default function KakaoAuthPage() {
   const [searchParams] = useSearchParams();
