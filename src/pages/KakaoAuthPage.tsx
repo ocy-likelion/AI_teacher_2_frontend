@@ -33,17 +33,11 @@ export default function KakaoAuthPage() {
         setUser({ accessToken: token });
       }
       toast.success(res.data.message || '로그인 성공!');
-
-      if (res.data.isChild) {
-        navigate('/onboarding');
-      } else {
-        navigate('/');
-      }
+      navigate('/');
     },
     onError: (err) => {
       handleLoginError(err);
       console.log('카카오 로그인 실패', err);
-      // navigate('/intro');
     },
   });
 
