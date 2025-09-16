@@ -11,7 +11,7 @@ import Loading from '@/components/Loading';
 export default function KakaoAuthPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-
+  const setUser = useUserStore((state) => state.setUser);
   useEffect(() => {
     const code = searchParams.get('code');
 
@@ -21,10 +21,13 @@ export default function KakaoAuthPage() {
   }, [searchParams]);
 
   const kakaoLogin = useMutation({
-    mutationFn: (code: string) => httpClient.get(`/api/v2/oauth?code=${code}`),
+    mutationFn: (code: string) => {
+      console.log(code);
+      return httpClient.get(`/api/v2/oauth`, { params: { code: code } });
+    },
     onSuccess: (res) => {
-      const setUser = useUserStore((state) => state.setUser);
-      const token = res.data.accessToken;
+      console.log(res);
+      const token = res.data.result.accessToken;
       if (token) {
         sessionStorage.setItem('token', token);
         setUser({ accessToken: token });

@@ -14,7 +14,7 @@ export default function LandingPage() {
 
   const kakaoLoginHandler = () => {
     console.log(REDIRECT_URI);
-    // const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=http://localhost:5173/oauth/kakao&response_type=code`;
+    confirm('뭐');
     const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
     window.location.href = kakaoAuthUrl;
   };
