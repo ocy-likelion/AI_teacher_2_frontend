@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 import { handleLoginError } from '@/utils/handle-api-error';
 import Loading from '@/components/Loading';
 import useUserStore from '@/stores/userStore';
+import Loading from '@/components/Loading';
 
 export default function KakaoAuthPage() {
   const [searchParams] = useSearchParams();
@@ -21,14 +22,7 @@ export default function KakaoAuthPage() {
 
   const kakaoLogin = useMutation({
     mutationFn: (code: string) =>
-      httpClient.post(
-        `http://api-ilta.onrender.com/api/v2/oauth?code=${code}`,
-        {
-          code: code,
-          redirect_uri: `${window.location.origin}/oauth/kakao`,
-          user: {},
-        },
-      ),
+      httpClient.get(`/api/v2/oauth?code=${code}`, {}),
     onSuccess: (res) => {
       const setUser = useUserStore((state) => state.setUser);
       const token = res.data.accessToken;
@@ -47,7 +41,7 @@ export default function KakaoAuthPage() {
     onError: (err) => {
       handleLoginError(err);
       console.log('카카오 로그인 실패', err);
-      navigate('/intro');
+      // navigate('/intro');
     },
   });
 
