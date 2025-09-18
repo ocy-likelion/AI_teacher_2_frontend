@@ -1,8 +1,9 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-type user = {
+export type user = {
   accessToken: string;
+  memberId?: string;
 };
 
 export type userStore = {
