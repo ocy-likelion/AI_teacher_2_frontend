@@ -7,6 +7,16 @@ import { useNavigate } from 'react-router-dom';
 
 export default function LandingPage() {
   const navigate = useNavigate();
+
+  const REST_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY;
+  const REDIRECT_URI = import.meta.env.VITE_FRONT_REDIRECT_URI;
+
+  const kakaoLoginHandler = () => {
+    console.log(REDIRECT_URI);
+    const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+    window.location.href = kakaoAuthUrl;
+  };
+
   return (
     <section className='relative h-full w-full px-5 py-10'>
       <div className='pointer-events-none w-[380px] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-2/5 z-0 star-pulse'>
@@ -41,7 +51,10 @@ export default function LandingPage() {
       </section>
 
       <section className='absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-100'>
-        <button className='w-12 h-12 rounded-md flex items-center justify-center cursor-pointer hover:scale-110 active:scale-110 duration-150 ease-in'>
+        <button
+          onClick={kakaoLoginHandler}
+          className='w-12 h-12 rounded-md flex items-center justify-center cursor-pointer hover:scale-110 active:scale-110 duration-150 ease-in'
+        >
           <Kakao className='w-full h-full' />
         </button>
         <button
