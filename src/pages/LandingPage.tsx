@@ -1,10 +1,6 @@
-import OrangeTriangle from '@/assets/images/characters/orange_triangle.svg?react';
-import Yellow from '@/assets/images/characters/yellow.svg?react';
-import Green from '@/assets/images/characters/green.svg?react';
-import Star from '@/assets/images/Star_Yellow.svg?react';
 import Kakao from '@/assets/images/Kakao.svg?react';
 import { useNavigate } from 'react-router-dom';
-import IntroImages from '@/components/introImages';
+import IntroImageSection from '@/features/users/components/IntroImageSection';
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -20,21 +16,7 @@ export default function LandingPage() {
 
   return (
     <section className='relative h-full w-full px-5 py-10 '>
-      <section className='relative flex flex-col gap-3 z-50 will-change-transform md:items-center'>
-        <h1 className='title-md z-50 md:text-center'>
-          "엄마, 이거 어떻게 풀어?"
-          <br />
-          <span className='text-primary'>AI</span>가 부모님께
-          <br className='md:hidden' />
-          <span className='text-primary'> 설명 방법</span>을 알려드려요
-        </h1>
-        <p className='text-gray5 dark:text-gray4 body-md z-50 '>
-          어려운 수학 문제, 이제 쉽게 설명해줄 수 있어요
-        </p>
-      </section>
-
-      <IntroImages />
-
+      <IntroImageSection />
       <section className='absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-100'>
         <button
           onClick={kakaoLoginHandler}

@@ -95,14 +95,14 @@ export default function OnboardingPage() {
 
   return (
     <div
-      className={`w-full h-full relative flex flex-col ${step === 3 ? 'bg-[rgba(255,128,45,0.3)] dark:bg-background-dark' : ''} overflow-hidden`}
+      className={`w-full h-full relative flex flex-col ${step === 3 ? 'bg-[rgba(255,128,45,0.3)] dark:bg-background-dark' : ''} overflow-hidden md:px-[25vw]`}
     >
-      <SubHeader
+      {/* <SubHeader
         type='back'
         title=''
         childConfirm={step === 3 ? true : false}
         onBackClick={onBackClick}
-      />
+      /> */}
       <OnboardingIntro step={step} />
       <section className='relative max-h-[400px] flex-grow flex flex-col justify-center items-center gap-[max(20px,5%)] px-[33px] mb-10'>
         {step < 2 && (
