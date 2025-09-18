@@ -33,10 +33,7 @@ const kakaoMemberInfo = async (code: string) => {
   return res.data;
 };
 
-export const getKakaoMemberInfo: getKakaMeberInfoType = (
-  setUser: (user: user) => void,
-  navigate: NavigateFunction,
-) => {
+export const getKakaoMemberInfo: getKakaMeberInfoType = (setUser, navigate) => {
   return useMutation({
     mutationFn: (code: string) => kakaoMemberInfo(code),
     onSuccess: (res) => {
