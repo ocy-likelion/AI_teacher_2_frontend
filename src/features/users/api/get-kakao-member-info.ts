@@ -21,21 +21,24 @@ type kakaoMutationResult = UseMutationResult<
   unknown
 >;
 
-interface getKakaMeberInfoType {
+interface getKakaoMemberInfoType {
   (
     setUser: (user: user) => void,
     navigate: NavigateFunction,
   ): kakaoMutationResult;
 }
 
-const kakaoMemberInfo = async (code: string) => {
+const getKakaoMemberInfo = async (code: string) => {
   const res = await httpClient.get(`/api/v2/oauth`, { params: { code: code } });
   return res.data;
 };
 
-export const getKakaoMemberInfo: getKakaMeberInfoType = (setUser, navigate) => {
+export const useKakaoMemberInfo: getKakaoMemberInfoType = (
+  setUser,
+  navigate,
+) => {
   return useMutation({
-    mutationFn: (code: string) => kakaoMemberInfo(code),
+    mutationFn: (code: string) => getKakaoMemberInfo(code),
     onSuccess: (res) => {
       const token = res.result.accessToken;
       const memberId = res.result.memberId;
