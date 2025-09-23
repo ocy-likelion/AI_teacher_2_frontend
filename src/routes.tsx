@@ -3,7 +3,7 @@ import { createBrowserRouter, Outlet } from 'react-router-dom';
 
 const Layout = lazy(() => import('./components/layout/Layout'));
 const HomePage = lazy(() => import('./pages/HomePage'));
-const LandingPage = lazy(() => import('./pages/LandingPage'));
+const IntroPage = lazy(() => import('./pages/IntroPage'));
 const MyPage = lazy(() => import('./pages/MyPage'));
 const LoginPage = lazy(() => import('./pages/LoginPage'));
 const KakaoAuthPage = lazy(() => import('./pages/KakaoAuthPage'));
@@ -63,7 +63,7 @@ const router = createBrowserRouter([
         path: '/intro',
         element: (
           <RequireAuth>
-            <LandingPage />
+            <IntroPage />
           </RequireAuth>
         ),
       },
