@@ -4,7 +4,7 @@ import type { Child } from '@/types/user.type';
 import { childInfoKey } from '@/utils/query-key';
 
 const getChildInfo = async (memberId: number) => {
-  const res = await httpClient.get<Child>(`/member/${memberId}`);
+  const res = await httpClient.get<Child>(`/members/${memberId}`);
   return res.data;
 };
 

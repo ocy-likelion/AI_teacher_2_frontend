@@ -34,7 +34,7 @@ export const useUploadImage = ({
     mutationFn: async (formData: FormData) => {
       const controller = new AbortController();
       handleUploadStart(controller);
-      const res = await httpClient.post('/image/upload', formData, {
+      const res = await httpClient.post('/images/upload', formData, {
         signal: controller.signal,
       });
       return res;

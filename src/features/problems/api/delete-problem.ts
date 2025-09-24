@@ -7,7 +7,7 @@ import type { GetProblemListResponse } from '@/types/problem.type';
 import { problemListKey } from '@/utils/query-key';
 
 const deleteProblem = async (id: number) => {
-  const res = await httpClient.delete(`/problem?problemId=${id}`);
+  const res = await httpClient.delete(`/problems?problemId=${id}`);
   return res.data;
 };
 
