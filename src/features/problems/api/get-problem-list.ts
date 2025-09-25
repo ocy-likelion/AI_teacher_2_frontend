@@ -6,9 +6,10 @@ import {
 import { problemListKey } from '@/utils/query-key';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
+
 const getProblemList = async ({ pageParam }: CursorPaginationParams) => {
   const res = await httpClient.get<GetProblemListResponse>(
-    `/problems/list?limit=10&memberId=8${pageParam ? `&after_cursor=${pageParam}` : ''}`,
+    `/problem/list?limit=10${pageParam ? `&after_cursor=${pageParam}` : ''}`,
   );
   return res.data;
 };

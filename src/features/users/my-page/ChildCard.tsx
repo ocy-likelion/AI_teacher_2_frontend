@@ -13,11 +13,13 @@ type ChildCardProps = {
   concepts: Omit<Concept, 'description'>[];
 };
 
+
+
 export default function ChildCard({ name, grade, concepts }: ChildCardProps) {
   const { mutate: updateChild, isPending: isUpdating } = useUpdateChildInfo();
   const openModal = useModalStore((state) => state.openModal);
   const handleConfirm = (data: UpdateChildRequest) => {
-    updateChild({ memberId: 8, data });
+    updateChild(data);
   };
 
   return (
