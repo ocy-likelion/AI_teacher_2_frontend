@@ -8,7 +8,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 
 const getFavoriteList = async ({ pageParam }: CursorPaginationParams) => {
   const res = await httpClient.get<GetFavoriteListResponse>(
-    `/favorite/list?limit=10&memberId=8${pageParam ? `&after_cursor=${pageParam}` : ''}`,
+    `/favorites/list?limit=10&memberId=8${pageParam ? `&after_cursor=${pageParam}` : ''}`,
   );
 
   const updatedData = res.data.data.map((item) => ({

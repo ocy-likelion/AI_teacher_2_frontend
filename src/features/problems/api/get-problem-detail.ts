@@ -4,7 +4,7 @@ import { type Problem } from '@/types/problem.type';
 import { problemDetailKey } from '@/utils/query-key';
 
 const getProblemDetail = async (id: number) => {
-  const res = await httpClient.get<Problem>(`/problem?problemId=${id}`);
+  const res = await httpClient.get<Problem>(`/problems?problemId=${id}`);
   return res.data;
 };
 
