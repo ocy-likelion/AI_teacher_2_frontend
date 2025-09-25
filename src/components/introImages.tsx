@@ -5,7 +5,7 @@ import Star from '@/assets/images/Star_Yellow.svg?react';
 
 export default function IntroImages() {
   return (
-    <section className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-2/5 w-80 h-96 z-10 md:-translate-y-3/5'>
+    <section className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-2/5 w-80 h-96 z-10'>
       <div className='pointer-events-none w-[380px] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 star-pulse'>
         <Star className='w-full z-0' />
       </div>
