@@ -6,7 +6,7 @@ import { handleLoginError } from '@/utils/handle-api-error';
 import { toast } from 'sonner';
 
 const login = async (data: userData) => {
-  return await httpClient.post('/member/login', {
+  return await httpClient.post('/api/v2/members/login', {
     username: data.username,
     password: data.password,
   });

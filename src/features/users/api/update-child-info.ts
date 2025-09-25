@@ -6,8 +6,8 @@ import type { Child, UpdateChildRequest } from '@/types/user.type';
 import { handleApiError } from '@/utils/handle-api-error';
 import { childInfoKey } from '@/utils/query-key';
 
-const updateChildInfo = async (memberId: number, data: UpdateChildRequest) => {
-  const res = await httpClient.put(`/members/${memberId}`, data);
+const updateChildInfo = async (data: UpdateChildRequest) => {
+  const res = await httpClient.put(`api/v2/members/me/profile`, data);
   return res.data;
 };
 
@@ -15,15 +15,9 @@ export const useUpdateChildInfo = () => {
   const queryKey = childInfoKey();
 
   return useMutation({
-    mutationFn: ({
-      memberId,
-      data,
-    }: {
-      memberId: number;
-      data: UpdateChildRequest;
-    }) => updateChildInfo(memberId, data),
+    mutationFn: (data: UpdateChildRequest) => updateChildInfo(data),
 
-    onMutate: async ({ memberId: _memberId, data }) => {
+    onMutate: async (data) => {
       await queryClient.cancelQueries({ queryKey });
 
       const prevData = queryClient.getQueryData<Child>(queryKey);
