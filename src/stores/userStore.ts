@@ -3,12 +3,11 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 
 export type user = {
   accessToken: string;
-  memberId?: string;
 };
 
 export type userStore = {
   user: user | null;
-  setUser: (user: user) => void;
+  setUser: (user: user | null) => void;
 };
 
 const useUserStore = create<userStore>()(

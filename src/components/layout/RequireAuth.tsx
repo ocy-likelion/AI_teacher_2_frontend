@@ -6,23 +6,18 @@ export default function RequireAuth({
 }: {
   children: React.ReactNode;
 }) {
-  const user = useUserStore((store: userStore) => store.user);
+  const token = sessionStorage.getItem('token');
+  const setUser = useUserStore((store: userStore) => store.setUser);
 
-  if (!user) {
-    if (
-      window.location.pathname !== '/intro' &&
-      window.location.pathname !== '/login' &&
-      window.location.pathname !== '/onboarding'
-    )
+  if (!token) {
+    if (window.location.pathname !== '/intro') {
+      setUser(null);
       return <Navigate to='/intro' replace />;
+    }
   }
 
-  if (user) {
-    if (
-      window.location.pathname === '/onboarding' ||
-      window.location.pathname === '/login' ||
-      window.location.pathname === '/intro'
-    )
+  if (token) {
+    if (window.location.pathname === '/intro')
       return <Navigate to='/' replace />;
   }
 

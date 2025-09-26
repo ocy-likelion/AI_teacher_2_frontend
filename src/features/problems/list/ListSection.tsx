@@ -1,11 +1,12 @@
 import { useSearchParams } from 'react-router-dom';
 import Empty from './Empty';
 import { useProblemList } from '../api/get-problem-list';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 import { useFavoriteList } from '../api/get-favorite-list';
 import ProblemView from './ProblemView';
 import Skeleton from './Skeleton';
+import { handleApiError } from '@/utils/handle-api-error';
 
 export default function ListSection() {
   const [params] = useSearchParams();
@@ -13,8 +14,15 @@ export default function ListSection() {
   const favorite = params.get('favorite') === 'true';
   const view = (params.get('view') as 'list' | 'grid') ?? 'list';
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isPending } =
-    favorite ? useFavoriteList() : useProblemList();
+  const {
+    data,
+    isError,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isPending,
+  } = favorite ? useFavoriteList() : useProblemList();
 
   const problems = data?.pages.flatMap((page) => page.data) ?? [];
   const targetRef = useRef<HTMLDivElement | null>(null);
@@ -26,7 +34,14 @@ export default function ListSection() {
     rootMargin: '200px 0px',
   });
 
+  useEffect(() => {
+    if (isError) {
+      handleApiError(error);
+    }
+  }, [isError, error]);
+
   if (isPending) return <Skeleton mobileVariant={view} />;
+
   if (problems.length === 0) {
     return (
       <Empty
