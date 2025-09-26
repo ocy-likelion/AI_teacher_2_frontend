@@ -19,7 +19,7 @@ import { toast } from 'sonner';
 // API 호출 함수
 const toggleFavorite = async (id: number) => {
   const res = await httpClient.post<ToggleFavoriteResponse>(
-    `/favorite?problemId=${id}`,
+    `/favorites?problemId=${id}`,
   );
   return res.data;
 };

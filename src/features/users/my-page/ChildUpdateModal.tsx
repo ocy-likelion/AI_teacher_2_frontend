@@ -16,7 +16,7 @@ import {
   SelectItem,
 } from '@/components/ui/select';
 import type { BaseModalProps } from '@/types/modal.type';
-import type { UpdateChildRequest } from '@/types/user.type';
+import type { Child } from '@/types/user.type';
 import { GRADE_OPTIONS } from '@/utils/constants/grades';
 import { Controller, useForm } from 'react-hook-form';
 
@@ -24,12 +24,12 @@ interface ChildUpdateModal extends BaseModalProps {
   name: string;
   grade: number;
   isUpdating: boolean;
-  onConfirm: (data: UpdateChildRequest) => void;
+  onConfirm: (data: Child) => void;
 }
 
 type ChildUpdateForm = {
-  name: string;
-  grade: string;
+  childName: string;
+  childGrade: string;
 };
 
 export default function ChildUpdateModal({
@@ -45,19 +45,19 @@ export default function ChildUpdateModal({
     control,
     formState: { isValid },
   } = useForm<ChildUpdateForm>({
-    defaultValues: { name, grade: String(grade) },
+    defaultValues: { childName: name, childGrade: String(grade) },
     mode: 'onChange',
   });
 
   const onSubmit = (data: ChildUpdateForm) => {
-    if (name === data.name && grade === Number(data.grade)) {
+    if (name === data.childName && grade === Number(data.childGrade)) {
       onClose();
       return;
     }
 
     onConfirm({
-      name: data.name,
-      grade: Number(data.grade),
+      childName: data.childName,
+      childGrade: Number(data.childGrade),
     });
     onClose();
   };
@@ -74,12 +74,12 @@ export default function ChildUpdateModal({
         >
           <section className='w-3/4 flex flex-col items-center gap-3'>
             <Input
-              {...register('name', { required: true })}
+              {...register('childName', { required: true })}
               placeholder='자녀의 이름을 입력해주세요.'
               className='body-sm'
             />
             <Controller
-              name='grade'
+              name='childGrade'
               control={control}
               rules={{ required: true }}
               render={({ field }) => (

@@ -4,7 +4,7 @@ import { conceptKey } from '@/utils/query-key';
 import { useQuery } from '@tanstack/react-query';
 
 const getConcept = async (id: number) => {
-  const res = await httpClient.get<Concept>(`/concept?conceptId=${id}`);
+  const res = await httpClient.get<Concept>(`/concepts?conceptId=${id}`);
   return res.data;
 };
 

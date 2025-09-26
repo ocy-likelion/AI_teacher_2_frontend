@@ -1,7 +1,6 @@
 import ChildCard from './ChildCard';
 import { useChildInfo } from '../api/get-child-info';
 import { handleApiError } from '@/utils/handle-api-error';
-import axios from 'axios';
 import DataLoading from '@/components/DataLoading';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -12,28 +11,19 @@ const concepts = [
 ];
 
 export default function ChildrenListSection() {
-  const { data, isPending, isError, error } = useChildInfo(8);
+  const { data, isPending, isError, error } = useChildInfo();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isError) {
       handleApiError(error);
-      const status = axios.isAxiosError(error) ? error.response?.status : null;
-
-      if (status === 403 || status === 404)
-        navigate('/not-found', {
-          state: { from: 'api-error' },
-        });
-      else
-        navigate('/error', {
-          state: { from: 'api-error' },
-        });
     }
   }, [isError, error, navigate]);
 
   if (isPending) {
     return <DataLoading description='아이 정보를 불러오고 있어요...' />;
   }
+
   if (isError) return null;
 
   return (
@@ -45,7 +35,11 @@ export default function ChildrenListSection() {
           태그를 눌러 개념 설명을 확인해보세요.
         </p>
       </div>
-      <ChildCard name={data.name} grade={data.grade} concepts={concepts} />
+      <ChildCard
+        name={data.result.childName}
+        grade={data.result.childGrade}
+        concepts={concepts}
+      />
     </section>
   );
 }

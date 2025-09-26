@@ -29,7 +29,7 @@ interface getKakaoMemberInfoType {
 }
 
 const getKakaoMemberInfo = async (code: string) => {
-  const res = await httpClient.get(`/api/v2/oauth`, { params: { code: code } });
+  const res = await httpClient.get(`/oauth`, { params: { code: code } });
   return res.data;
 };
 
@@ -41,10 +41,9 @@ export const useKakaoMemberInfo: getKakaoMemberInfoType = (
     mutationFn: (code: string) => getKakaoMemberInfo(code),
     onSuccess: (res) => {
       const token = res.result.accessToken;
-      const memberId = res.result.memberId;
       if (token) {
         sessionStorage.setItem('token', token);
-        setUser({ accessToken: token, memberId: memberId });
+        setUser({ accessToken: token });
         toast.success(res.message || '로그인 성공!');
         navigate('/');
       }

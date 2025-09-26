@@ -40,15 +40,9 @@ httpClient.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response?.status === 401) {
-      if (window.location.pathname !== '/login') {
-        window.location.href = '/login';
-      }
-    }
-
     const message = error.response?.data?.message || error.message;
     console.error(message);
 
     return Promise.reject(error);
-  }
+  },
 );

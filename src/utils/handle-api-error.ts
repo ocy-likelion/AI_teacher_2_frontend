@@ -14,9 +14,8 @@ export function handleApiError(error: unknown) {
     toast.error(message || '잘못된 요청입니다.');
   } else if (status === 401) {
     toast.error('로그인이 필요합니다.');
-    setTimeout(() => {
-      window.location.href = '/intro';
-    }, 1500);
+    sessionStorage.removeItem('token');
+    setTimeout(() => (window.location.href = '/intro'), 1000);
   } else if (status === 404) {
     toast.error(message || '데이터를 찾을 수 없습니다.');
   } else if (status && status >= 500) {
@@ -26,6 +25,7 @@ export function handleApiError(error: unknown) {
   }
 }
 
+// 일반 로그인 제거 시 함께 삭제
 export function handleLoginError(error: unknown) {
   if (!axios.isAxiosError(error)) {
     toast.error('알 수 없는 오류가 발생했어요.');
