@@ -12,7 +12,7 @@ const concepts = [
 ];
 
 export default function ChildrenListSection() {
-  const { data, isPending, isError, error } = useChildInfo(8);
+  const { data, isPending, isError, error } = useChildInfo();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,6 +34,7 @@ export default function ChildrenListSection() {
   if (isPending) {
     return <DataLoading description='아이 정보를 불러오고 있어요...' />;
   }
+
   if (isError) return null;
 
   return (
@@ -45,7 +46,11 @@ export default function ChildrenListSection() {
           태그를 눌러 개념 설명을 확인해보세요.
         </p>
       </div>
-      <ChildCard name={data.name} grade={data.grade} concepts={concepts} />
+      <ChildCard
+        name={data.result.childName}
+        grade={data.result.childGrade}
+        concepts={concepts}
+      />
     </section>
   );
 }

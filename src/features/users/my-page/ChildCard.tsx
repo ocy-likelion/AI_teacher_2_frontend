@@ -3,7 +3,7 @@ import Profile from './Profile';
 import { SquarePen } from 'lucide-react';
 import type { Concept } from '@/types/concept.type';
 import { useModalStore } from '@/stores/modalStore';
-import type { UpdateChildRequest } from '@/types/user.type';
+import type { Child } from '@/types/user.type';
 import { getGradeLabel } from '@/utils/constants/grades';
 import { useUpdateChildInfo } from '../api/update-child-info';
 
@@ -13,12 +13,10 @@ type ChildCardProps = {
   concepts: Omit<Concept, 'description'>[];
 };
 
-
-
 export default function ChildCard({ name, grade, concepts }: ChildCardProps) {
   const { mutate: updateChild, isPending: isUpdating } = useUpdateChildInfo();
   const openModal = useModalStore((state) => state.openModal);
-  const handleConfirm = (data: UpdateChildRequest) => {
+  const handleConfirm = (data: Child) => {
     updateChild(data);
   };
 
@@ -26,7 +24,7 @@ export default function ChildCard({ name, grade, concepts }: ChildCardProps) {
     <div className='relative max-w-[500px] w-full h-full flex flex-col items-center gap-3 bg-white dark:bg-gray6 rounded-[16px] shadow-[var(--shadow)] dark:shadow-[var(--shadow-dark)] p-4'>
       <Profile size='small' />
       <div className='flex flex-col items-center gap-1'>
-        <p className='font-semibold'>{name}</p>
+        <p className='font-semibold'>{name || '아직 등록된 자녀가 없어요.'}</p>
         <p className='body-sm text-gray6 dark:text-gray3'>
           {getGradeLabel(grade)}
         </p>

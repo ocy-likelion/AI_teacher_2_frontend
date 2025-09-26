@@ -32,5 +32,7 @@ export const GRADE_OPTIONS: Grades[] = [
 export const getGradeLabel = (grade: number) => {
   const result = GRADE_OPTIONS.find((option) => option.value === grade);
 
-  return result ? result.label : '학년 정보 없음';
+  return result
+    ? result.label
+    : '오른쪽 위 수정 버튼을 눌러 자녀를 등록할 수 있어요.';
 };

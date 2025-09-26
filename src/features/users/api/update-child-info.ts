@@ -2,12 +2,12 @@ import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { httpClient } from '@/lib/api-client';
 import { queryClient } from '@/lib/react-query';
-import type { Child, UpdateChildRequest } from '@/types/user.type';
+import type { Child } from '@/types/user.type';
 import { handleApiError } from '@/utils/handle-api-error';
 import { childInfoKey } from '@/utils/query-key';
 
-const updateChildInfo = async (data: UpdateChildRequest) => {
-  const res = await httpClient.put(`/members/me/profile`, data);
+const updateChildInfo = async (data: Child) => {
+  const res = await httpClient.patch(`/members/child/profile`, data);
   return res.data;
 };
 
@@ -15,7 +15,7 @@ export const useUpdateChildInfo = () => {
   const queryKey = childInfoKey();
 
   return useMutation({
-    mutationFn: (data: UpdateChildRequest) => updateChildInfo(data),
+    mutationFn: (data: Child) => updateChildInfo(data),
 
     onMutate: async (data) => {
       await queryClient.cancelQueries({ queryKey });
@@ -27,8 +27,10 @@ export const useUpdateChildInfo = () => {
 
         return {
           ...old,
-          name: data.name,
-          grade: data.grade,
+          result: {
+            childName: data.childName,
+            childGrade: data.childGrade,
+          },
         };
       });
 

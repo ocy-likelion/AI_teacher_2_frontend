@@ -22,8 +22,3 @@ export type Child = {
   childName: string;
   childGrade: number;
 };
-
-export type UpdateChildRequest = {
-  name: string;
-  grade: number;
-};
