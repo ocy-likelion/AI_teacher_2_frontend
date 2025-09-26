@@ -29,7 +29,7 @@ interface getKakaoMemberInfoType {
 }
 
 const getKakaoMemberInfo = async (code: string) => {
-  const res = await httpClient.get(`/api/v2/oauth`, { params: { code: code } });
+  const res = await httpClient.get(`/oauth`, { params: { code: code } });
   return res.data;
 };
 

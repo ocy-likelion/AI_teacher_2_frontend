@@ -7,7 +7,7 @@ import { handleApiError } from '@/utils/handle-api-error';
 import { childInfoKey } from '@/utils/query-key';
 
 const updateChildInfo = async (data: UpdateChildRequest) => {
-  const res = await httpClient.put(`api/v2/members/me/profile`, data);
+  const res = await httpClient.put(`/members/me/profile`, data);
   return res.data;
 };
 

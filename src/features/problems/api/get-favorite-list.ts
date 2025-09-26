@@ -12,7 +12,7 @@ const getFavoriteList = async ({ pageParam }: CursorPaginationParams) => {
   const memberId = useUserStore.getState().user?.memberId;
   if (!memberId) throw new Error('로그인 정보가 없습니다.');
   const res = await httpClient.get<GetFavoriteListResponse>(
-    `/favorite/list?limit=10${pageParam ? `&after_cursor=${pageParam}` : ''}`,
+    `/favorites/list?limit=10${pageParam ? `&after_cursor=${pageParam}` : ''}`,
   );
 
   const updatedData = res.data.data.map((item) => ({
