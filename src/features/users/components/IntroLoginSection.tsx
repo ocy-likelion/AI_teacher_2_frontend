@@ -1,5 +1,8 @@
 import Kakao from '@/assets/images/Kakao.svg?react';
 import KakaoWide from '@/assets/images/Kakao_wide.svg?react';
+import Naver from '@/assets/images/Naver.svg?react';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { toast } from 'sonner';
 
 export default function IntroLoginFunction() {
   const kakaoLoginHandler = () => {
@@ -9,16 +12,23 @@ export default function IntroLoginFunction() {
     window.location.href = kakaoAuthUrl;
   };
 
-  const kakaoLoginButton =
-    window.innerWidth < 768 ? <Kakao /> : <KakaoWide className='w-[300px]' />;
+  const isMd = useMediaQuery('(min-width: 768px)');
 
   return (
-    <section className='absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-100 md:static md:justify-center md:w-[400px] md:h-[300px] md:bg-white md:translate-0 md:my-auto md:rounded-4xl md:shadow-xl md:shadow-gray-700'>
+    <section className='absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-100 md:static md:justify-center md:w-full md:py-[70px] md:translate-0 '>
+      {/* {isMd ? <LogoHeader className='scale-105' /> : null} */}
       <button
         onClick={kakaoLoginHandler}
-        className='w-12 h-12 rounded-md flex items-center justify-center cursor-pointer hover:scale-110 active:scale-110 duration-150 ease-in md:size-fit'
+        className='w-12 h-12 rounded-md flex items-center justify-center cursor-pointer hover:scale-110 active:scale-110 md:hover:scale-101 duration-150 ease-in md:size-fit'
       >
-        {kakaoLoginButton}
+        {isMd ? <KakaoWide className='w-[250px] h-fit' /> : <Kakao />}
+      </button>
+
+      <button
+        onClick={() => toast.info('아직 준비중이예요')}
+        className='w-12 h-12 rounded-md flex items-center justify-center cursor-pointer hover:scale-110 active:scale-110 md:hover:scale-101 duration-150 ease-in md:size-fit'
+      >
+        {isMd ? <Naver className='w-[250px] h-fit' /> : null}
       </button>
     </section>
   );
