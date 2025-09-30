@@ -15,21 +15,21 @@ export default function IntroLoginFunction() {
   const isMd = useMediaQuery('(min-width: 768px)');
 
   return (
-    <section className='absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-100 md:static md:justify-center md:w-full md:py-[70px] md:translate-0 '>
-      {/* {isMd ? <LogoHeader className='scale-105' /> : null} */}
+    <section className='w-fit self-center flex flex-col items-center gap-3 z-100 md:static md:justify-center md:w-full md:pb-[70px] md:translate-0 '>
       <button
         onClick={kakaoLoginHandler}
         className='w-12 h-12 rounded-md flex items-center justify-center cursor-pointer hover:scale-110 active:scale-110 md:hover:scale-101 duration-150 ease-in md:size-fit'
       >
         {isMd ? <KakaoWide className='w-[250px] h-fit' /> : <Kakao />}
       </button>
-
-      <button
-        onClick={() => toast.info('아직 준비중이예요')}
-        className='w-12 h-12 rounded-md flex items-center justify-center cursor-pointer hover:scale-110 active:scale-110 md:hover:scale-101 duration-150 ease-in md:size-fit'
-      >
-        {isMd ? <Naver className='w-[250px] h-fit' /> : null}
-      </button>
+      {isMd ? (
+        <button
+          onClick={() => toast.info('아직 준비중이예요')}
+          className='w-12 h-12 rounded-md flex items-center justify-center cursor-pointer hover:scale-110 active:scale-110 md:hover:scale-101 duration-150 ease-in md:size-fit'
+        >
+          <Naver className='w-[250px] h-fit' />
+        </button>
+      ) : null}
     </section>
   );
 }

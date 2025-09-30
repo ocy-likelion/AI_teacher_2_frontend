@@ -1,12 +1,16 @@
 import IntroImages from '@/components/introImages';
-import Yellow from '@/assets/images/characters/yellow.svg?react';
-import Green from '@/assets/images/characters/green.svg?react';
-import OrangeTriangle from '@/assets/images/characters/orange_triangle.svg?react';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export default function IntroImageSection() {
+  const isLong = useMediaQuery(
+    '(orientation: landscape) and (max-height: 850px)',
+  );
+  // const isLandscape = useMediaQuery('(min-aspect-ratio: 1/1)');
+
+  // const isHide = isLong && isLandscape;
   return (
-    <section className='flex flex-col md:my-auto px-20 py-15 '>
-      <section className='flex flex-col will-change-transform '>
+    <section className='flex flex-col md:my-auto md:px-20 md:pt-15 justify-center flex-1'>
+      <section className='flex flex-col will-change-transform pl-5'>
         <h1 className='title-md md:text-center'>
           "엄마, 이거 어떻게 풀어?"
           <br />
@@ -18,7 +22,7 @@ export default function IntroImageSection() {
           어려운 수학 문제, 이제 쉽게 설명해줄 수 있어요
         </p>
       </section>
-      <IntroImages />
+      {!isLong && <IntroImages />}
     </section>
   );
 }
