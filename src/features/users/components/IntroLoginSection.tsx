@@ -24,7 +24,7 @@ export default function IntroLoginFunction() {
         {isMd ? <KakaoWide className='w-[250px] h-fit' /> : <Kakao />}
       </button>
       <button
-        onClick={() => toast.info('아직 준비중이예요')}
+        onClick={() => toast.info('아직 준비중이에요')}
         className='w-12 h-12 rounded-md flex items-center justify-center cursor-pointer hover:scale-110 active:scale-110 md:hover:scale-101 duration-150 ease-in md:size-fit'
       >
         {isMd ? <NaverWide className='w-[250px] h-fit' /> : <Naver />}{' '}
