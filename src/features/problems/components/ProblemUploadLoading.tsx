@@ -56,7 +56,7 @@ export default function ProblemUploadLoading() {
 
       <div className='flex-1 flex flex-col items-center justify-center text-center h-full -mt-30'>
         <div className='flex flex-col items-center justify-center gap-4 w-full max-w-md space-y-8'>
-          <h1 className='text-xl font-bold '>{steps[currentStep].title}</h1>
+          <h1 className='text-xl font-bold'>{steps[currentStep].title}</h1>
           <div className='flex flex-col items-center space-y-6'>
             <div className='flex space-x-4'>
               <Green className='w-12 h-12 animate-bounce' />
