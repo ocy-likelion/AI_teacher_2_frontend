@@ -3,11 +3,8 @@ import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export default function IntroImageSection() {
   const isLong = useMediaQuery(
-    '(orientation: landscape) and (max-height: 850px)',
+    '(orientation: landscape) and (max-height: 768px)',
   );
-  // const isLandscape = useMediaQuery('(min-aspect-ratio: 1/1)');
-
-  // const isHide = isLong && isLandscape;
   return (
     <section className='flex flex-col md:my-auto md:px-20 md:pt-15 justify-center flex-1'>
       <section className='flex flex-col will-change-transform pl-5'>

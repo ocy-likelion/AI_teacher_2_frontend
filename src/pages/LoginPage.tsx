@@ -28,7 +28,7 @@ export default function LoginPage() {
       <SubHeader type='back' title='' />
       <div className='w-full h-full pt-[15px] pb-[55px] flex flex-1 flex-col items-center-safe'>
         <Logo className='mx-auto size-25' />
-        <h3 className='mt-2 title-md '>
+        <h3 className='mt-2 title-md'>
           <span className='text-primary'>일타</span>에 오신걸 환영해요!
         </h3>
         <p className='text-[#6D6D6D] dark:text-[#FDFBF9] body-sm mt-[13px] mb-[13vh]'>
